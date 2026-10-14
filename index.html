@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Trend Pulse | Live B2B K-Beauty Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">K-Trend Pulse</span>
+                <span class="text-xs bg-blue-500/20 text-blue-400 px-2.5 py-1 rounded-full border border-blue-500/30">B2B Live Data</span>
+            </div>
+            <a href="#subscribe" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-lg text-sm transition">Get Weekly Report</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 py-12 text-center">
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+            Spot the Next <span class="text-blue-400">Viral K-Beauty Products</span> 1 Month Ahead
+        </h1>
+        <p class="text-slate-400 max-w-2xl mx-auto mb-8 text-base">
+            Real-time rank velocity and ingredient insights gathered directly from Korea's top retail channels. Built for global buyers and e-commerce sellers.
+        </p>
+
+        <!-- Email Capture -->
+        <div id="subscribe" class="max-w-md mx-auto bg-slate-800 p-2 rounded-xl border border-slate-700 flex gap-2">
+            <input type="email" placeholder="Enter your business email" class="bg-transparent px-4 py-2 flex-grow focus:outline-none text-sm text-white">
+            <button class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
+                Subscribe
+            </button>
+        </div>
+    </section>
+
+    <!-- Data Table Section -->
+    <main class="max-w-7xl mx-auto px-4 pb-20 flex-grow w-full">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold">🔥 Top Rising Products (Rank Velocity)</h2>
+            <span class="text-xs text-slate-500">Updated Automatically via Pipeline</span>
+        </div>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-x-auto shadow-xl">
+            <table class="w-full text-left text-sm min-w-[600px]">
+                <thead class="bg-slate-900/80 text-slate-400 border-b border-slate-700 uppercase text-xs">
+                    <tr>
+                        <th class="p-4">Rank</th>
+                        <th class="p-4">Velocity</th>
+                        <th class="p-4">Brand</th>
+                        <th class="p-4">Product Name</th>
+                        <th class="p-4">Category</th>
+                        <th class="p-4">AI Trend Summary</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body" class="divide-y divide-slate-700/50">
+                    <!-- JavaScript가 데이터를 여기에 자동으로 뿌려줍니다 -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-slate-500 text-xs">
+        <p>© 2026 K-Trend Pulse. Powered by Gemini AI & Cloudflare Pipeline.</p>
+    </footer>
+
+    <!-- Data Loading Script -->
+    <script>
+        fetch('data/processed_latest.json')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('ranking-body');
+                tbody.innerHTML = '';
+                data.forEach(item => {
+                    const row = `
+                        <tr class="hover:bg-slate-800/80 transition">
+                            <td class="p-4 font-bold text-slate-200">#${item.rank}</td>
+                            <td class="p-4 font-bold text-emerald-400">${item.velocity}</td>
+                            <td class="p-4 font-medium text-slate-300">${item.brand_en}</td>
+                            <td class="p-4 font-semibold text-blue-300">${item.product_en}</td>
+                            <td class="p-4 text-slate-400">${item.category}</td>
+                            <td class="p-4 text-xs text-slate-300 max-w-xs">${item.ai_summary}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            })
+            .catch(err => console.error("Error loading trend data:", err));
+    </script>
+</body>
+</html>
