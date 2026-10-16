@@ -93,3 +93,37 @@ if __name__ == "__main__":
         json.dump(final_data, f, ensure_ascii=False, indent=2)
         
     print("✅ [1단계 완료] 데이터 수집 및 영문 AI 가공이 완료되었습니다! (data/processed_latest.json 저장됨)")
+    import json
+import os
+from datetime import datetime
+
+def save_trend_data(trend_data):
+    os.makedirs('data', exist_ok=True)
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    file_path = f'data/trends_{today_str}.json'
+    
+    payload = {
+        "date": today_str,
+        "timestamp": datetime.now().isoformat(),
+        "trends": trend_data
+    }
+    
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+    print(f"Saved daily trend data to {file_path}")
+
+    history_file = 'data/history.json'
+    history = []
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, 'r', encoding='utf-8') as f:
+                history = json.load(f)
+        except Exception:
+            history = []
+            
+    history = [item for item in history if item.get('date') != today_str]
+    history.append(payload)
+    
+    with open(history_file, 'w', encoding='utf-8') as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+    print(f"Updated {history_file}")
