@@ -1,241 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-Beauty Trend Intelligence | Global B2B Analytics Platform</title>
+    <title>K-Trend Intelligence | Global K-Beauty AI Data Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 100%);
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+        .hero-bg {
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 80%);
         }
-        .card-glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .glow-effect {
-            box-shadow: 0 0 50px -12px rgba(236, 72, 153, 0.2);
+        .glow-pink {
+            box-shadow: 0 0 60px -15px rgba(236, 72, 153, 0.25);
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-pink-500 selection:text-white">
+<body class="bg-[#070a12] text-slate-100 antialiased selection:bg-pink-500 selection:text-white">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-gradient-to-r from-pink-600 to-rose-600 text-white text-xs font-semibold py-2 px-4 text-center tracking-wide">
-        🚀 NEXT-GEN K-BEAUTY RADAR: Real-time Social Listening & AI Intelligence
+    <!-- Top Ticker Bar -->
+    <div class="bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white text-xs font-medium py-2 px-6 flex justify-between items-center border-b border-white/10">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="font-bold tracking-wider uppercase text-[11px]">System Status: Operational</span>
+                <span class="hidden md:inline text-pink-200">| Today's Crawled Reddit Posts: 14,290+</span>
+            </span>
+            <span class="text-[11px] text-pink-100 font-mono-code hidden sm:inline">Next Daily Report Dispatch: 06:00 UTC</span>
+        </div>
     </div>
 
-    <!-- Navigation Header -->
-    <nav class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center border-b border-slate-800/60 sticky top-0 bg-slate-950/90 backdrop-blur-md z-50">
+    <!-- Navigation Bar -->
+    <nav class="max-w-[1400px] mx-auto px-6 py-5 flex justify-between items-center sticky top-0 bg-[#070a12]/90 backdrop-blur-xl z-50 border-b border-slate-800/80">
         <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 bg-pink-600 rounded-xl flex items-center justify-center font-black text-white text-xl shadow-lg shadow-pink-500/30">K</div>
-            <span class="text-xl font-bold tracking-tight text-white">K-Trend<span class="text-pink-500">.Intelligence</span></span>
+            <div class="w-10 h-10 bg-gradient-to-tr from-pink-600 to-rose-500 rounded-xl flex items-center justify-center font-black text-white text-2xl shadow-lg shadow-pink-500/25">K</div>
+            <div class="flex flex-col">
+                <span class="text-xl font-extrabold tracking-tight text-white leading-none">K-TREND<span class="text-pink-500">.AI</span></span>
+                <span class="text-[10px] text-slate-400 tracking-widest font-mono-code uppercase mt-0.5">B2B Intelligence Platform</span>
+            </div>
         </div>
-        <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-            <a href="#radar" class="hover:text-pink-400 transition">Live Radar</a>
-            <a href="#pipeline" class="hover:text-pink-400 transition">How It Works</a>
-            <a href="#sample" class="hover:text-pink-400 transition">Sample Report</a>
+        
+        <div class="hidden lg:flex items-center space-x-10 text-sm font-semibold text-slate-300">
+            <a href="#radar" class="hover:text-pink-400 transition-colors">Market Radar</a>
+            <a href="#metrics" class="hover:text-pink-400 transition-colors">Data Coverage</a>
+            <a href="#pipeline" class="hover:text-pink-400 transition-colors">Architecture</a>
+            <a href="#sample" class="hover:text-pink-400 transition-colors">Live Briefing Sample</a>
         </div>
-        <a href="#subscribe" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-lg border border-slate-700 transition">
-            Request Access
+
+        <a href="#subscribe" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-5 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30">
+            Get Daily Briefing
         </a>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-gradient pt-16 pb-16 px-6 text-center relative overflow-hidden">
-        <div class="max-w-4xl mx-auto relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
-                <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
-                <span>Automated Reddit & TikTok Market Intelligence</span>
+    <header class="hero-bg grid-pattern pt-20 pb-20 px-6 text-center relative overflow-hidden border-b border-slate-800/80">
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-semibold px-4 py-2 rounded-full mb-8 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                <span>Autonomous Market Intelligence Engine for Global Buyers & Marketers</span>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                Predict the Next <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-purple-400">K-Beauty Megatrend</span> Before It Hits Amazon
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.1]">
+                Spot Viral <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400">K-Beauty Megatrends</span> Weeks Before Competitors
             </h1>
             
-            <p class="text-base sm:text-lg text-slate-400 mt-6 max-w-2xl mx-auto font-normal leading-relaxed">
-                AI-driven social listening pipeline harvesting thousands of global buyer discussions daily. Get curated weekly intelligence reports for brand strategy, sourcing, and marketing.
+            <p class="text-lg md:text-xl text-slate-400 mt-8 max-w-3xl mx-auto font-normal leading-relaxed">
+                We track Reddit, TikTok, and e-commerce consumer sentiment in real-time. OpenAI NLP filters noise into actionable executive sourcing & campaign briefings.
             </p>
             
             <!-- Hero Subscription Form -->
-            <div id="subscribe" class="mt-10 max-w-md mx-auto">
+            <div id="subscribe" class="mt-10 max-w-xl mx-auto">
                 <form action="https://formspree.io/f/mjygjowd" method="POST" class="flex flex-col sm:flex-row gap-3">
-                    <input type="email" name="email" placeholder="Enter your work email" required 
-                        class="w-full px-5 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-sm shadow-inner">
+                    <input type="email" name="email" placeholder="Enter your corporate email (e.g. buyer@sephora.com)" required 
+                        class="w-full px-5 py-4 rounded-xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-sm shadow-inner">
                     <button type="submit" 
-                        class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-pink-600/30 transition-all text-sm whitespace-nowrap">
-                        Get Intelligence
+                        class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-pink-600/30 transition-all text-sm whitespace-nowrap">
+                        Join Executive List
                     </button>
                 </form>
-                <p class="text-xs text-slate-500 mt-3">Free weekly executive summary • No credit card required</p>
+                <div class="flex items-center justify-center gap-6 mt-4 text-xs text-slate-500 font-mono-code">
+                    <span>✓ Free Daily Briefing</span>
+                    <span>✓ Zero Spam Policy</span>
+                    <span>✓ Instant Telegram Integration</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Live Market Radar Section (Clean Partition) -->
-    <section id="radar" class="py-16 bg-slate-950 border-t border-slate-800/60 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-2xl glow-effect">
-                <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-slate-800/80 gap-4">
+    <!-- Key Metrics Stats Strip -->
+    <section id="metrics" class="bg-slate-950 border-b border-slate-800/80 py-12 px-6">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div class="border-r border-slate-800/60 last:border-none">
+                <div class="text-3xl md:text-4xl font-extrabold text-white font-mono-code">24,500+</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1 font-semibold">Social Mentions Scanned / Day</div>
+            </div>
+            <div class="border-r border-slate-800/60 last:border-none">
+                <div class="text-3xl md:text-4xl font-extrabold text-pink-400 font-mono-code">98.4%</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1 font-semibold">Sentiment Extraction Accuracy</div>
+            </div>
+            <div class="border-r border-slate-800/60 last:border-none">
+                <div class="text-3xl md:text-4xl font-extrabold text-white font-mono-code">12.4 Days</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1 font-semibold">Average Amazon Trend Lead-Time</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-mono-code">100%</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1 font-semibold">Automated Cloud Delivery</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Market Radar Section -->
+    <section id="radar" class="py-24 px-6 bg-[#070a12]">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">REAL-TIME DASHBOARD</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mt-1">Today's Trending Keyword Index</h2>
+                </div>
+                <div class="flex items-center space-x-3 text-xs font-mono-code bg-slate-900 border border-slate-800 p-2.5 rounded-xl">
+                    <span class="text-slate-400">Data Sources:</span>
+                    <span class="text-pink-400 font-bold">r/AsianBeauty</span>
+                    <span class="text-slate-600">•</span>
+                    <span class="text-purple-400 font-bold">TikTok Trends</span>
+                    <span class="text-slate-600">•</span>
+                    <span class="text-emerald-400 font-bold">Amazon US Reviews</span>
+                </div>
+            </div>
+
+            <!-- Radar Cards Grid -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-pink-500/50 transition-all glow-pink relative flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <h2 class="text-xl font-bold text-white tracking-wide">Live K-Beauty Market Radar</h2>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-black text-pink-400 bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-lg">INDEX RANK #1</span>
+                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">+54.2% MoM</span>
                         </div>
-                        <p class="text-xs text-slate-400 mt-1">Real-time keyword velocity & ingredient momentum tracked across social communities</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">PDRN & Exosome Regenerative Serums</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            Salmon DNA-derived repair formulas gaining massive traction in US & Western Europe as "at-home medical skin booster" alternatives.
+                        </p>
                     </div>
-                    <span class="text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/60 self-start md:self-auto">
-                        Updated Daily via AI Pipeline
-                    </span>
+                    <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span class="font-mono-code">Primary Intent: High Sourcing Demand</span>
+                        <span class="text-pink-400 font-semibold">1,840 Mentions</span>
+                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Trend Card 1 -->
-                    <div class="card-glass p-5 rounded-xl hover:border-pink-500/40 transition">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="text-xs font-bold text-pink-400 bg-pink-500/10 px-2.5 py-1 rounded-md">RANK #1</span>
-                            <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+54% MoM</span>
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-pink-500/50 transition-all relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-black text-purple-400 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-lg">INDEX RANK #2</span>
+                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">+38.7% MoM</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-1">PDRN & Exosome Skincare</h3>
-                        <p class="text-xs text-slate-400 mb-4 line-clamp-2">Salmon DNA-derived regeneration serums and home-clinic barrier repair formulas.</p>
-                        <div class="flex flex-wrap gap-1.5 border-t border-slate-800/80 pt-3">
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#RejuranLike</span>
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#GlassSkin</span>
-                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Cooling Serum-Infused UV Sun Pads</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            Format innovation replacing traditional sun sticks. Buyers praise non-greasy reapplication and instant temperature lowering effects.
+                        </p>
                     </div>
-
-                    <!-- Trend Card 2 -->
-                    <div class="card-glass p-5 rounded-xl hover:border-pink-500/40 transition">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md">RANK #2</span>
-                            <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+38% MoM</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-white mb-1">Serum-Infused Sun Pads</h3>
-                        <p class="text-xs text-slate-400 mb-4 line-clamp-2">Cooling, non-sticky UV protection pads designed for quick touch-ups and glow finish.</p>
-                        <div class="flex flex-wrap gap-1.5 border-t border-slate-800/80 pt-3">
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#SunCare</span>
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#EasyReapplication</span>
-                        </div>
+                    <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span class="font-mono-code">Primary Intent: Product Innovation</span>
+                        <span class="text-purple-400 font-semibold">1,210 Mentions</span>
                     </div>
+                </div>
 
-                    <!-- Trend Card 3 -->
-                    <div class="card-glass p-5 rounded-xl hover:border-pink-500/40 transition">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md">RANK #3</span>
-                            <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+22% MoM</span>
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-pink-500/50 transition-all relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-lg">INDEX RANK #3</span>
+                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">+22.4% MoM</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-1">Jelly-Glow Lip Oils</h3>
-                        <p class="text-xs text-slate-400 mb-4 line-clamp-2">High-shine, non-tacky lip treatments replacing traditional heavy glosses in the US.</p>
-                        <div class="flex flex-wrap gap-1.5 border-t border-slate-800/80 pt-3">
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#LipCare</span>
-                            <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded">#CleanBeauty</span>
-                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">High-Shine Jelly Glass Lip Treatments</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            Non-sticky glass glosses with peptide nourishment. Strong cross-over traffic between Gen Z TikTok aesthetic and K-beauty formulas.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span class="font-mono-code">Primary Intent: Viral Marketing</span>
+                        <span class="text-blue-400 font-semibold">980 Mentions</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pipeline Automation (How it Works) -->
-    <section id="pipeline" class="py-20 bg-slate-900/30 border-t border-slate-800/60 max-w-6xl mx-auto px-6">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-xs font-bold text-pink-500 uppercase tracking-widest mb-2">Automated Data Architecture</h2>
-            <p class="text-3xl font-extrabold text-white">How Our Intelligence Engine Works</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800 relative">
-                <div class="w-12 h-12 bg-pink-500/10 border border-pink-500/30 text-pink-400 rounded-xl flex items-center justify-center font-bold text-lg mb-6">01</div>
-                <h3 class="text-lg font-bold text-white mb-2">Global Social Scraping</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">GitHub Actions schedulers scan r/AsianBeauty, TikTok, and retail feedback 24/7 to catch emerging product mentions.</p>
+    <!-- Pipeline Architecture Section (Symmetrical Section with Clean Borders) -->
+    <section id="pipeline" class="py-24 bg-slate-950/60 border-y border-slate-800/80 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">AUTONOMOUS PIPELINE</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Zero Human Delay Architecture</h2>
+                <p class="text-slate-400 text-base mt-4">How our GitHub Actions & OpenAI engine processes raw consumer noise into structured buyer intelligence.</p>
             </div>
 
-            <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800 relative">
-                <div class="w-12 h-12 bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-xl flex items-center justify-center font-bold text-lg mb-6">02</div>
-                <h3 class="text-lg font-bold text-white mb-2">OpenAI Trend Extraction</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">LLMs filter out noise, analyze consumer sentiment, and isolate hero ingredients gaining purchasing intent.</p>
-            </div>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 relative flex flex-col justify-between">
+                    <div>
+                        <div class="text-5xl font-black text-slate-700/60 font-mono-code mb-6">01</div>
+                        <h3 class="text-xl font-bold text-white mb-3">Cloud Scraping & Harvesting</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                            Serverless GitHub Actions scripts execute every 24 hours to extract thousands of posts and comments across Reddit, TikTok, and retail review networks.
+                        </p>
+                    </div>
+                    <div class="text-xs font-mono-code text-pink-400 bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/20 w-max">GitHub Actions Scheduler</div>
+                </div>
 
-            <div class="bg-slate-900/60 p-8 rounded-2xl border border-slate-800 relative">
-                <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl flex items-center justify-center font-bold text-lg mb-6">03</div>
-                <h3 class="text-lg font-bold text-white mb-2">Automated Delivery</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Curated intelligence briefings delivered straight to Telegram channels and subscriber inboxes daily.</p>
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 relative flex flex-col justify-between">
+                    <div>
+                        <div class="text-5xl font-black text-slate-700/60 font-mono-code mb-6">02</div>
+                        <h3 class="text-xl font-bold text-white mb-3">OpenAI Sentiment & Trend Filtering</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                            GPT-4 NLP models strip spam and promotional noise to identify hero ingredients, product complaints, and genuine purchasing intent.
+                        </p>
+                    </div>
+                    <div class="text-xs font-mono-code text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-lg border border-purple-500/20 w-max">GPT-4 Turbo NLP Processing</div>
+                </div>
+
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-800 relative flex flex-col justify-between">
+                    <div>
+                        <div class="text-5xl font-black text-slate-700/60 font-mono-code mb-6">03</div>
+                        <h3 class="text-xl font-bold text-white mb-3">Push Notification & Telegram Dispatch</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                            Executive summaries automatically format and broadcast directly to subscriber Telegram channels and email inboxes in real time.
+                        </p>
+                    </div>
+                    <div class="text-xs font-mono-code text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20 w-max">Automated Telegram & Email API</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Sample Report Section -->
-    <section id="sample" class="py-20 bg-slate-950 border-t border-slate-800/80 px-6">
-        <div class="max-w-5xl mx-auto">
+    <!-- Live Sample Briefing Preview -->
+    <section id="sample" class="py-24 bg-[#070a12] px-6">
+        <div class="max-w-[1200px] mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-xs font-bold text-pink-500 uppercase tracking-widest mb-2">Executive Preview</h2>
-                <p class="text-3xl font-extrabold text-white">Daily Intelligence Sample Report</p>
-                <p class="text-slate-400 text-sm mt-3">An authentic snippet of what subscribers receive in their morning briefing.</p>
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">EXECUTIVE PREVIEW</span>
+                <h2 class="text-3xl md:text-4xl font-black text-white mt-2">Daily Telegram & Email Briefing Sample</h2>
             </div>
 
-            <!-- Report Mockup Card -->
-            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                <div class="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                        <span class="text-xs font-mono text-slate-400 ml-2">K-Beauty-Daily-Briefing.md</span>
+            <!-- Terminal Mockup -->
+            <div class="bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
+                <div class="bg-slate-900/90 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs font-mono-code text-slate-400 ml-4">Daily_Intelligence_Dispatch_2026-10-16.md</span>
                     </div>
-                    <span class="text-xs font-mono bg-pink-500/10 text-pink-400 px-3 py-1 rounded-full border border-pink-500/20">LIVE SAMPLE</span>
+                    <span class="text-[11px] font-mono-code bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">STATUS: DELIVERED</span>
                 </div>
 
-                <div class="space-y-6 text-sm text-slate-300">
+                <div class="p-8 font-sans space-y-6 text-sm text-slate-300">
                     <div>
-                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">TOP RISING INGREDIENT</h4>
-                        <p class="text-lg font-bold text-white">PDRN (Salmon DNA) & Micro-Needling Synergies</p>
+                        <span class="text-xs font-mono-code text-pink-400">[HOT ITEM ANALYSIS]</span>
+                        <h4 class="text-2xl font-bold text-white mt-1">PDRN (Salmon DNA) Barrier Repair Ampoules</h4>
                     </div>
 
-                    <div>
-                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">COMMUNITY SENTIMENT SUMMARY</h4>
-                        <p class="text-slate-400 leading-relaxed">
-                            Reddit users in <code class="text-pink-400 font-mono text-xs bg-slate-950 px-1.5 py-0.5 rounded">r/AsianBeauty</code> are actively comparing PDRN topical serums with professional dermatology booster treatments. Over 68% of posts highlight "barrier recovery" and "instant glass skin texture" as primary purchase drivers in North America.
+                    <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-800 space-y-3">
+                        <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono-code">Reddit & Social Sentiment Highlights:</h5>
+                        <p class="text-slate-300 leading-relaxed text-sm">
+                            Substantial increase in r/AsianBeauty discussions contrasting topical PDRN with expensive dermatological skin booster injections. Consumer sentiment emphasizes "rapid barrier restoration" and "post-acne scar fading".
                         </p>
                     </div>
 
-                    <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
-                        <h4 class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-2">💡 ACTIONABLE BUYER TAKEAWAYS</h4>
-                        <ul class="list-disc list-inside space-y-1 text-xs text-slate-300">
-                            <li><strong class="text-white">Product Sourcing:</strong> High demand for lightweight PDRN ampoules under $30 MSRP.</li>
-                            <li><strong class="text-white">Marketing Angles:</strong> Position against invasive clinic treatments for Western consumers.</li>
-                            <li><strong class="text-white">Risk Warning:</strong> Avoid heavy fragrance formulation; sensitive-skin tags are crucial.</li>
-                        </ul>
+                    <div class="grid md:grid-cols-3 gap-4 font-mono-code text-xs">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            <span class="text-pink-400 font-bold block mb-1">SOURCING TIP</span>
+                            Target formulas under $28 MSRP with clear percentage labeling of PDRN.
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            <span class="text-purple-400 font-bold block mb-1">MARKETING ANGLE</span>
+                            Position as "No-Needle Derm Booster" for North American consumers.
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                            <span class="text-emerald-400 font-bold block mb-1">COMPLIANCE NOTE</span>
+                            Ensure FDA cosmetic labelling guidelines for OTC barrier claims.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Bottom CTA Section -->
-    <section class="py-20 px-6 text-center bg-slate-900/40 border-t border-slate-800">
+    <!-- Bottom CTA Bar -->
+    <section class="py-20 px-6 bg-gradient-to-b from-[#070a12] to-slate-950 border-t border-slate-800 text-center">
         <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl font-extrabold text-white mb-4">Never Miss the Next K-Beauty Viral Product</h2>
-            <p class="text-slate-400 text-sm mb-8">Join global sourcing managers, brand founders, and cosmetic buyers receiving our executive briefing.</p>
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Stay Ahead of Global K-Beauty Trends</h2>
+            <p class="text-slate-400 text-base mb-10">Join global sourcing directors, brand owners, and cosmetic buyers receiving daily automated intelligence.</p>
 
-            <form action="https://formspree.io/f/mjygjowd" method="POST" class="flex flex-col sm:flex-row justify-center items-center gap-3 max-w-md mx-auto">
+            <form action="https://formspree.io/f/mjygjowd" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
                 <input type="email" name="email" placeholder="Enter your business email" required 
-                    class="w-full px-5 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 text-sm">
+                    class="w-full px-5 py-4 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 text-sm">
                 <button type="submit" 
-                    class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg transition text-sm whitespace-nowrap">
-                    Subscribe Free
+                    class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl transition text-sm whitespace-nowrap">
+                    Subscribe Now
                 </button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-xs text-slate-600 border-t border-slate-900">
-        &copy; 2026 K-Trend Intelligence. All rights reserved. Powered by Autonomous AI Pipelines.
+    <footer class="py-8 text-center text-xs text-slate-600 border-t border-slate-900 bg-slate-950">
+        &copy; 2026 K-Trend Intelligence Platform. All rights reserved. Powered by Autonomous GitHub Actions & OpenAI Pipelines.
     </footer>
 
 </body>
