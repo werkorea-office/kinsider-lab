@@ -1,15 +1,17 @@
-name: K-Trend Telegram Automation
+name: Run Trend Collector & Push Data
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # 매일 UTC 00:00 (한국 시간 아침 9시) 자동 실행
-  workflow_dispatch: # 지금 바로 수동 테스트 실행 가능
+    - cron: '0 6 * * *' # 매일 UTC 오전 6시 (한국 시간 오후 3시) 실행
 
 jobs:
-  run-telegram-bot:
+  run-collector:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -20,20 +22,20 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests openai
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run Telegram Trend Bot
+      - name: Run collector processor
+        run: python collector_processor.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Commit and Push Accumulated Trend Data
         run: |
-          python auto_marketing.py
-- name: Commit and Push Accumulated Trend Data
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add data/
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update accumulated trend data [skip ci]" && git push)
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update accumulated trend data [skip ci]" && git push)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
