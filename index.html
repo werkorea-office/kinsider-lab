@@ -54,9 +54,10 @@
         
         <div class="hidden lg:flex items-center space-x-10 text-sm font-semibold text-slate-300">
             <a href="#radar" class="hover:text-pink-400 transition-colors">Market Radar</a>
+            <a href="#top10" class="hover:text-pink-400 transition-colors">Top 10 Index</a>
             <a href="#metrics" class="hover:text-pink-400 transition-colors">Data Coverage</a>
             <a href="#pipeline" class="hover:text-pink-400 transition-colors">Architecture</a>
-            <a href="#sample" class="hover:text-pink-400 transition-colors">Live Briefing Sample</a>
+            <a href="#sample" class="hover:text-pink-400 transition-colors">Sample Briefing</a>
         </div>
 
         <a href="#subscribe" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-5 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30">
@@ -121,8 +122,8 @@
         </div>
     </section>
 
-    <!-- Live Market Radar Section (Dynamic JS Data Ingestion) -->
-    <section id="radar" class="py-24 px-6 bg-[#070a12]">
+    <!-- Top 3 Hero Cards Section -->
+    <section id="radar" class="py-20 px-6 bg-[#070a12]">
         <div class="max-w-[1400px] mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
@@ -139,18 +140,39 @@
                 </div>
             </div>
 
-            <!-- Radar Cards Container (Dynamically Injected via JS) -->
             <div id="radar-cards-container" class="grid lg:grid-cols-3 gap-8">
-                <!-- Skeleton / Default Loading Cards -->
-                <div class="glass-panel p-8 rounded-2xl glow-pink relative flex flex-col justify-between animate-pulse">
-                    <div>
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="text-xs font-black text-pink-400 bg-pink-500/10 px-3 py-1 rounded-lg">INDEX RANK #1</span>
-                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-mono-code">Syncing...</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Loading Daily Data...</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed mb-6">Connecting to data/history.json repository stream...</p>
-                    </div>
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Top 10 Live Table Section -->
+    <section id="top10" class="py-16 px-6 bg-slate-950/80 border-t border-slate-800/80">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-10">
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">REAL-TIME RANKING INDEX</span>
+                <h2 class="text-3xl md:text-4xl font-black text-white mt-1">Top 10 Rising K-Beauty Products (Rank Velocity)</h2>
+            </div>
+
+            <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900/90 border-b border-slate-800 text-xs font-mono-code text-slate-400 uppercase tracking-wider">
+                                <th class="py-4 px-6">Rank</th>
+                                <th class="py-4 px-6">Velocity</th>
+                                <th class="py-4 px-6">Brand</th>
+                                <th class="py-4 px-6">Product Name</th>
+                                <th class="py-4 px-6">Category</th>
+                                <th class="py-4 px-6">AI Market Insight</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top10-table-body" class="divide-y divide-slate-800/60 text-sm text-slate-300">
+                            <tr>
+                                <td colspan="6" class="py-8 text-center text-slate-500 font-mono-code">Loading Top 10 Real-time Trends...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -276,85 +298,74 @@
         &copy; 2026 K-Trend Intelligence Platform. All rights reserved. Powered by Autonomous GitHub Actions & NLP Pipelines.
     </footer>
 
-    <!-- JavaScript For Live Ingestion from data/history.json or data/processed_latest.json -->
+    <!-- JavaScript For Live Ingestion & Dual View (Top 3 Cards + Top 10 Table) -->
     <script>
         document.addEventListener("DOMContentLoaded", async function() {
-            const container = document.getElementById("radar-cards-container");
+            const cardsContainer = document.getElementById("radar-cards-container");
+            const tableBody = document.getElementById("top10-table-body");
             const lastUpdatedBadge = document.getElementById("last-updated-badge");
 
-            // Default fallback trends if fetch fails or repo is newly initialized
-            const fallbackTrends = [
-                { rank: 1, keyword: "PDRN & Exosome Regenerative Serums", growth: "+54.2% MoM", mentions: "1,840 Mentions", intent: "High Sourcing Demand", desc: "Salmon DNA-derived repair formulas gaining massive traction in US & Western Europe as at-home medical skin booster alternatives.", rankColor: "text-pink-400 bg-pink-500/10 border-pink-500/20" },
-                { rank: 2, keyword: "Cooling Serum-Infused UV Sun Pads", growth: "+38.7% MoM", mentions: "1,210 Mentions", intent: "Product Innovation", desc: "Format innovation replacing traditional sun sticks. Buyers praise non-greasy reapplication and instant temperature lowering effects.", rankColor: "text-purple-400 bg-purple-500/10 border-purple-500/20" },
-                { rank: 3, keyword: "High-Shine Jelly Glass Lip Treatments", growth: "+22.4% MoM", mentions: "980 Mentions", intent: "Viral Marketing", desc: "Non-sticky glass glosses with peptide nourishment. Strong cross-over traffic between Gen Z TikTok aesthetic and K-beauty formulas.", rankColor: "text-blue-400 bg-blue-500/10 border-blue-500/20" }
-            ];
-
             try {
-                // Attempt fetching processed_latest.json or history.json
                 let response = await fetch("./data/processed_latest.json");
-                if (!response.ok) {
-                    response = await fetch("./data/history.json");
-                }
+                if (!response.ok) response = await fetch("./data/history.json");
 
                 if (response.ok) {
                     const json = await response.json();
-                    let latestData = json;
+                    let trends = Array.isArray(json) ? (json[json.length - 1].trends || json[json.length - 1]) : json;
                     
-                    if (Array.isArray(json)) {
-                        latestData = json[json.length - 1]; // Get latest date entry from history array
-                    }
-
-                    if (latestData && latestData.date) {
-                        lastUpdatedBadge.innerText = `Data Sync: ${latestData.date} (Live JSON connected)`;
-                    }
-
-                    const trends = latestData.trends || latestData.items || [];
-                    if (trends.length > 0) {
+                    if (trends && trends.length > 0) {
                         renderCards(trends.slice(0, 3));
+                        renderTable(trends.slice(0, 10));
+                        lastUpdatedBadge.innerText = "Data Sync: Live Top 10 Active";
                         return;
                     }
                 }
             } catch (err) {
-                console.log("Using fallback baseline radar trends.", err);
+                console.log("Fallback renderer triggered", err);
             }
 
-            // Render fallback if live data fetch falls back
-            renderCards(fallbackTrends);
-
-            function renderCards(trendList) {
-                container.innerHTML = "";
+            function renderCards(top3) {
+                cardsContainer.innerHTML = "";
                 const colors = [
                     "text-pink-400 bg-pink-500/10 border-pink-500/20",
                     "text-purple-400 bg-purple-500/10 border-purple-500/20",
                     "text-blue-400 bg-blue-500/10 border-blue-500/20"
                 ];
 
-                trendList.forEach((item, index) => {
+                top3.forEach((item, index) => {
                     const badgeStyle = colors[index % colors.length];
-                    const rankNum = item.rank || (index + 1);
-                    const keyword = item.keyword || item.title || item.name || "K-Beauty Trend Keyword";
-                    const growth = item.growth || item.momentum || "+35.0% MoM";
-                    const desc = item.desc || item.summary || item.description || "Real-time social sentiment keyword gaining momentum across global buyer communities.";
-                    const intent = item.intent || "High Market Intent";
-                    const mentions = item.mentions ? (typeof item.mentions === 'number' ? item.mentions.toLocaleString() + " Mentions" : item.mentions) : "1,000+ Mentions";
-
-                    const cardHtml = `
+                    cardsContainer.innerHTML += `
                         <div class="glass-panel p-8 rounded-2xl hover:border-pink-500/50 transition-all glow-pink relative flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-start mb-6">
-                                    <span class="text-xs font-black border px-3 py-1 rounded-lg ${badgeStyle}">INDEX RANK #${rankNum}</span>
-                                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">${growth}</span>
+                                    <span class="text-xs font-black border px-3 py-1 rounded-lg ${badgeStyle}">INDEX RANK #${item.rank || index + 1}</span>
+                                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">${item.velocity || '+35'}</span>
                                 </div>
-                                <h3 class="text-2xl font-bold text-white mb-2">${keyword}</h3>
-                                <p class="text-sm text-slate-400 leading-relaxed mb-6">${desc}</p>
+                                <h3 class="text-2xl font-bold text-white mb-2">${item.brand_en || 'Brand'}</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed mb-6">${item.product_en || 'Product'}</p>
                             </div>
                             <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
-                                <span class="font-mono-code">${intent}</span>
-                                <span class="text-pink-400 font-semibold">${mentions}</span>
+                                <span class="font-mono-code">${item.category || 'Beauty'}</span>
+                                <span class="text-pink-400 font-semibold">High Demand</span>
                             </div>
                         </div>
                     `;
-                    container.innerHTML += cardHtml;
+                });
+            }
+
+            function renderTable(top10) {
+                tableBody.innerHTML = "";
+                top10.forEach((item) => {
+                    tableBody.innerHTML += `
+                        <tr class="hover:bg-slate-900/50 transition-colors">
+                            <td class="py-4 px-6 font-mono-code font-bold text-pink-400">#${item.rank}</td>
+                            <td class="py-4 px-6 font-mono-code text-emerald-400 font-bold">${item.velocity}</td>
+                            <td class="py-4 px-6 font-bold text-white">${item.brand_en}</td>
+                            <td class="py-4 px-6 text-slate-200">${item.product_en}</td>
+                            <td class="py-4 px-6 text-xs font-mono-code text-purple-300">${item.category}</td>
+                            <td class="py-4 px-6 text-xs text-slate-400">${item.ai_summary || item.notes || '-'}</td>
+                        </tr>
+                    `;
                 });
             }
         });
