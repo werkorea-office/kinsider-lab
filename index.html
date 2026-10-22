@@ -137,12 +137,12 @@
                     <h2 class="text-3xl md:text-4xl font-black text-white mt-1">4-Category Live Intelligence Feed</h2>
                 </div>
                 
-                <!-- 4대 카테고리 탭 버튼 -->
-                <div class="flex flex-wrap gap-2 font-mono-code text-xs">
-                    <button onclick="switchCategory('beauty', this)" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30">💄 K-Beauty</button>
-                    <button onclick="switchCategory('aesthetics', this)" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700">💉 Aesthetics</button>
-                    <button onclick="switchCategory('food', this)" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700">🍲 K-Food</button>
-                    <button onclick="switchCategory('oem', this)" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700">🏭 OEM/ODM</button>
+                <!-- 4대 카테고리 탭 버튼 (각각 개성 있는 컬러 적용) -->
+                <div class="flex flex-wrap gap-2.5 font-mono-code text-xs">
+                    <button onclick="switchCategory('beauty', this)" data-cat="beauty" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30">💄 K-Beauty</button>
+                    <button onclick="switchCategory('aesthetics', this)" data-cat="aesthetics" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-cyan-400 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10">💉 Aesthetics</button>
+                    <button onclick="switchCategory('food', this)" data-cat="food" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-amber-400 border-amber-500/40 hover:border-amber-400 hover:bg-amber-500/10">🍲 K-Food</button>
+                    <button onclick="switchCategory('oem', this)" data-cat="oem" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-emerald-400 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10">🏭 OEM/ODM</button>
                 </div>
             </div>
 
@@ -319,16 +319,34 @@
             renderCategoryView('beauty');
         });
 
-        // 탭 전환 핸들러
+        // 탭 전환 핸들러 (카테고리별 고유 컬러 적용)
         function switchCategory(catKey, btnElement) {
             currentCategory = catKey;
 
-            // 버튼 UI 스타일 업데이트
+            // 모든 버튼을 비활성화 기본 상태(각자의 고유 텍스트 및 테두리 색상)로 초기화
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700";
+                const type = btn.getAttribute('data-cat');
+                if (type === 'beauty') {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-pink-400 border-pink-500/40 hover:border-pink-400 hover:bg-pink-500/10";
+                } else if (type === 'aesthetics') {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-cyan-400 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10";
+                } else if (type === 'food') {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-amber-400 border-amber-500/40 hover:border-amber-400 hover:bg-amber-500/10";
+                } else if (type === 'oem') {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-emerald-400 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10";
+                }
             });
 
-            btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30";
+            // 클릭된 버튼만 채워진 솔리드(Solid) 강조 스타일로 적용
+            if (catKey === 'beauty') {
+                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30";
+            } else if (catKey === 'aesthetics') {
+                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-600/30";
+            } else if (catKey === 'food') {
+                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-600/30";
+            } else if (catKey === 'oem') {
+                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-600/30";
+            }
 
             renderCategoryView(catKey);
         }
