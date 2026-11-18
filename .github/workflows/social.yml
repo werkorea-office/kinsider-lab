@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "publish, refresh or check"
+        description: "publish, refresh, check or linkedin"
         default: publish
 
 permissions:
@@ -50,6 +50,12 @@ jobs:
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python -m pipeline.social_instagram publish
+
+      - name: Publish today's card to LinkedIn
+        if: always() && (github.event.schedule == '0 14 * * *' || inputs.task == 'publish' || inputs.task == 'linkedin')
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        run: python -m pipeline.social_linkedin publish
 
       - name: Save posting ledger
         if: always()

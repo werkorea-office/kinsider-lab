@@ -156,3 +156,15 @@ class InstagramSafetyTest(unittest.TestCase):
         finally:
             if saved is not None:
                 os.environ["IG_ACCESS_TOKEN"] = saved
+
+
+class LinkedInSafetyTest(unittest.TestCase):
+    def test_no_token_never_posts(self):
+        import os
+        from pipeline import social_linkedin
+        saved = os.environ.pop("LINKEDIN_ACCESS_TOKEN", None)
+        try:
+            self.assertEqual(social_linkedin.publish(), 0)
+        finally:
+            if saved is not None:
+                os.environ["LINKEDIN_ACCESS_TOKEN"] = saved
