@@ -132,6 +132,7 @@ def page(title, body, description, path, extra_head=""):
     <nav>
       <a href="/">Today</a>
       <a href="/signals.html">Signals</a>
+      <a href="/exports.html">Exports</a>
       <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
@@ -300,6 +301,8 @@ def brief_body(snapshot, is_home):
         if i == 1 and is_home:
             body.append(breakout_block(snapshot))
         body.append(segment_block(seg, primary=(i == 0), mode="brands" if seg["id"] == "brands" else None))
+        if seg["id"] == "brands" and is_home:
+            body.append(exports_block())
     if is_home:
         body.append(subscribe_block())
     else:
@@ -435,6 +438,67 @@ calls of the month and their track record. Free for buyers, distributors and bra
 </script>"""
 
 
+def load_exports():
+    path = DATA / "exports.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+
+def month_label(yyyymm):
+    return dt.date(int(yyyymm[:4]), int(yyyymm[4:]), 1).strftime("%b %Y")
+
+
+def export_rows(ex, hs):
+    latest = ex.get("latest_month")
+    if not latest or hs not in ex["values"]:
+        return []
+    prev_year = f"{int(latest[:4]) - 1}{latest[4:]}"
+    names = {c["code"]: c["name"] for c in ex["countries"]}
+    rows = []
+    for code, series in ex["values"][hs].items():
+        now, before = series.get(latest, 0), series.get(prev_year, 0)
+        last12 = sum(series.get(m, 0) for m in ex["months"][-12:])
+        yoy = (now / before - 1) if before > 0 else None
+        rows.append({"country": names.get(code, code), "now": now, "yoy": yoy, "last12": last12})
+    return sorted(rows, key=lambda r: r["now"], reverse=True)
+
+
+def usd(v):
+    return f"${v / 1e6:,.1f}M" if v >= 1e6 else f"${v / 1e3:,.0f}K"
+
+
+def export_table(ex, hs, limit):
+    rows = export_rows(ex, hs)[:limit]
+    body = "".join(f"<tr><td>{e(r['country'])}</td><td class=\"num\">{usd(r['now'])}</td>"
+                   f"<td class=\"num {pct_class(r['yoy'])}\">{pct(r['yoy'])}</td>"
+                   f"<td class=\"num\">{usd(r['last12'])}</td></tr>" for r in rows)
+    return (f'<div class="tbl-wrap"><table><thead><tr><th>Destination</th><th class="num">{month_label(ex["latest_month"])}</th>'
+            f'<th class="num">vs. year before</th><th class="num">Last 12 months</th></tr></thead><tbody>{body}</tbody></table></div>')
+
+
+def exports_block():
+    ex = load_exports()
+    if not ex or not ex.get("latest_month"):
+        return ""
+    return f"""<section class="seg"><div class="wrap">
+<div class="seg-head"><h2>What Korea actually shipped</h2><p class="period">Korea Customs export statistics, {month_label(ex['latest_month'])}</p></div>
+<h3>Skin care &amp; make-up (HS 3304) by destination</h3>{export_table(ex, "3304", 8)}
+<p class="note">Official export values in US dollars from the Korea Customs Service, revised monthly. Search demand above
+shows what Koreans want now; these figures show what is already crossing borders. <a href="/exports.html">All products &amp; markets</a></p>
+</div></section>"""
+
+
+def exports_page():
+    ex = load_exports()
+    if not ex or not ex.get("latest_month"):
+        return '<section class="hero slim"><div class="wrap"><h1>Export statistics</h1><p>Coming soon.</p></div></section>'
+    blocks = "".join(f"<h3>{e(p['en'])} (HS {p['hs']})</h3>{export_table(ex, p['hs'], 12)}" for p in ex["products"])
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Official trade data</p>
+<h1>Korean K-beauty &amp; K-food exports by market</h1>
+<p class="lede small">Latest month: {month_label(ex['latest_month'])}. Source: {e(ex['source'])}. Refreshed weekly;
+Customs revises the previous month around the 15th.</p></div></section>
+<section class="seg"><div class="wrap">{blocks}</div></section>"""
+
+
 # ---------- static pages ----------
 
 METHODOLOGY = f"""
@@ -533,6 +597,11 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
              "Monthly PDF report on Korean consumer demand for K-beauty and K-food: rising categories, ingredients, "
              "brands and breakout calls.", "/reports.html"), encoding="utf-8")
 
+    (ROOT / "exports.html").write_text(
+        page(f"K-beauty & K-food exports by market | {BRAND}", exports_page(),
+             "Official Korea Customs export statistics for cosmetics, hair care, noodles and sauces by destination country.",
+             "/exports.html"), encoding="utf-8")
+
     term_urls = []
     if latest.get("status") == "ok":
         import csv
@@ -572,7 +641,7 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/reports.html", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/reports.html", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(

@@ -41,6 +41,11 @@ jobs:
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
         run: python -m pipeline.collect
 
+      - name: Korea Customs export statistics (weekly)
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: python -m pipeline.exports || echo "Export statistics unavailable today; site keeps last verified figures."
+
       - name: Build site
         run: python -m pipeline.build
 
@@ -56,7 +61,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief cards term signals.html reports.html reports
+          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief cards term signals.html reports.html reports exports.html
           if git diff --staged --quiet; then
             echo "Nothing changed."
           else

@@ -202,3 +202,25 @@ class BreakoutRuleTest(unittest.TestCase):
     def test_low_volume_not_called(self):
         led = signals.update(self.snap("2026-11-01", 8, 6, 4), self.RULE, {"signals": []})
         self.assertEqual(led["signals"], [])
+
+
+class ExportsParseTest(unittest.TestCase):
+    def test_parse_and_api_error(self):
+        from pipeline import exports
+        xml = (b"<response><header><resultCode>00</resultCode></header><body><items>"
+               b"<item><year>2026.09</year><statCd>US</statCd><hsCd>3304</hsCd><expDlr>1,500</expDlr></item>"
+               b"<item><year>\xec\xb4\x9d\xea\xb3\x84</year><expDlr>9999</expDlr></item>"
+               b"</items></body></response>")
+        self.assertEqual(exports.parse(xml), {"202609": 1500.0})
+        with self.assertRaises(ValueError):
+            exports.parse(b"<response><header><resultCode>30</resultCode><resultMsg>KEY ERROR</resultMsg></header></response>")
+
+    def test_no_key_is_noop(self):
+        import os
+        from pipeline import exports
+        saved = os.environ.pop("DATA_GO_KR_KEY", None)
+        try:
+            self.assertEqual(exports.main(), 0)
+        finally:
+            if saved is not None:
+                os.environ["DATA_GO_KR_KEY"] = saved

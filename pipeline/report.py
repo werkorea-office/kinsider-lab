@@ -133,6 +133,17 @@ def make(snapshot, ledger, out_pdf):
                                 [24 * mm, W * 0.36, W * 0.22, W * 0.13, W * 0.13], 4))
     else:
         story.append(Paragraph("No calls yet in the ledger.", ST["p"]))
+    ex = build.load_exports()
+    if ex and ex.get("latest_month"):
+        story.append(Paragraph(f"Official exports by destination, {build.month_label(ex['latest_month'])} "
+                               f"(Korea Customs Service, US$)", ST["h2"]))
+        for prod in ex["products"][:2]:
+            rows = [[x["country"], build.usd(x["now"]), build.pct(x["yoy"]), build.usd(x["last12"])]
+                    for x in build.export_rows(ex, prod["hs"])[:8]]
+            if rows:
+                story += [Paragraph(f"{prod['en']} (HS {prod['hs']})", ST["p"]),
+                          rows_table(["Destination", "Month", "vs. year before", "Last 12 months"], rows,
+                                     [W * 0.34, W * 0.2, W * 0.22, W * 0.24], 2)]
     story += [Paragraph("Method", ST["h2"]),
               Paragraph("Demand index: shopping-search clicks in a Naver product category, rescaled so a fixed baseline "
                         "term's 8-week average equals 100 (Sunscreen for K-beauty, LANEIGE for brands, Ramyeon for "
