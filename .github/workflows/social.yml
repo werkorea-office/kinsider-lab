@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "publish, refresh, check or linkedin"
+        description: "publish, refresh, check, linkedin or dryrun"
         default: publish
 
 permissions:
@@ -51,11 +51,23 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python -m pipeline.social_instagram publish
 
-      - name: Publish today's card to LinkedIn
+      - name: Publish today's carousel to LinkedIn
         if: always() && (github.event.schedule == '0 14 * * *' || inputs.task == 'publish' || inputs.task == 'linkedin')
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-        run: python -m pipeline.social_linkedin publish
+        run: |
+          pip install pillow==12.*
+          python -m pipeline.social_linkedin publish
+
+      - name: Dry run (upload without posting)
+        if: inputs.task == 'dryrun'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        run: |
+          pip install pillow==12.*
+          python -m pipeline.social_instagram dryrun
+          python -m pipeline.social_linkedin dryrun
 
       - name: Save posting ledger
         if: always()

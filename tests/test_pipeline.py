@@ -103,10 +103,20 @@ class CollectTest(unittest.TestCase):
             self.assertTrue((sb.root / "brief" / "2026-11-18.html").exists())
             chosen = cards.choose(snap)
             self.assertIsNotNone(chosen)
-            label, title_lines, rows, extra, caption = chosen
-            out = sb.root / "card.png"
-            cards.render(snap["run_date"], label, title_lines, rows, out, extra)
-            self.assertGreater(out.stat().st_size, 10000)
+            out = sb.root / "cards" / snap["run_date"]
+            meta = cards.render(chosen, snap, out)
+            self.assertEqual(len(meta["slides"]), 2 + len(chosen["items"]) + 1)
+            for name in meta["slides"]:
+                self.assertGreater((out / name).stat().st_size, 20000)
+            self.assertIn(chosen["headline"], (out / "caption.txt").read_text(encoding="utf-8"))
+            saved_out = cards.OUT
+            cards.OUT = sb.root / "cards"
+            try:
+                folder, m2, _ = cards.todays_carousel(snap["run_date"])
+                pdf = cards.deck_pdf(folder, m2, sb.root / "deck.pdf")
+                self.assertGreater(pdf.stat().st_size, 50000)
+            finally:
+                cards.OUT = saved_out
             self.assertTrue((sb.root / "signals.html").exists())
             self.assertTrue(any((sb.root / "term").glob("brands-*.html")))
 

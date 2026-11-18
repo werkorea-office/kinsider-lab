@@ -1,4 +1,4 @@
-"""Publishes today's card to Instagram (Instagram API with Instagram Login).
+"""Publishes today's carousel to Instagram (Instagram API with Instagram Login).
 
 Run: python -m pipeline.social_instagram publish   # post today's card once
      python -m pipeline.social_instagram refresh   # extend the 60-day token
@@ -59,41 +59,80 @@ def load_ledger():
     return {"posts": []}
 
 
+def wait_finished(cid, token, what):
+    for _ in range(30):  # containers must finish processing before use
+        status = call("GET", f"{API}/{cid}", {"fields": "status_code", "access_token": token})
+        if status.get("status_code") == "FINISHED":
+            return
+        if status.get("status_code") == "ERROR":
+            raise RuntimeError(f"Instagram could not process {what}: {status}")
+        time.sleep(5)
+    raise RuntimeError(f"Instagram timed out processing {what}")
+
+
+def dryrun():
+    """Builds today's carousel container on Instagram without publishing it."""
+    from .cards import todays_carousel
+    token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
+    today = dt.datetime.now(KST).date().isoformat()
+    found = todays_carousel(today)
+    if not token or not found:
+        print("Dry run needs IG_ACCESS_TOKEN and today's carousel.")
+        return 1
+    _, meta, caption = found
+    urls = [f"{SITE}/cards/{today}/{name}" for name in meta["slides"]]
+    for url in urls:
+        if not wait_until_public(url, minutes=10):
+            print(f"Slide not reachable: {url}")
+            return 1
+    children = []
+    for n, url in enumerate(urls, 1):
+        child = call("POST", f"{API}/me/media", {"image_url": url, "is_carousel_item": "true", "access_token": token})
+        wait_finished(child["id"], token, f"slide {n}")
+        children.append(child["id"])
+    container = call("POST", f"{API}/me/media", {"media_type": "CAROUSEL", "children": ",".join(children),
+                                                   "caption": caption, "access_token": token})
+    wait_finished(container["id"], token, "the carousel")
+    print(f"Instagram dry run OK: {len(children)} slides accepted, carousel container ready (not published).")
+    return 0
+
+
 def publish():
+    from .cards import todays_carousel
     token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
     if not token:
         print("IG_ACCESS_TOKEN not set; skipping Instagram.")
         return 0
     today = dt.datetime.now(KST).date().isoformat()
-    png = ROOT / "cards" / f"{today}.png"
-    txt = ROOT / "cards" / f"{today}.txt"
-    if not png.exists():
-        print(f"No card for {today}; nothing to post.")
+    found = todays_carousel(today)
+    if not found:
+        print(f"No carousel for {today}; nothing to post.")
         return 0
+    _, meta, caption = found
     ledger = load_ledger()
     if any(p["date"] == today for p in ledger["posts"]):
         print(f"Already posted {today}; skipping.")
         return 0
-    image_url = f"{SITE}/cards/{today}.png"
-    if not wait_until_public(image_url):
-        print(f"Card not reachable at {image_url}; not posting.")
-        return 1
-    caption = txt.read_text(encoding="utf-8")
-    container = call("POST", f"{API}/me/media", {"image_url": image_url, "caption": caption,
-                                                   "access_token": token})
-    cid = container["id"]
-    for _ in range(20):  # container must finish processing before publish
-        status = call("GET", f"{API}/{cid}", {"fields": "status_code", "access_token": token})
-        if status.get("status_code") == "FINISHED":
-            break
-        if status.get("status_code") == "ERROR":
-            raise RuntimeError(f"Instagram could not process the image: {status}")
-        time.sleep(6)
-    result = call("POST", f"{API}/me/media_publish", {"creation_id": cid, "access_token": token})
-    ledger["posts"].append({"date": today, "media_id": result.get("id"), "image": image_url})
+    urls = [f"{SITE}/cards/{today}/{name}" for name in meta["slides"]]
+    for url in urls:
+        if not wait_until_public(url):
+            print(f"Slide not reachable at {url}; not posting.")
+            return 1
+    children = []
+    for n, url in enumerate(urls, 1):
+        child = call("POST", f"{API}/me/media", {"image_url": url, "is_carousel_item": "true",
+                                                  "access_token": token})
+        wait_finished(child["id"], token, f"slide {n}")
+        children.append(child["id"])
+    container = call("POST", f"{API}/me/media", {"media_type": "CAROUSEL", "children": ",".join(children),
+                                                   "caption": caption, "access_token": token})
+    wait_finished(container["id"], token, "the carousel")
+    result = call("POST", f"{API}/me/media_publish", {"creation_id": container["id"], "access_token": token})
+    ledger["posts"].append({"date": today, "media_id": result.get("id"), "slides": len(urls),
+                            "story": meta.get("story")})
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
-    print(f"Posted {today} to Instagram: {result.get('id')}")
+    print(f"Posted {today} carousel ({len(urls)} slides) to Instagram: {result.get('id')}")
     return 0
 
 
@@ -163,4 +202,4 @@ def check():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "publish"
-    sys.exit({"publish": publish, "refresh": refresh, "check": check}[cmd]())
+    sys.exit({"publish": publish, "refresh": refresh, "check": check, "dryrun": dryrun}[cmd]())

@@ -1,4 +1,4 @@
-"""Publishes today's card to LinkedIn (member profile via Share on LinkedIn).
+"""Publishes today's carousel to LinkedIn (PDF document, falling back to multi-image) (member profile via Share on LinkedIn).
 
 Run: python -m pipeline.social_linkedin publish
 
@@ -82,6 +82,29 @@ def save_ledger(ledger):
     LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
 
 
+def upload(token, author, kind, data, content_type):
+    _, _, init = rest_call("POST", f"https://api.linkedin.com/rest/{kind}s?action=initializeUpload", token,
+                           {"initializeUploadRequest": {"owner": author}})
+    req("PUT", init["value"]["uploadUrl"], token, raw=data, content_type=content_type)
+    return init["value"][kind]
+
+
+def document_content(token, author, folder, meta, deck_pdf):
+    pdf = deck_pdf(folder, meta, folder.parent / f".{meta['date']}-deck.pdf")
+    try:
+        urn = upload(token, author, "document", pdf.read_bytes(), "application/pdf")
+    finally:
+        pdf.unlink(missing_ok=True)
+    title = f"K-INSIDER LAB No. {meta['issue']:03d}: {meta['title']}"[:200]
+    return {"media": {"id": urn, "title": title}}
+
+
+def multi_image_content(token, author, folder, meta):
+    images = [{"id": upload(token, author, "image", (folder / n).read_bytes(), "image/jpeg"),
+               "altText": f"K-INSIDER LAB slide {i}"} for i, n in enumerate(meta["slides"], 1)]
+    return {"multiImage": {"images": images}}
+
+
 def publish():
     token = os.environ.get("LINKEDIN_ACCESS_TOKEN", "").strip()
     if not token:
@@ -94,37 +117,39 @@ def publish():
         ledger["token_first_seen"] = dt.datetime.now(KST).date().isoformat()
     today = dt.datetime.now(KST).date()
     age = (today - dt.date.fromisoformat(ledger["token_first_seen"])).days
-    png = ROOT / "cards" / f"{today.isoformat()}.png"
-    txt = ROOT / "cards" / f"{today.isoformat()}.txt"
+    from .cards import deck_pdf, todays_carousel
+    found = todays_carousel(today.isoformat())
     status = 0
-    if not png.exists():
-        print(f"No card for {today}; nothing to post.")
+    if not found:
+        print(f"No carousel for {today}; nothing to post.")
     elif any(p["date"] == today.isoformat() for p in ledger["posts"]):
         print(f"Already posted {today}; skipping.")
     else:
+        folder, meta, caption = found
         _, _, me = req("GET", "https://api.linkedin.com/v2/userinfo", token)
         author = f"urn:li:person:{me['sub']}"
-        _, _, init = rest_call("POST", "https://api.linkedin.com/rest/images?action=initializeUpload", token,
-                               {"initializeUploadRequest": {"owner": author}})
-        upload_url = init["value"]["uploadUrl"]
-        image_urn = init["value"]["image"]
-        req("PUT", upload_url, token, raw=png.read_bytes(), content_type="image/png")
-        caption = txt.read_text(encoding="utf-8").replace("link in bio (kinsider-lab.com)",
-                                                          "https://www.kinsider-lab.com")
+        caption = caption.replace("link in bio (kinsider-lab.com)", "https://www.kinsider-lab.com")
+        caption = caption.replace("Swipe for the", "Swipe through the")
+        try:
+            content, kind = document_content(token, author, folder, meta, deck_pdf), "document"
+        except RuntimeError as e:  # documents need an extra permission on some app tiers
+            print(f"Document upload unavailable ({str(e)[:160]}); posting slides as images.")
+            content, kind = multi_image_content(token, author, folder, meta), "images"
         post = {
             "author": author,
             "commentary": caption,
             "visibility": "PUBLIC",
             "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [],
                              "thirdPartyDistributionChannels": []},
-            "content": {"media": {"id": image_urn, "altText": "Korea shopping-search momentum chart"}},
+            "content": content,
             "lifecycleState": "PUBLISHED",
             "isReshareDisabledByAuthor": False,
         }
         _, headers, _ = rest_call("POST", "https://api.linkedin.com/rest/posts", token, post)
         post_id = headers.get("x-restli-id") or headers.get("X-RestLi-Id")
-        ledger["posts"].append({"date": today.isoformat(), "post": post_id})
-        print(f"Posted {today} to LinkedIn: {post_id}")
+        ledger["posts"].append({"date": today.isoformat(), "post": post_id, "format": kind,
+                                "story": meta.get("story")})
+        print(f"Posted {today} to LinkedIn as {kind}: {post_id}")
     save_ledger(ledger)
     if age >= TOKEN_DAYS - 7:
         print(f"LinkedIn token is {age} days old and expires around day {TOKEN_DAYS}. "
@@ -133,5 +158,26 @@ def publish():
     return status
 
 
+def dryrun():
+    """Uploads today's deck as a LinkedIn document without creating a post."""
+    from .cards import deck_pdf, todays_carousel
+    token = os.environ.get("LINKEDIN_ACCESS_TOKEN", "").strip()
+    found = todays_carousel(dt.datetime.now(KST).date().isoformat())
+    if not token or not found:
+        print("Dry run needs LINKEDIN_ACCESS_TOKEN and today's carousel.")
+        return 1
+    folder, meta, _ = found
+    _, _, me = req("GET", "https://api.linkedin.com/v2/userinfo", token)
+    author = f"urn:li:person:{me['sub']}"
+    try:
+        content = document_content(token, author, folder, meta, deck_pdf)
+        print(f"LinkedIn dry run OK: document upload accepted ({content['media']['id']}); will post as PDF carousel.")
+    except RuntimeError as e:
+        print(f"Document upload refused ({str(e)[:200]}); checking image fallback.")
+        upload(token, author, "image", (folder / meta["slides"][0]).read_bytes(), "image/jpeg")
+        print("LinkedIn dry run OK: will post as multi-image carousel.")
+    return 0
+
+
 if __name__ == "__main__":
-    sys.exit(publish())
+    sys.exit({"publish": publish, "dryrun": dryrun}[sys.argv[1] if len(sys.argv) > 1 else "publish"]())

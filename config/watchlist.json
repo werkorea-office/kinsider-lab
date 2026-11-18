@@ -13,158 +13,189 @@
       "anchor": {
         "kw": "선크림",
         "en": "Sunscreen",
-        "type": "Product type"
+        "type": "Product type",
+        "note": "Korea's biggest skincare category; light, daily-wear formulas."
       },
       "keywords": [
         {
           "kw": "선스틱",
           "en": "Sun stick",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Solid sunscreen in a twist-up stick, made for reapplying over makeup."
         },
         {
           "kw": "톤업크림",
           "en": "Tone-up cream",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Lightly tinted cream that evens and brightens skin tone without foundation."
         },
         {
           "kw": "토너패드",
           "en": "Toner pads",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Pre-soaked cotton pads that tone, exfoliate or soothe in one wipe."
         },
         {
           "kw": "앰플",
           "en": "Ampoule",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Concentrated serum for one targeted concern, used after toner."
         },
         {
           "kw": "수분크림",
           "en": "Moisturizing cream",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Everyday face moisturizer, the core step of a Korean routine."
         },
         {
           "kw": "클렌징오일",
           "en": "Cleansing oil",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Oil cleanser that melts sunscreen and makeup; first step of double cleansing."
         },
         {
           "kw": "클렌징폼",
           "en": "Cleansing foam",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Water-based foaming cleanser; second step of double cleansing."
         },
         {
           "kw": "마스크팩",
           "en": "Sheet masks",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Single-use serum-soaked masks, a Korean mass-market staple."
         },
         {
           "kw": "슬리핑마스크",
           "en": "Sleeping mask",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Leave-on overnight mask that seals in moisture."
         },
         {
           "kw": "쿠션팩트",
           "en": "Cushion compact",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Foundation in a sponge cushion compact, a format invented in Korea."
         },
         {
           "kw": "립틴트",
           "en": "Lip tint",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Long-wearing, stain-like lip color; a Korean color-cosmetics staple."
         },
         {
           "kw": "아이크림",
           "en": "Eye cream",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Targeted cream for the eye area."
         },
         {
           "kw": "미스트",
           "en": "Face mist",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Spray-on hydration used over makeup during the day."
         },
         {
           "kw": "필링젤",
           "en": "Peeling gel",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Gentle gel exfoliator that rolls off dead skin."
         },
         {
           "kw": "바디로션",
           "en": "Body lotion",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Everyday body moisturizer."
         },
         {
           "kw": "헤어에센스",
           "en": "Hair essence",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Leave-in hair serum for shine and damage care."
         },
         {
           "kw": "탈모샴푸",
           "en": "Anti-hair-loss shampoo",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Shampoo for thinning hair; a fast-growing category in Korea."
         },
         {
           "kw": "PDRN",
           "en": "PDRN",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Salmon-DNA-derived ingredient (polydeoxyribonucleotide) taken from Korean skin-clinic treatments into creams and serums."
         },
         {
           "kw": "레티놀",
           "en": "Retinol",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Vitamin A derivative for wrinkles and texture."
         },
         {
           "kw": "나이아신아마이드",
           "en": "Niacinamide",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Vitamin B3 ingredient for brightening and pores."
         },
         {
           "kw": "시카크림",
           "en": "Cica (centella) cream",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Soothing cream built on centella asiatica (cica)."
         },
         {
           "kw": "어성초",
           "en": "Heartleaf (houttuynia)",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Calming plant extract (houttuynia cordata) behind several Korean bestsellers."
         },
         {
           "kw": "콜라겐",
           "en": "Collagen",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Firming ingredient in creams, masks and drinkable supplements."
         },
         {
           "kw": "히알루론산",
           "en": "Hyaluronic acid",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Hydrating ingredient that holds water in the skin."
         },
         {
           "kw": "펩타이드",
           "en": "Peptide",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Amino-acid chains used in firming and anti-aging formulas."
         },
         {
           "kw": "비타민C세럼",
           "en": "Vitamin C serum",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Brightening antioxidant serum."
         },
         {
           "kw": "세라마이드",
           "en": "Ceramide",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Barrier-repairing lipid for dry and sensitive skin."
         },
         {
           "kw": "판테놀",
           "en": "Panthenol",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Pro-vitamin B5 for soothing and barrier care."
         },
         {
           "kw": "엑소좀",
           "en": "Exosome",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Cell-derived vesicle ingredient, popular from clinic skin-booster treatments."
         },
         {
           "kw": "아젤라익산",
           "en": "Azelaic acid",
-          "type": "Ingredient"
+          "type": "Ingredient",
+          "note": "Acid for redness, blemishes and uneven tone."
         }
       ]
     },
@@ -176,158 +207,189 @@
       "anchor": {
         "kw": "라네즈",
         "en": "LANEIGE",
-        "type": "Brand"
+        "type": "Brand",
+        "note": "Amorepacific's hydration skincare brand, known for the Lip Sleeping Mask."
       },
       "keywords": [
         {
           "kw": "아누아",
           "en": "Anua",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand best known for its heartleaf toner."
         },
         {
           "kw": "조선미녀",
           "en": "Beauty of Joseon",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand built on traditional hanbang ingredients; known for Relief Sun."
         },
         {
           "kw": "코스알엑스",
           "en": "COSRX",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its snail mucin essence; part of Amorepacific."
         },
         {
           "kw": "토리든",
           "en": "Torriden",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Hydration-focused skincare brand known for its hyaluronic acid serum."
         },
         {
           "kw": "메디큐브",
           "en": "medicube",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "APR's skincare and at-home beauty-device brand."
         },
         {
           "kw": "라운드랩",
           "en": "Round Lab",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its Dokdo toner and birch sunscreen."
         },
         {
           "kw": "스킨1004",
           "en": "SKIN1004",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand built on Madagascar centella."
         },
         {
           "kw": "바이오던스",
           "en": "Biodance",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for collagen overnight gel masks."
         },
         {
           "kw": "넘버즈인",
           "en": "numbuzin",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand with numbered, concern-specific lines."
         },
         {
           "kw": "달바",
           "en": "d'Alba",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its white truffle spray serum."
         },
         {
           "kw": "에스트라",
           "en": "AESTURA",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's dermocosmetic brand for sensitive and dry skin."
         },
         {
           "kw": "닥터지",
           "en": "Dr.G",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Dermatologist-founded skincare brand, now part of L'Oréal."
         },
         {
           "kw": "일리윤",
           "en": "ILLIYOON",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's body and sensitive-skin care brand."
         },
         {
           "kw": "브링그린",
           "en": "BRING GREEN",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Olive Young's own botanical skincare brand."
         },
         {
           "kw": "마녀공장",
           "en": "Manyo Factory",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand best known for its pure cleansing oil."
         },
         {
           "kw": "롬앤",
           "en": "rom&nd",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Color cosmetics brand known for lip tints."
         },
         {
           "kw": "클리오",
           "en": "CLIO",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Color cosmetics brand known for cushions and eye palettes."
         },
         {
           "kw": "페리페라",
           "en": "peripera",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "CLIO group's affordable lip and color brand."
         },
         {
           "kw": "에뛰드",
           "en": "ETUDE",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's color makeup brand."
         },
         {
           "kw": "이니스프리",
           "en": "innisfree",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's skincare brand built on Jeju island ingredients."
         },
         {
           "kw": "미샤",
           "en": "MISSHA",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Mass-market skincare and makeup brand; an early BB cream pioneer."
         },
         {
           "kw": "정샘물",
           "en": "JUNGSAEMMOOL",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Makeup brand founded by a top Korean makeup artist."
         },
         {
           "kw": "헤라",
           "en": "HERA",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's premium makeup brand."
         },
         {
           "kw": "설화수",
           "en": "Sulwhasoo",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific's luxury skincare brand built on ginseng."
         },
         {
           "kw": "아이오페",
           "en": "IOPE",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Amorepacific skincare brand that introduced the air cushion compact."
         },
         {
           "kw": "메디힐",
           "en": "MEDIHEAL",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Sheet mask brand, one of Korea's best known."
         },
         {
           "kw": "어노브",
           "en": "UNOVE",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Hair care brand known for damage treatments."
         },
         {
           "kw": "아로마티카",
           "en": "AROMATICA",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Vegan skincare and body care brand with aromatherapy roots."
         },
         {
           "kw": "셀퓨전씨",
           "en": "Cell Fusion C",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Dermocosmetic brand known for its sunscreens."
         },
         {
           "kw": "차앤박",
           "en": "CNP",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "LG H&H's dermocosmetic brand, known for its propolis ampoule."
         },
         {
           "kw": "듀이트리",
@@ -337,52 +399,62 @@
         {
           "kw": "웰라쥬",
           "en": "Wellage",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for hyaluronic acid ampoules."
         },
         {
           "kw": "티르티르",
           "en": "TIRTIR",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Makeup brand known for its red cushion foundation."
         },
         {
           "kw": "힌스",
           "en": "hince",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Makeup brand with muted, minimalist color."
         },
         {
           "kw": "3CE",
           "en": "3CE",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Seoul-born makeup brand, owned by L'Oréal."
         },
         {
           "kw": "웨이크메이크",
           "en": "WAKEMAKE",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Olive Young's own makeup brand."
         },
         {
           "kw": "데이지크",
           "en": "dasique",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Makeup brand known for eyeshadow palettes."
         },
         {
           "kw": "구달",
           "en": "goodal",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its green tangerine vitamin C serum."
         },
         {
           "kw": "비플레인",
           "en": "beplain",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its mung bean cleanser."
         },
         {
           "kw": "아비브",
           "en": "Abib",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Minimalist skincare brand known for heartleaf spot pads."
         },
         {
           "kw": "이즈앤트리",
           "en": "Isntree",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its hyaluronic acid sunscreen."
         },
         {
           "kw": "퍼셀",
@@ -392,12 +464,14 @@
         {
           "kw": "에이프릴스킨",
           "en": "APRILSKIN",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for carrot and calendula lines."
         },
         {
           "kw": "메이크프렘",
           "en": "make p:rem",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand focused on sunscreens."
         },
         {
           "kw": "성분에디터",
@@ -407,12 +481,14 @@
         {
           "kw": "믹순",
           "en": "mixsoon",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Skincare brand known for its bean essence."
         },
         {
           "kw": "투쿨포스쿨",
           "en": "too cool for school",
-          "type": "Brand"
+          "type": "Brand",
+          "note": "Makeup brand known for its contour palette."
         },
         {
           "kw": "파티온",
@@ -429,83 +505,99 @@
       "anchor": {
         "kw": "라면",
         "en": "Ramyeon (instant noodles)",
-        "type": "Product type"
+        "type": "Product type",
+        "note": "Korean instant noodles; the anchor of the K-food index."
       },
       "keywords": [
         {
           "kw": "불닭볶음면",
           "en": "Buldak spicy noodles",
-          "type": "Product"
+          "type": "Product",
+          "note": "Samyang's fire-hot stir-fried noodle line."
         },
         {
           "kw": "떡볶이",
           "en": "Tteokbokki",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Spicy rice cakes; sold as meal kits and frozen packs."
         },
         {
           "kw": "냉동김밥",
           "en": "Frozen gimbap",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Frozen seaweed rice rolls, a recent export hit."
         },
         {
           "kw": "김치",
           "en": "Kimchi",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Fermented vegetables, Korea's signature side dish."
         },
         {
           "kw": "고추장",
           "en": "Gochujang",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Fermented red chili paste."
         },
         {
           "kw": "김부각",
           "en": "Seaweed chips (gim-bugak)",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Fried seaweed chips coated in sticky rice batter."
         },
         {
           "kw": "조미김",
           "en": "Seasoned laver",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Roasted, salted seaweed sheets (gim) eaten with rice or as a snack."
         },
         {
           "kw": "약과",
           "en": "Yakgwa (honey cookie)",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Traditional honey-and-sesame-oil cookie, revived by younger shoppers."
         },
         {
           "kw": "누룽지",
           "en": "Nurungji (scorched rice)",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Toasted crispy rice, eaten as a snack or simmered into porridge."
         },
         {
           "kw": "곤약젤리",
           "en": "Konjac jelly",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Low-calorie drinkable konjac jelly pouches."
         },
         {
           "kw": "단백질바",
           "en": "Protein bar",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "High-protein snack bar."
         },
         {
           "kw": "단백질쉐이크",
           "en": "Protein shake",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Ready-to-drink or powder protein shakes."
         },
         {
           "kw": "그릭요거트",
           "en": "Greek yogurt",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Thick strained yogurt, popular in Korea's diet-food boom."
         },
         {
           "kw": "제로음료",
           "en": "Zero-sugar drinks",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Sugar-free sodas and teas; one of Korea's fastest-growing beverage niches."
         },
         {
           "kw": "저당소스",
           "en": "Low-sugar sauce",
-          "type": "Product type"
+          "type": "Product type",
+          "note": "Reduced-sugar sauces and condiments for diet cooking."
         }
       ]
     }
