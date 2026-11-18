@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install image library
+        run: pip install pillow==12.*
+
       - name: Self-test (blocks publishing if the pipeline is broken)
         run: python -m unittest discover -s tests -v
 
@@ -37,11 +40,14 @@ jobs:
       - name: Build site
         run: python -m pipeline.build
 
+      - name: Make social card
+        run: python -m pipeline.cards
+
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief
+          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief cards
           if git diff --staged --quiet; then
             echo "Nothing changed."
           else

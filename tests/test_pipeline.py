@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from pipeline import build, collect, datalab, metrics
+from pipeline import build, cards, collect, datalab, metrics
 
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime(2026, 11, 18, 7, 0, tzinfo=KST)
@@ -98,6 +98,10 @@ class CollectTest(unittest.TestCase):
             home = (sb.root / "index.html").read_text(encoding="utf-8")
             self.assertIn("Rising in Korea", home)
             self.assertTrue((sb.root / "brief" / "2026-11-18.html").exists())
+            seg = json.loads(collect.LATEST.read_text(encoding="utf-8"))["segments"][0]
+            out = sb.root / "card.png"
+            cards.render(snap, seg, out)
+            self.assertGreater(out.stat().st_size, 10000)
 
     def test_partial_outage_keeps_old_data_marked_stale(self):
         with Sandbox() as sb:
