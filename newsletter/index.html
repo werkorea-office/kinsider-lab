@@ -49,6 +49,7 @@
       <label class="sr" for="email">Business email</label>
       <input id="email" type="email" name="email" required placeholder="you@company.com">
       <input type="text" name="company" placeholder="Company (optional)">
+      <label class="opt"><input type="checkbox" name="alerts" value="yes"> Also email me breakout alerts the day they are called (a few a month)</label>
       <button type="submit">Subscribe</button>
       <p class="form-msg" id="sub-msg"></p>
     </form>
@@ -62,7 +63,7 @@
     ev.preventDefault();
     var data = new FormData(f), msg = document.getElementById("sub-msg");
     var jobs = [fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })];
-    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief"));
+    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief", data.get("alerts") === "yes"));
     Promise.all(jobs).then(function (rs) {
       if (!rs.every(function (r) { return r.ok; })) throw 0;
       f.reset();
@@ -104,9 +105,10 @@
     })
     .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
 })();
-function klSubscribe(email, company, source) {
+function klSubscribe(email, company, source, alerts) {
   var d = new FormData();
   d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
   if (company) d.append("fields[company]", company);
   d.append("fields[source]", source);
   return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });

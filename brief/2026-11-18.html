@@ -411,9 +411,10 @@
     })
     .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
 })();
-function klSubscribe(email, company, source) {
+function klSubscribe(email, company, source, alerts) {
   var d = new FormData();
   d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
   if (company) d.append("fields[company]", company);
   d.append("fields[source]", source);
   return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
