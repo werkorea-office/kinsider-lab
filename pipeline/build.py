@@ -102,7 +102,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "5"
+CSS_VERSION = "6"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -217,7 +217,7 @@ def table(items, seg, limit, show_rank=True):
   <td class="trend {pct_class(it['momentum'])}">{sparkline(it['series'])}</td>
 </tr>""")
     head_rank = "<th>#</th>" if show_rank else ""
-    return f"""<div class="tbl-wrap"><table>
+    return f"""<div class="tbl-wrap"><table class="rank-tbl">
 <thead><tr>{head_rank}<th>{'Brand' if seg['id'] == 'brands' else 'Search term'}</th><th>Type</th>
 <th class="num" title="Average of the last 7 days vs. the 28 days before">Momentum</th>
 <th class="num" title="Shopping-search clicks; {e(anchor_en)} 8-week average = 100">Demand index</th>

@@ -61,9 +61,9 @@ td.num.up,td.num.down{font-weight:700}
 .trend{width:130px}
 .spark{display:block}
 @media (min-width:761px){
-  table{table-layout:fixed}
-  th:nth-child(1){width:48px} th:nth-child(3){width:150px} th:nth-child(4){width:120px}
-  th:nth-child(5){width:140px} th:nth-child(6){width:150px}
+  table.rank-tbl{table-layout:fixed}
+  .rank-tbl th:nth-child(1){width:48px} .rank-tbl th:nth-child(3){width:150px} .rank-tbl th:nth-child(4){width:120px}
+  .rank-tbl th:nth-child(5){width:140px} .rank-tbl th:nth-child(6){width:150px}
 }
 
 /* subscribe */
@@ -118,3 +118,4 @@ td.num.up,td.num.down{font-weight:700}
 .gate{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;max-width:560px}
 .sub-form.light input{background:#fff;color:var(--ink);border-color:var(--line)}
 .form-msg{color:var(--down);font-size:13px;margin:0}
+td.num{white-space:nowrap}
