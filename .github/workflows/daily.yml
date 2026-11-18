@@ -56,6 +56,8 @@ jobs:
         run: python -m pipeline.cards
 
       - name: Weekly email brief (Mondays; 'draft' input makes a test draft in Kit)
+        id: newsletter
+        continue-on-error: true   # never blocks publishing the day's data; reported at the end
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
         run: |
@@ -77,3 +79,9 @@ jobs:
             git commit -m "Daily brief $(TZ=Asia/Seoul date +%F) [skip ci]"
             git push
           fi
+
+      - name: Fail visibly if the weekly email could not be scheduled
+        if: steps.newsletter.outcome == 'failure'
+        run: |
+          echo "Weekly email brief failed; the site and data were still published. See the step log above."
+          exit 1
