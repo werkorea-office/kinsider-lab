@@ -1,0 +1,129 @@
+{
+ "rule": {
+  "min_level": 10.0,
+  "week_rise": 0.25,
+  "prior_week_rise": 0.1,
+  "cooldown_days": 28,
+  "checkpoints": [
+   7,
+   14,
+   28
+  ]
+ },
+ "signals": [
+  {
+   "id": "beauty:PDRN:2026-11-18",
+   "segment": "beauty",
+   "segment_title": "K-Beauty",
+   "kw": "PDRN",
+   "en": "PDRN",
+   "type": "Ingredient",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 47.24,
+   "momentum_at_call": 0.5236,
+   "prev_week": 37.95,
+   "early_baseline": 28.7,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 47.24
+   }
+  },
+  {
+   "id": "brands:메디큐브:2026-11-18",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "메디큐브",
+   "en": "medicube",
+   "type": "Brand",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 402.4,
+   "momentum_at_call": 0.3942,
+   "prev_week": 319.36,
+   "early_baseline": 278.38,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 402.4
+   }
+  },
+  {
+   "id": "brands:마녀공장:2026-11-18",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "마녀공장",
+   "en": "Manyo Factory",
+   "type": "Brand",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 225.15,
+   "momentum_at_call": 2.3176,
+   "prev_week": 127.74,
+   "early_baseline": 47.9,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 225.15
+   }
+  },
+  {
+   "id": "brands:미샤:2026-11-18",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "미샤",
+   "en": "MISSHA",
+   "type": "Brand",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 253.89,
+   "momentum_at_call": 0.2544,
+   "prev_week": 221.96,
+   "early_baseline": 195.88,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 253.89
+   }
+  },
+  {
+   "id": "brands:아로마티카:2026-11-18",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "아로마티카",
+   "en": "AROMATICA",
+   "type": "Brand",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 386.43,
+   "momentum_at_call": 0.5765,
+   "prev_week": 314.57,
+   "early_baseline": 221.96,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 386.43
+   }
+  },
+  {
+   "id": "brands:셀퓨전씨:2026-11-18",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "셀퓨전씨",
+   "en": "Cell Fusion C",
+   "type": "Brand",
+   "called": "2026-11-18",
+   "data_end": "2026-11-17",
+   "level_at_call": 140.52,
+   "momentum_at_call": 0.5238,
+   "prev_week": 103.79,
+   "early_baseline": 88.36,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-18",
+    "level": 140.52
+   }
+  }
+ ]
+}

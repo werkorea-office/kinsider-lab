@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
+<title>Sheet masks demand in Korea | K-INSIDER LAB</title>
+<meta name="description" content="Daily Korean shopping-search demand for Sheet masks (마스크팩): index, momentum and 8-week trend.">
+<link rel="canonical" href="https://www.kinsider-lab.com/term/beauty-sheet-masks.html">
+<meta property="og:title" content="Sheet masks demand in Korea | K-INSIDER LAB">
+<meta property="og:description" content="Daily Korean shopping-search demand for Sheet masks (마스크팩): index, momentum and 8-week trend.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/term/beauty-sheet-masks.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=5">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/reports.html">Reports</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero slim"><div class="wrap"><p class="eyebrow">K-Beauty · Product type</p>
+<h1>Sheet masks <span class="kr-title" lang="ko">마스크팩</span></h1>
+<p class="lede">Korean shopping-search demand for this search term, updated daily from Naver DataLab.</p>
+<div class="stats"><div><span>Demand index (7 days)</span><b>237</b></div>
+<div><span>Momentum vs prior 4 weeks</span><b class="flat">-2%</b></div>
+<div><span>Data through</span><b>17 Nov 2026</b></div></div></div></section>
+<section class="seg"><div class="wrap"><h3>Last 8 weeks (weekly average)</h3>
+<div class="bigchart flat"><svg class="spark" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="8-week trend"><polyline points="2.0,23.3 92.9,66.7 183.7,144.6 274.6,3.0 365.4,126.9 456.3,157.0 547.1,143.7 638.0,133.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="638.0" cy="133.1" r="2.4" fill="currentColor"/></svg></div>
+
+<h3>Daily record</h3>
+<div class="tbl-wrap"><table><thead><tr><th class="num">Date</th><th class="num">Demand index</th><th class="num">Momentum</th></tr></thead><tbody><tr><td class="num">18 Nov 2026</td><td class="num">237</td><td class="num">-2%</td></tr></tbody></table></div>
+<p class="note">Index: shopping-search clicks in Naver's “화장품/미용” category, Sunscreen 8-week average = 100.
+<a href="/methodology.html">Methodology</a></p></div></section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try { seen = localStorage.getItem("kl_seen"); } catch (e) {}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), { method: first ? "POST" : "GET" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (j) {
+      if (first) { try { localStorage.setItem("kl_seen", day); } catch (e) {} }
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    })
+    .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
+})();
+</script>
+</body>
+</html>

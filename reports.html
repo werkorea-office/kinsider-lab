@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
+<title>Monthly demand report | K-INSIDER LAB</title>
+<meta name="description" content="Monthly PDF report on Korean consumer demand for K-beauty and K-food: rising categories, ingredients, brands and breakout calls.">
+<link rel="canonical" href="https://www.kinsider-lab.com/reports.html">
+<meta property="og:title" content="Monthly demand report | K-INSIDER LAB">
+<meta property="og:description" content="Monthly PDF report on Korean consumer demand for K-beauty and K-food: rising categories, ingredients, brands and breakout calls.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/reports.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=5">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/reports.html">Reports</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero slim"><div class="wrap"><p class="eyebrow">Monthly report</p>
+<h1>Korea K-Beauty &amp; K-Food Demand Report</h1>
+<p class="lede">A monthly PDF with rising categories, ingredients and brands in Korean online shopping, the breakout
+calls of the month and their track record. Free for buyers, distributors and brand teams.</p></div></section>
+<section class="seg"><div class="wrap"><ul class="archive reports"><li><span class="d">November 2026</span><span>Korea K-Beauty &amp; K-Food Demand Report (interim, data through 17 Nov 2026)</span><a class="dl" data-href="/reports/kinsider-lab-demand-report-2026-11.pdf" href="#get">PDF</a></li></ul>
+<div class="gate" id="get"><h3>Get the reports</h3>
+<p class="note">Leave your business email once. The download links open right after, and new editions arrive by email.</p>
+<form id="report-form" class="sub-form light">
+<input type="email" name="email" required placeholder="you@company.com">
+<input type="text" name="company" placeholder="Company">
+<input type="text" name="role" placeholder="Role (e.g. buyer, distributor, brand)">
+<button type="submit">Unlock reports</button><p class="form-msg" id="report-msg"></p></form></div>
+</div></section>
+<script>
+(function () {
+  function unlock() {
+    document.querySelectorAll("a.dl").forEach(function (a) { a.href = a.dataset.href; a.target = "_blank"; });
+    var g = document.getElementById("get"); if (g) g.style.display = "none";
+  }
+  try { if (localStorage.getItem("kl_reports") === "1") unlock(); } catch (e) {}
+  var f = document.getElementById("report-form");
+  if (!f) return;
+  f.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var data = new FormData(f); data.append("_subject", "K-INSIDER LAB report download"); data.append("form", "monthly-report");
+    fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })
+      .then(function (r) { if (!r.ok) throw 0; try { localStorage.setItem("kl_reports", "1"); } catch (e) {} unlock(); })
+      .catch(function () { document.getElementById("report-msg").textContent = "Something went wrong. Please try again."; });
+  });
+})();
+</script>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try { seen = localStorage.getItem("kl_seen"); } catch (e) {}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), { method: first ? "POST" : "GET" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (j) {
+      if (first) { try { localStorage.setItem("kl_seen", day); } catch (e) {} }
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    })
+    .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
+})();
+</script>
+</body>
+</html>
