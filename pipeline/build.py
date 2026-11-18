@@ -102,7 +102,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "6"
+CSS_VERSION = "7"
 
 
 def page(title, body, description, path, extra_head=""):

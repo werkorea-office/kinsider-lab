@@ -119,3 +119,5 @@ td.num.up,td.num.down{font-weight:700}
 .sub-form.light input{background:#fff;color:var(--ink);border-color:var(--line)}
 .form-msg{color:var(--down);font-size:13px;margin:0}
 td.num{white-space:nowrap}
+.reports li{display:flex;gap:18px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
+.reports li .d{font-family:var(--mono);color:var(--muted);min-width:130px;font-size:14px}
