@@ -19,7 +19,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LEDGER = ROOT / "data" / "social" / "linkedin.json"
 KST = dt.timezone(dt.timedelta(hours=9))
-VERSION = os.environ.get("LINKEDIN_VERSION", "202511")
 TOKEN_DAYS = 60
 
 
@@ -39,8 +38,37 @@ def req(method, url, token, body=None, raw=None, content_type="application/json"
         raise RuntimeError(f"HTTP {e.code} {url}: {e.read().decode('utf-8', 'replace')[:400]}")
 
 
-def rest_headers():
-    return {"LinkedIn-Version": VERSION, "X-Restli-Protocol-Version": "2.0.0"}
+_VERSION = None
+
+
+def candidate_versions():
+    """Newest first: last month back to ~11 months ago (LinkedIn keeps about a year active)."""
+    if os.environ.get("LINKEDIN_VERSION"):
+        return [os.environ["LINKEDIN_VERSION"]]
+    d = dt.date.today().replace(day=1)
+    out = []
+    for _ in range(12):
+        d = (d - dt.timedelta(days=1)).replace(day=1)
+        out.append(d.strftime("%Y%m"))
+    return out
+
+
+def rest_call(method, url, token, body=None):
+    """REST call that finds an active LinkedIn-Version automatically and remembers it."""
+    global _VERSION
+    versions = [_VERSION] if _VERSION else candidate_versions()
+    last = None
+    for v in versions:
+        try:
+            result = req(method, url, token, body, extra={"LinkedIn-Version": v,
+                                                          "X-Restli-Protocol-Version": "2.0.0"})
+            _VERSION = v
+            return result
+        except RuntimeError as e:
+            last = e
+            if "NONEXISTENT_VERSION" not in str(e) and "not active" not in str(e):
+                raise
+    raise last
 
 
 def load_ledger():
@@ -76,8 +104,8 @@ def publish():
     else:
         _, _, me = req("GET", "https://api.linkedin.com/v2/userinfo", token)
         author = f"urn:li:person:{me['sub']}"
-        _, _, init = req("POST", "https://api.linkedin.com/rest/images?action=initializeUpload", token,
-                         {"initializeUploadRequest": {"owner": author}}, extra=rest_headers())
+        _, _, init = rest_call("POST", "https://api.linkedin.com/rest/images?action=initializeUpload", token,
+                               {"initializeUploadRequest": {"owner": author}})
         upload_url = init["value"]["uploadUrl"]
         image_urn = init["value"]["image"]
         req("PUT", upload_url, token, raw=png.read_bytes(), content_type="image/png")
@@ -93,7 +121,7 @@ def publish():
             "lifecycleState": "PUBLISHED",
             "isReshareDisabledByAuthor": False,
         }
-        _, headers, _ = req("POST", "https://api.linkedin.com/rest/posts", token, post, extra=rest_headers())
+        _, headers, _ = rest_call("POST", "https://api.linkedin.com/rest/posts", token, post)
         post_id = headers.get("x-restli-id") or headers.get("X-RestLi-Id")
         ledger["posts"].append({"date": today.isoformat(), "post": post_id})
         print(f"Posted {today} to LinkedIn: {post_id}")
