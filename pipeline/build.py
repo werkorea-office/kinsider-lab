@@ -502,7 +502,16 @@ def export_rows(ex, hs):
         now, before = series.get(latest, 0), series.get(prev_year, 0)
         last12 = sum(series.get(m, 0) for m in ex["months"][-12:])
         yoy = (now / before - 1) if before > 0 else None
-        rows.append({"country": names.get(code, code), "now": now, "yoy": yoy, "last12": last12})
+        kg = ex.get("weights_kg", {}).get(hs, {}).get(code, {})
+        kg12 = sum(kg.get(m, 0) for m in ex["months"][-12:])
+        kg_prev12 = sum(kg.get(m, 0) for m in ex["months"][-24:-12])
+        usd_prev12 = sum(series.get(m, 0) for m in ex["months"][-24:-12])
+        unit = last12 / kg12 if kg12 > 0 else None            # US$ per kg, trailing 12 months
+        unit_prev = usd_prev12 / kg_prev12 if kg_prev12 > 0 else None
+        growth12 = (last12 / usd_prev12 - 1) if usd_prev12 > 0 else None
+        rows.append({"country": names.get(code, code), "now": now, "yoy": yoy, "last12": last12,
+                     "unit": unit, "unit_change": (unit / unit_prev - 1) if unit and unit_prev else None,
+                     "growth12": growth12})
     return sorted(rows, key=lambda r: r["now"], reverse=True)
 
 
@@ -510,13 +519,38 @@ def usd(v):
     return f"${v / 1e6:,.1f}M" if v >= 1e6 else f"${v / 1e3:,.0f}K"
 
 
+def has_weights(ex, hs):
+    return any(v for c in ex.get("weights_kg", {}).get(hs, {}).values() for v in c.values())
+
+
 def export_table(ex, hs, limit):
     rows = export_rows(ex, hs)[:limit]
+    unit = has_weights(ex, hs)
+    def unit_cells(r):
+        if not unit:
+            return ""
+        val = f"${r['unit']:,.1f}" if r["unit"] else "–"
+        return (f"<td class=\"num\">{val}</td>"
+                f"<td class=\"num {pct_class(r['unit_change'])}\">{pct(r['unit_change'])}</td>")
     body = "".join(f"<tr><td>{e(r['country'])}</td><td class=\"num\">{usd(r['now'])}</td>"
                    f"<td class=\"num {pct_class(r['yoy'])}\">{pct(r['yoy'])}</td>"
-                   f"<td class=\"num\">{usd(r['last12'])}</td></tr>" for r in rows)
+                   f"<td class=\"num\">{usd(r['last12'])}</td>{unit_cells(r)}</tr>" for r in rows)
+    unit_head = ('<th class="num">US$ per kg (12 mo.)</th><th class="num">Price per kg vs. prior 12 mo.</th>'
+                 if unit else "")
     return (f'<div class="tbl-wrap"><table><thead><tr><th>Destination</th><th class="num">{month_label(ex["latest_month"])}</th>'
-            f'<th class="num">vs. year before</th><th class="num">Last 12 months</th></tr></thead><tbody>{body}</tbody></table></div>')
+            f'<th class="num">vs. year before</th><th class="num">Last 12 months</th>{unit_head}</tr></thead>'
+            f'<tbody>{body}</tbody></table></div>')
+
+
+def growth_table(ex, hs, limit=8):
+    """Fastest-growing destinations: last 12 months vs. the 12 before (min. US$1M a year)."""
+    rows = [r for r in export_rows(ex, hs) if r["growth12"] is not None and r["last12"] >= 1e6]
+    rows.sort(key=lambda r: r["growth12"], reverse=True)
+    body = "".join(f"<tr><td>{n}</td><td>{e(r['country'])}</td>"
+                   f"<td class=\"num {pct_class(r['growth12'])}\">{pct(r['growth12'])}</td>"
+                   f"<td class=\"num\">{usd(r['last12'])}</td></tr>" for n, r in enumerate(rows[:limit], 1))
+    return (f'<div class="tbl-wrap"><table><thead><tr><th>#</th><th>Market</th><th class="num">Growth, last 12 mo.</th>'
+            f'<th class="num">Exports, last 12 mo.</th></tr></thead><tbody>{body}</tbody></table></div>')
 
 
 def exports_block():
@@ -536,6 +570,11 @@ def exports_page():
     if not ex or not ex.get("latest_month"):
         return '<section class="hero slim"><div class="wrap"><h1>Export statistics</h1><p>Coming soon.</p></div></section>'
     blocks = "".join(f"<h3>{e(p['en'])} (HS {p['hs']})</h3>{export_table(ex, p['hs'], 12)}" for p in ex["products"])
+    growth = "".join(f"<h3>{e(p['en'])}</h3>{growth_table(ex, p['hs'])}" for p in ex["products"])
+    blocks = (f'<h2>Fastest-growing markets</h2><p class="note">Export value in the last 12 months vs. the 12 months '
+              f'before; markets above US$1M a year.</p>{growth}<h2>By destination</h2>'
+              f'<p class="note">US$ per kg is export value divided by declared net weight: a read on whether Korea is '
+              f'shipping higher- or lower-priced goods to each market. It moves with product mix as well as price.</p>{blocks}')
     return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Official trade data</p>
 <h1>Korean K-beauty &amp; K-food exports by market</h1>
 <p class="lede small">Latest month: {month_label(ex['latest_month'])}. Source: {e(ex['source'])}. Refreshed weekly;

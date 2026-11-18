@@ -8,6 +8,9 @@ on:
       force_report:
         description: "Build the monthly report now (yes/no)"
         default: "no"
+      force_exports:
+        description: "Refresh Korea Customs export statistics now (yes/no)"
+        default: "no"
       newsletter:
         description: "Weekly email: 'auto' (Mondays), 'draft' (test draft in Kit) or 'status' (list health)"
         default: "auto"
@@ -47,7 +50,7 @@ jobs:
       - name: Korea Customs export statistics (weekly)
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
-        run: python -m pipeline.exports || echo "Export statistics unavailable today; site keeps last verified figures."
+        run: python -m pipeline.exports ${{ inputs.force_exports == 'yes' && '--force' || '' }} || echo "Export statistics unavailable today; site keeps last verified figures."
 
       - name: Build site
         run: python -m pipeline.build

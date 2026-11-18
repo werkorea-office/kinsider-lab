@@ -62,7 +62,7 @@ def fetch(key, hs, cnty, start, end, attempts=3):
     for i in range(attempts):
         try:
             with urllib.request.urlopen(URL + "?" + q, timeout=40) as r:
-                return parse(r.read())
+                return parse_full(r.read())
         except (urllib.error.URLError, TimeoutError, ValueError) as e:
             last = e
             time.sleep(3 * (i + 1))
@@ -71,6 +71,11 @@ def fetch(key, hs, cnty, start, end, attempts=3):
 
 def parse(raw):
     """Returns {YYYYMM: export_usd}. Raises ValueError on API errors."""
+    return {m: usd for m, (usd, _) in parse_full(raw).items()}
+
+
+def parse_full(raw):
+    """Returns {YYYYMM: (export_usd, export_kg)}. Raises ValueError on API errors."""
     root = ET.fromstring(raw)
     code = root.findtext(".//resultCode")
     if code not in (None, "00", "0", "000"):
@@ -83,10 +88,13 @@ def parse(raw):
         if len(digits) != 6:  # skip totals ("총계") and malformed rows
             continue
         val = fields.get("expDlr") or fields.get("expUsdAmt") or "0"
+        wgt = fields.get("expWgt") or fields.get("expWght") or "0"
         try:
-            out[digits] = out.get(digits, 0.0) + float(val.replace(",", ""))
+            usd, kg = float(val.replace(",", "")), float(wgt.replace(",", "") or 0)
         except ValueError:
             continue
+        prev = out.get(digits, (0.0, 0.0))
+        out[digits] = (prev[0] + usd, prev[1] + kg)
     return out
 
 
@@ -104,7 +112,7 @@ def main(force=False):
     today = dt.datetime.now(KST).date()
     last_month = (today.replace(day=1) - dt.timedelta(days=1))
     months = months_back(last_month, 24)
-    data, errors = {}, []
+    data, weights, errors = {}, {}, []
     for p in PRODUCTS:
         for code, name in COUNTRIES:
             series = {}
@@ -114,7 +122,8 @@ def main(force=False):
             except Exception as e:
                 errors.append(str(e))
                 continue
-            data.setdefault(p["hs"], {})[code] = {m: round(series.get(m, 0.0)) for m in months}
+            data.setdefault(p["hs"], {})[code] = {m: round(series.get(m, (0.0, 0.0))[0]) for m in months}
+            weights.setdefault(p["hs"], {})[code] = {m: round(series.get(m, (0.0, 0.0))[1]) for m in months}
     if not data:
         print("All export requests failed; keeping previous file.")
         for e in errors[:5]:
@@ -128,7 +137,7 @@ def main(force=False):
             break
     snapshot = {"fetched": today.isoformat(), "latest_month": latest, "months": months,
                 "products": PRODUCTS, "countries": [{"code": c, "name": n} for c, n in COUNTRIES],
-                "values": data, "errors": errors,
+                "values": data, "weights_kg": weights, "errors": errors,
                 "source": "Korea Customs Service, export statistics by item and country (data.go.kr)"}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(snapshot, indent=1), encoding="utf-8")
