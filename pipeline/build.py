@@ -67,6 +67,11 @@ def sparkline(series, w=120, h=28):
 
 # ---------- data views ----------
 
+def slug(seg_id, en):
+    import re
+    return seg_id + "-" + re.sub(r"[^a-z0-9]+", "-", en.lower()).strip("-")
+
+
 def rank_min_level():
     cfg = json.loads((ROOT / "config" / "watchlist.json").read_text(encoding="utf-8"))
     return float(cfg.get("rank_min_level", 0))
@@ -97,7 +102,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "4"
+CSS_VERSION = "5"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -126,6 +131,8 @@ def page(title, body, description, path, extra_head=""):
     <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
     <nav>
       <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
       <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
@@ -203,7 +210,7 @@ def table(items, seg, limit, show_rank=True):
         tag = ' <span class="anchor-tag">baseline</span>' if it["is_anchor"] else ""
         rows.append(f"""<tr>
   {'<td class="rank">' + str(n) + '</td>' if show_rank else ''}
-  <td class="kw"><span class="en">{e(it['en'])}</span>{tag}<span class="kr" lang="ko">{e(it['kw'])}</span></td>
+  <td class="kw"><a class="en" href="/term/{slug(seg['id'], it['en'])}.html">{e(it['en'])}</a>{tag}<span class="kr" lang="ko">{e(it['kw'])}</span></td>
   <td class="type">{e(it['type'])}</td>
   <td class="num {pct_class(it['momentum'])}">{pct(it['momentum'])}</td>
   <td class="num">{it['level']:.0f}</td>
@@ -211,14 +218,14 @@ def table(items, seg, limit, show_rank=True):
 </tr>""")
     head_rank = "<th>#</th>" if show_rank else ""
     return f"""<div class="tbl-wrap"><table>
-<thead><tr>{head_rank}<th>Search term</th><th>Type</th>
+<thead><tr>{head_rank}<th>{'Brand' if seg['id'] == 'brands' else 'Search term'}</th><th>Type</th>
 <th class="num" title="Average of the last 7 days vs. the 28 days before">Momentum</th>
 <th class="num" title="Shopping-search clicks; {e(anchor_en)} 8-week average = 100">Demand index</th>
 <th>8 weeks</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table></div>"""
 
 
-def segment_block(seg, primary):
+def segment_block(seg, primary, mode=None):
     rising, cooling, biggest = ranked(seg)
     stale = ""
     if seg.get("fresh") is False:
@@ -228,10 +235,16 @@ def segment_block(seg, primary):
     parts = [f'<section class="seg"><div class="wrap">',
              f'<div class="seg-head"><h2>{e(seg["title"])}</h2><p class="period">{e(period)}</p></div>',
              stale]
-    if rising:
+    if mode == "brands":
+        if rising:
+            parts.append('<h3>Brands rising in Korea</h3>')
+            parts.append(table(rising, seg, 10))
+        parts.append('<h3>Most searched brands</h3>')
+        parts.append(table(biggest, seg, 10))
+    elif rising:
         parts.append('<h3>Rising in Korea</h3>')
         parts.append(table(rising, seg, 10 if primary else 6))
-    if primary:
+    if primary and mode != "brands":
         parts.append('<h3>Largest demand right now</h3>')
         parts.append(table(biggest, seg, 8))
         if cooling:
@@ -284,13 +297,142 @@ def brief_body(snapshot, is_home):
   <p class="lede small">Measured daily from Korean shopping-search clicks. Each brief is archived, so trends can be checked later.</p>
 </div></section>"""]
     for i, seg in enumerate(segs):
-        body.append(segment_block(seg, primary=(i == 0)))
+        if i == 1 and is_home:
+            body.append(breakout_block(snapshot))
+        body.append(segment_block(seg, primary=(i == 0), mode="brands" if seg["id"] == "brands" else None))
     if is_home:
         body.append(subscribe_block())
     else:
         body.append(f'<section class="seg"><div class="wrap"><p><a href="/archive.html">← All daily briefs</a> · '
                     f'<a href="/data/daily/{run}.json">Raw data for this brief (JSON)</a></p></div></section>')
     return "\n".join(body)
+
+
+def load_signals():
+    path = DATA / "signals.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"signals": []}
+
+
+def breakout_block(snapshot):
+    led = load_signals()
+    run = dt.date.fromisoformat(snapshot["run_date"])
+    active = [x for x in led["signals"] if (run - dt.date.fromisoformat(x["called"])).days <= 28]
+    active.sort(key=lambda x: x["called"], reverse=True)
+    if active:
+        rows = "".join(
+            f"<tr><td class=\"num\">{nice_date(x['called'])}</td>"
+            f"<td class=\"kw\"><a class=\"en\" href=\"/term/{slug(x['segment'], x['en'])}.html\">{e(x['en'])}</a>"
+            f"<span class=\"kr\" lang=\"ko\">{e(x['kw'])}</span></td><td class=\"type\">{e(x['segment_title'])}</td>"
+            f"<td class=\"num\">{x['level_at_call']:.0f}</td><td class=\"num\">{x['latest']['level']:.0f}</td>"
+            f"<td class=\"num {pct_class(x['latest']['level'] / x['level_at_call'] - 1)}\">"
+            f"{pct(x['latest']['level'] / x['level_at_call'] - 1)}</td></tr>" for x in active[:10])
+        table_html = (f'<div class="tbl-wrap"><table><thead><tr><th class="num">Called</th><th>Term</th><th>Segment</th>'
+                      f'<th class="num">Index at call</th><th class="num">Index now</th><th class="num">Since call</th>'
+                      f'</tr></thead><tbody>{rows}</tbody></table></div>')
+    else:
+        table_html = '<p class="note">No term meets the breakout rule today. Calls are only made when a rise lasts two weeks.</p>'
+    return f"""<section class="seg signals"><div class="wrap">
+<div class="seg-head"><h2>Breakout signals</h2><p class="period">Two-week rises, called on the day and tracked publicly</p></div>
+{table_html}
+<p class="note">Every call is kept in a public ledger with its result after 7, 14 and 28 days, including the ones that faded.
+<a href="/signals.html">See the full track record</a></p></div></section>"""
+
+
+def signals_page():
+    led = load_signals()
+    sigs = sorted(led["signals"], key=lambda x: x["called"], reverse=True)
+
+    def cell(x, k):
+        c = x["checks"].get(k)
+        return f'<td class="num {pct_class(c["change"])}">{pct(c["change"])}</td>' if c else '<td class="num flat">pending</td>'
+
+    rows = "".join(
+        f"<tr><td class=\"num\">{nice_date(x['called'])}</td>"
+        f"<td class=\"kw\"><a class=\"en\" href=\"/term/{slug(x['segment'], x['en'])}.html\">{e(x['en'])}</a>"
+        f"<span class=\"kr\" lang=\"ko\">{e(x['kw'])}</span></td><td class=\"type\">{e(x['segment_title'])}</td>"
+        f"<td class=\"num\">{x['level_at_call']:.0f}</td>{cell(x, 'd7')}{cell(x, 'd14')}{cell(x, 'd28')}</tr>" for x in sigs)
+    done = [x for x in sigs if "d28" in x["checks"]]
+    held = [x for x in done if x["checks"]["d28"]["change"] >= 0]
+    score = (f"<p class=\"lede small\">Calls with a 28-day result: {len(done)}. Still at or above the call level after 28 days: "
+             f"{len(held)} ({(len(held) / len(done) * 100):.0f}%).</p>" if done else
+             "<p class=\"lede small\">The first 28-day results appear four weeks after the first calls.</p>")
+    table_html = (f'<div class="tbl-wrap"><table><thead><tr><th class="num">Called</th><th>Term</th><th>Segment</th>'
+                  f'<th class="num">Index at call</th><th class="num">+7 days</th><th class="num">+14 days</th>'
+                  f'<th class="num">+28 days</th></tr></thead><tbody>{rows}</tbody></table></div>'
+                  if sigs else '<p>No calls yet. The ledger starts with the first term that meets the rule.</p>')
+    rule = led.get("rule") or {}
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Track record</p>
+<h1>Every breakout call, and what happened next</h1>{score}</div></section>
+<section class="seg"><div class="wrap">{table_html}
+<h3>The rule</h3><p class="note">A term is called when its last 7 days are at least {rule.get('week_rise', 0.25) * 100:.0f}% above
+the three weeks before the prior week, the prior week was already {rule.get('prior_week_rise', 0.1) * 100:.0f}% above that base,
+the rise is still holding, and the demand index is at least {rule.get('min_level', 10):.0f}. The same term is not called again
+within {rule.get('cooldown_days', 28)} days. Calls are never edited or deleted. Raw ledger:
+<a href="/data/signals.json">signals.json</a>.</p></div></section>"""
+
+
+def term_page(seg, it, history_rows, sigs):
+    big = sparkline(it["series"], w=640, h=160)
+    hist = [r for r in history_rows if r["segment"] == seg["id"] and r["keyword_kr"] == it["kw"]][-30:]
+    hrows = "".join(f"<tr><td class=\"num\">{nice_date(r['run_date'])}</td><td class=\"num\">{float(r['level']):.0f}</td>"
+                    f"<td class=\"num\">{pct(float(r['momentum'])) if r['momentum'] else '–'}</td></tr>" for r in reversed(hist))
+    calls = [x for x in sigs if x["segment"] == seg["id"] and x["kw"] == it["kw"]]
+    call_html = "".join(f"<li>Breakout called {nice_date(x['called'])} at index {x['level_at_call']:.0f}</li>" for x in calls)
+    kind = "brand" if seg["id"] == "brands" else "search term"
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">{e(seg['title'])} · {e(it['type'])}</p>
+<h1>{e(it['en'])} <span class="kr-title" lang="ko">{e(it['kw'])}</span></h1>
+<p class="lede">Korean shopping-search demand for this {kind}, updated daily from Naver DataLab.</p>
+<div class="stats"><div><span>Demand index (7 days)</span><b>{it['level']:.0f}</b></div>
+<div><span>Momentum vs prior 4 weeks</span><b class="{pct_class(it['momentum'])}">{pct(it['momentum'])}</b></div>
+<div><span>Data through</span><b>{nice_date(seg['data_end'])}</b></div></div></div></section>
+<section class="seg"><div class="wrap"><h3>Last 8 weeks (weekly average)</h3>
+<div class="bigchart {pct_class(it['momentum'])}">{big}</div>
+{'<h3>Breakout calls</h3><ul>' + call_html + '</ul>' if calls else ''}
+<h3>Daily record</h3>
+{'<div class="tbl-wrap"><table><thead><tr><th class="num">Date</th><th class="num">Demand index</th><th class="num">Momentum</th></tr></thead><tbody>' + hrows + '</tbody></table></div>' if hrows else '<p class="note">The daily record starts with the first brief.</p>'}
+<p class="note">Index: shopping-search clicks in Naver's “{e(seg['category_name_kr'])}” category, {e(seg['anchor']['en'])} 8-week average = 100.
+<a href="/methodology.html">Methodology</a></p></div></section>"""
+
+
+def reports_page():
+    idx_path = ROOT / "reports" / "index.json"
+    eds = json.loads(idx_path.read_text(encoding="utf-8")) if idx_path.exists() else []
+    items = "".join(
+        f'<li><span class="d">{e(m["title"])}</span><span>Korea K-Beauty &amp; K-Food Demand Report'
+        f'{" (interim, data through " + nice_date(m["data_end"]) + ")" if m["interim"] else ""}</span>'
+        f'<a class="dl" data-href="{e(m["file"])}" href="#get">PDF</a></li>' for m in eds)
+    listing = f'<ul class="archive reports">{items}</ul>' if eds else '<p>The first edition is published on the 1st of the month.</p>'
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Monthly report</p>
+<h1>Korea K-Beauty &amp; K-Food Demand Report</h1>
+<p class="lede">A monthly PDF with rising categories, ingredients and brands in Korean online shopping, the breakout
+calls of the month and their track record. Free for buyers, distributors and brand teams.</p></div></section>
+<section class="seg"><div class="wrap">{listing}
+<div class="gate" id="get"><h3>Get the reports</h3>
+<p class="note">Leave your business email once. The download links open right after, and new editions arrive by email.</p>
+<form id="report-form" class="sub-form light">
+<input type="email" name="email" required placeholder="you@company.com">
+<input type="text" name="company" placeholder="Company">
+<input type="text" name="role" placeholder="Role (e.g. buyer, distributor, brand)">
+<button type="submit">Unlock reports</button><p class="form-msg" id="report-msg"></p></form></div>
+</div></section>
+<script>
+(function () {{
+  function unlock() {{
+    document.querySelectorAll("a.dl").forEach(function (a) {{ a.href = a.dataset.href; a.target = "_blank"; }});
+    var g = document.getElementById("get"); if (g) g.style.display = "none";
+  }}
+  try {{ if (localStorage.getItem("kl_reports") === "1") unlock(); }} catch (e) {{}}
+  var f = document.getElementById("report-form");
+  if (!f) return;
+  f.addEventListener("submit", function (ev) {{
+    ev.preventDefault();
+    var data = new FormData(f); data.append("_subject", "K-INSIDER LAB report download"); data.append("form", "monthly-report");
+    fetch("{FORM_ACTION}", {{ method: "POST", body: data, headers: {{ Accept: "application/json" }} }})
+      .then(function (r) {{ if (!r.ok) throw 0; try {{ localStorage.setItem("kl_reports", "1"); }} catch (e) {{}} unlock(); }})
+      .catch(function () {{ document.getElementById("report-msg").textContent = "Something went wrong. Please try again."; }});
+  }});
+}})();
+</script>"""
 
 
 # ---------- static pages ----------
@@ -381,6 +523,33 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
         page(f"Methodology | {BRAND}", METHODOLOGY, "How the K-INSIDER LAB demand index is calculated.",
              "/methodology.html"), encoding="utf-8")
 
+    (ROOT / "signals.html").write_text(
+        page(f"Breakout track record | {BRAND}", signals_page(),
+             "Every K-beauty and K-food breakout call from Korean shopping data, with results after 7, 14 and 28 days.",
+             "/signals.html"), encoding="utf-8")
+
+    (ROOT / "reports.html").write_text(
+        page(f"Monthly demand report | {BRAND}", reports_page(),
+             "Monthly PDF report on Korean consumer demand for K-beauty and K-food: rising categories, ingredients, "
+             "brands and breakout calls.", "/reports.html"), encoding="utf-8")
+
+    term_urls = []
+    if latest.get("status") == "ok":
+        import csv
+        hist_path = DATA / "history.csv"
+        history_rows = list(csv.DictReader(hist_path.open(encoding="utf-8"))) if hist_path.exists() else []
+        sigs = load_signals()["signals"]
+        tdir = ROOT / "term"
+        tdir.mkdir(exist_ok=True)
+        for seg in latest["segments"]:
+            for it in seg["items"]:
+                sl = slug(seg["id"], it["en"])
+                (tdir / f"{sl}.html").write_text(page(
+                    f"{it['en']} demand in Korea | {BRAND}", term_page(seg, it, history_rows, sigs),
+                    f"Daily Korean shopping-search demand for {it['en']} ({it['kw']}): index, momentum and 8-week trend.",
+                    f"/term/{sl}.html"), encoding="utf-8")
+                term_urls.append(f"/term/{sl}.html")
+
     nf = '<section class="hero slim"><div class="wrap"><h1>Page not found</h1><p><a href="/">Go to today’s brief</a></p></div></section>'
     (ROOT / "404.html").write_text(page(f"Not found | {BRAND}", nf, desc, "/404.html"), encoding="utf-8")
 
@@ -403,7 +572,8 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = ["/", "/archive.html", "/methodology.html"] + [f"/brief/{b['run_date']}.html" for b in briefs]
+    urls = (["/", "/signals.html", "/reports.html", "/archive.html", "/methodology.html"]
+             + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n',

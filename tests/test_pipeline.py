@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from pipeline import build, cards, collect, datalab, metrics
+from pipeline import build, cards, collect, datalab, metrics, signals
 
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime(2026, 11, 18, 7, 0, tzinfo=KST)
@@ -38,6 +38,8 @@ class Sandbox:
         collect.DATA = root / "data"
         collect.DAILY, collect.LATEST, collect.HISTORY = root / "data" / "daily", root / "data" / "latest.json", root / "data" / "history.csv"
         build.ROOT, build.DATA = root, root / "data"
+        self.saved_sig = signals.LEDGER
+        signals.LEDGER = root / "data" / "signals.json"
         self.root = root
         return self
 
@@ -45,6 +47,7 @@ class Sandbox:
         for k, v in self.saved.items():
             setattr(collect, k, v)
         build.ROOT, build.DATA = self.saved_build
+        signals.LEDGER = self.saved_sig
         self.tmp.cleanup()
 
 
@@ -98,10 +101,14 @@ class CollectTest(unittest.TestCase):
             home = (sb.root / "index.html").read_text(encoding="utf-8")
             self.assertIn("Rising in Korea", home)
             self.assertTrue((sb.root / "brief" / "2026-11-18.html").exists())
-            seg = json.loads(collect.LATEST.read_text(encoding="utf-8"))["segments"][0]
+            chosen = cards.choose(snap)
+            self.assertIsNotNone(chosen)
+            label, title_lines, rows, extra, caption = chosen
             out = sb.root / "card.png"
-            cards.render(snap, seg, out)
+            cards.render(snap["run_date"], label, title_lines, rows, out, extra)
             self.assertGreater(out.stat().st_size, 10000)
+            self.assertTrue((sb.root / "signals.html").exists())
+            self.assertTrue(any((sb.root / "term").glob("brands-*.html")))
 
     def test_partial_outage_keeps_old_data_marked_stale(self):
         with Sandbox() as sb:
@@ -119,7 +126,7 @@ class CollectTest(unittest.TestCase):
             collect.main(now=NOW, fetch=fake_fetch_factory(), creds=CREDS)
             before = collect.LATEST.read_text(encoding="utf-8")
             rc = collect.main(now=NOW + dt.timedelta(days=1),
-                              fetch=fake_fetch_factory(fail_keywords=("선크림", "라면")), creds=CREDS)
+                              fetch=fake_fetch_factory(fail_keywords=("선크림", "라네즈", "라면")), creds=CREDS)
             self.assertEqual(rc, 1)
             self.assertEqual(collect.LATEST.read_text(encoding="utf-8"), before)
 
@@ -168,3 +175,30 @@ class LinkedInSafetyTest(unittest.TestCase):
         finally:
             if saved is not None:
                 os.environ["LINKEDIN_ACCESS_TOKEN"] = saved
+
+
+class BreakoutRuleTest(unittest.TestCase):
+    RULE = {"min_level": 10.0, "week_rise": 0.25, "prior_week_rise": 0.10, "cooldown_days": 28,
+            "checkpoints": [7, 14, 28]}
+
+    def snap(self, date, level, prev, base):
+        return {"run_date": date, "segments": [{"id": "beauty", "title": "K-Beauty", "status": "ok",
+                "fresh": True, "data_end": date, "items": [{"kw": "x", "en": "X", "type": "t",
+                "is_anchor": False, "level": level, "prev_week": prev, "early_baseline": base,
+                "momentum": 0.3}]}]}
+
+    def test_two_week_rise_is_called_once_and_tracked(self):
+        led = signals.update(self.snap("2026-11-01", 30, 24, 20), self.RULE, {"signals": []})
+        self.assertEqual(len(led["signals"]), 1)
+        led = signals.update(self.snap("2026-11-02", 31, 25, 20), self.RULE, led)
+        self.assertEqual(len(led["signals"]), 1)  # cooldown: no duplicate call
+        led = signals.update(self.snap("2026-11-08", 15, 25, 20), self.RULE, led)
+        self.assertEqual(led["signals"][0]["checks"]["d7"]["change"], -0.5)  # misses are recorded too
+
+    def test_one_week_spike_is_not_called(self):
+        led = signals.update(self.snap("2026-11-01", 30, 20, 20), self.RULE, {"signals": []})
+        self.assertEqual(led["signals"], [])
+
+    def test_low_volume_not_called(self):
+        led = signals.update(self.snap("2026-11-01", 8, 6, 4), self.RULE, {"signals": []})
+        self.assertEqual(led["signals"], [])

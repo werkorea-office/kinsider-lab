@@ -41,12 +41,16 @@ def keyword_metrics(series, recent_days, baseline_days, min_level):
     baseline = series[-(recent_days + baseline_days):-recent_days]
     level = mean(recent)
     base = mean(baseline)
+    prev_week = mean(series[-2 * recent_days:-recent_days])
+    early_base = mean(series[-(recent_days + baseline_days):-2 * recent_days])
     momentum = None
     if base >= min_level and level >= min_level:
         momentum = level / base - 1.0
     return {
         "level": round(level, 2),
         "baseline": round(base, 2),
+        "prev_week": round(prev_week, 2),
+        "early_baseline": round(early_base, 2),
         "momentum": None if momentum is None else round(momentum, 4),
         "series": [round(v, 2) for v in series],
     }

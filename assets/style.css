@@ -101,3 +101,20 @@ td.num.up,td.num.down{font-weight:700}
   .trend{width:90px}
   .spark{width:84px}
 }
+
+/* term pages & signals */
+.kw a.en{text-decoration:none;color:var(--ink)}
+.kw a.en:hover{text-decoration:underline}
+.kr-title{font-size:.55em;color:var(--muted);font-weight:500}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 18px;min-width:170px}
+.stats span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.stats b{font-size:28px;font-family:var(--mono)}
+.bigchart{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+.bigchart svg{width:100%;height:auto}
+.signals .seg-head h2:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:10px;vertical-align:middle}
+
+.reports a.dl{margin-left:auto;font-weight:700;color:var(--accent)}
+.gate{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;max-width:560px}
+.sub-form.light input{background:#fff;color:var(--ink);border-color:var(--line)}
+.form-msg{color:var(--down);font-size:13px;margin:0}

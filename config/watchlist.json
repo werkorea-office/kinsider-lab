@@ -169,6 +169,259 @@
       ]
     },
     {
+      "id": "brands",
+      "title": "K-Beauty Brands",
+      "category_code": "50000002",
+      "category_name_kr": "화장품/미용",
+      "anchor": {
+        "kw": "라네즈",
+        "en": "LANEIGE",
+        "type": "Brand"
+      },
+      "keywords": [
+        {
+          "kw": "아누아",
+          "en": "Anua",
+          "type": "Brand"
+        },
+        {
+          "kw": "조선미녀",
+          "en": "Beauty of Joseon",
+          "type": "Brand"
+        },
+        {
+          "kw": "코스알엑스",
+          "en": "COSRX",
+          "type": "Brand"
+        },
+        {
+          "kw": "토리든",
+          "en": "Torriden",
+          "type": "Brand"
+        },
+        {
+          "kw": "메디큐브",
+          "en": "medicube",
+          "type": "Brand"
+        },
+        {
+          "kw": "라운드랩",
+          "en": "Round Lab",
+          "type": "Brand"
+        },
+        {
+          "kw": "스킨1004",
+          "en": "SKIN1004",
+          "type": "Brand"
+        },
+        {
+          "kw": "바이오던스",
+          "en": "Biodance",
+          "type": "Brand"
+        },
+        {
+          "kw": "넘버즈인",
+          "en": "numbuzin",
+          "type": "Brand"
+        },
+        {
+          "kw": "달바",
+          "en": "d'Alba",
+          "type": "Brand"
+        },
+        {
+          "kw": "에스트라",
+          "en": "AESTURA",
+          "type": "Brand"
+        },
+        {
+          "kw": "닥터지",
+          "en": "Dr.G",
+          "type": "Brand"
+        },
+        {
+          "kw": "일리윤",
+          "en": "ILLIYOON",
+          "type": "Brand"
+        },
+        {
+          "kw": "브링그린",
+          "en": "BRING GREEN",
+          "type": "Brand"
+        },
+        {
+          "kw": "마녀공장",
+          "en": "Manyo Factory",
+          "type": "Brand"
+        },
+        {
+          "kw": "롬앤",
+          "en": "rom&nd",
+          "type": "Brand"
+        },
+        {
+          "kw": "클리오",
+          "en": "CLIO",
+          "type": "Brand"
+        },
+        {
+          "kw": "페리페라",
+          "en": "peripera",
+          "type": "Brand"
+        },
+        {
+          "kw": "에뛰드",
+          "en": "ETUDE",
+          "type": "Brand"
+        },
+        {
+          "kw": "이니스프리",
+          "en": "innisfree",
+          "type": "Brand"
+        },
+        {
+          "kw": "미샤",
+          "en": "MISSHA",
+          "type": "Brand"
+        },
+        {
+          "kw": "정샘물",
+          "en": "JUNGSAEMMOOL",
+          "type": "Brand"
+        },
+        {
+          "kw": "헤라",
+          "en": "HERA",
+          "type": "Brand"
+        },
+        {
+          "kw": "설화수",
+          "en": "Sulwhasoo",
+          "type": "Brand"
+        },
+        {
+          "kw": "아이오페",
+          "en": "IOPE",
+          "type": "Brand"
+        },
+        {
+          "kw": "메디힐",
+          "en": "MEDIHEAL",
+          "type": "Brand"
+        },
+        {
+          "kw": "어노브",
+          "en": "UNOVE",
+          "type": "Brand"
+        },
+        {
+          "kw": "아로마티카",
+          "en": "AROMATICA",
+          "type": "Brand"
+        },
+        {
+          "kw": "셀퓨전씨",
+          "en": "Cell Fusion C",
+          "type": "Brand"
+        },
+        {
+          "kw": "차앤박",
+          "en": "CNP",
+          "type": "Brand"
+        },
+        {
+          "kw": "듀이트리",
+          "en": "Dewytree",
+          "type": "Brand"
+        },
+        {
+          "kw": "웰라쥬",
+          "en": "Wellage",
+          "type": "Brand"
+        },
+        {
+          "kw": "티르티르",
+          "en": "TIRTIR",
+          "type": "Brand"
+        },
+        {
+          "kw": "힌스",
+          "en": "hince",
+          "type": "Brand"
+        },
+        {
+          "kw": "3CE",
+          "en": "3CE",
+          "type": "Brand"
+        },
+        {
+          "kw": "웨이크메이크",
+          "en": "WAKEMAKE",
+          "type": "Brand"
+        },
+        {
+          "kw": "데이지크",
+          "en": "dasique",
+          "type": "Brand"
+        },
+        {
+          "kw": "구달",
+          "en": "goodal",
+          "type": "Brand"
+        },
+        {
+          "kw": "비플레인",
+          "en": "beplain",
+          "type": "Brand"
+        },
+        {
+          "kw": "아비브",
+          "en": "Abib",
+          "type": "Brand"
+        },
+        {
+          "kw": "이즈앤트리",
+          "en": "Isntree",
+          "type": "Brand"
+        },
+        {
+          "kw": "퍼셀",
+          "en": "Purcell",
+          "type": "Brand"
+        },
+        {
+          "kw": "에이프릴스킨",
+          "en": "APRILSKIN",
+          "type": "Brand"
+        },
+        {
+          "kw": "메이크프렘",
+          "en": "make p:rem",
+          "type": "Brand"
+        },
+        {
+          "kw": "성분에디터",
+          "en": "SUNGBOON EDITOR",
+          "type": "Brand"
+        },
+        {
+          "kw": "믹순",
+          "en": "mixsoon",
+          "type": "Brand"
+        },
+        {
+          "kw": "투쿨포스쿨",
+          "en": "too cool for school",
+          "type": "Brand"
+        },
+        {
+          "kw": "파티온",
+          "en": "FATION",
+          "type": "Brand"
+        }
+      ]
+    },
+    {
       "id": "food",
       "title": "K-Food",
       "category_code": "50000006",
@@ -257,5 +510,16 @@
       ]
     }
   ],
-  "rank_min_level": 10.0
+  "rank_min_level": 10.0,
+  "breakout": {
+    "min_level": 10.0,
+    "week_rise": 0.25,
+    "prior_week_rise": 0.1,
+    "cooldown_days": 28,
+    "checkpoints": [
+      7,
+      14,
+      28
+    ]
+  }
 }

@@ -12,7 +12,7 @@ import os
 import sys
 from pathlib import Path
 
-from . import datalab
+from . import datalab, signals
 from .metrics import date_range, keyword_metrics, normalize_batch
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -154,6 +154,10 @@ def main(now=None, fetch=datalab.fetch_keywords, creds=None):
     (DAILY / f"{run_date}.json").write_text(text, encoding="utf-8")
     LATEST.write_text(text, encoding="utf-8")
     upsert_history(run_date, segments)
+    if cfg.get("breakout"):
+        ledger = signals.update(snapshot, cfg["breakout"])
+        signals.save(ledger)
+        print(f"Breakout calls today: {len(signals.new_on(ledger, run_date))}")
     print(f"Published snapshot {run_date}; failures: {failures or 'none'}")
     return 0
 
