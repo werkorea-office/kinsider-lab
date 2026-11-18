@@ -120,6 +120,18 @@ class CollectTest(unittest.TestCase):
             self.assertEqual(collect.LATEST.read_text(encoding="utf-8"), before)
 
 
+class RankingFloorTest(unittest.TestCase):
+    def test_low_volume_terms_never_ranked(self):
+        seg = {"items": [
+            {"is_anchor": False, "level": 5.0, "momentum": 2.0, "en": "tiny"},
+            {"is_anchor": False, "level": 50.0, "momentum": 0.3, "en": "big"},
+            {"is_anchor": False, "level": 3.0, "momentum": -0.9, "en": "tiny2"},
+        ]}
+        rising, cooling, _ = build.ranked(seg)
+        self.assertEqual([i["en"] for i in rising], ["big"])
+        self.assertEqual(cooling, [])
+
+
 class ResponseParsingTest(unittest.TestCase):
     def test_rejects_unexpected_shape(self):
         with self.assertRaises(datalab.DataLabError):

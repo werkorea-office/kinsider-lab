@@ -10,38 +10,162 @@
       "title": "K-Beauty",
       "category_code": "50000002",
       "category_name_kr": "화장품/미용",
-      "anchor": {"kw": "선크림", "en": "Sunscreen", "type": "Product type"},
+      "anchor": {
+        "kw": "선크림",
+        "en": "Sunscreen",
+        "type": "Product type"
+      },
       "keywords": [
-        {"kw": "선스틱", "en": "Sun stick", "type": "Product type"},
-        {"kw": "톤업크림", "en": "Tone-up cream", "type": "Product type"},
-        {"kw": "토너패드", "en": "Toner pads", "type": "Product type"},
-        {"kw": "앰플", "en": "Ampoule", "type": "Product type"},
-        {"kw": "수분크림", "en": "Moisturizing cream", "type": "Product type"},
-        {"kw": "클렌징오일", "en": "Cleansing oil", "type": "Product type"},
-        {"kw": "클렌징폼", "en": "Cleansing foam", "type": "Product type"},
-        {"kw": "마스크팩", "en": "Sheet masks", "type": "Product type"},
-        {"kw": "슬리핑마스크", "en": "Sleeping mask", "type": "Product type"},
-        {"kw": "쿠션팩트", "en": "Cushion compact", "type": "Product type"},
-        {"kw": "립틴트", "en": "Lip tint", "type": "Product type"},
-        {"kw": "아이크림", "en": "Eye cream", "type": "Product type"},
-        {"kw": "미스트", "en": "Face mist", "type": "Product type"},
-        {"kw": "필링젤", "en": "Peeling gel", "type": "Product type"},
-        {"kw": "바디로션", "en": "Body lotion", "type": "Product type"},
-        {"kw": "헤어에센스", "en": "Hair essence", "type": "Product type"},
-        {"kw": "탈모샴푸", "en": "Anti-hair-loss shampoo", "type": "Product type"},
-        {"kw": "PDRN", "en": "PDRN", "type": "Ingredient"},
-        {"kw": "레티놀", "en": "Retinol", "type": "Ingredient"},
-        {"kw": "나이아신아마이드", "en": "Niacinamide", "type": "Ingredient"},
-        {"kw": "시카크림", "en": "Cica (centella) cream", "type": "Ingredient"},
-        {"kw": "어성초", "en": "Heartleaf (houttuynia)", "type": "Ingredient"},
-        {"kw": "콜라겐", "en": "Collagen", "type": "Ingredient"},
-        {"kw": "히알루론산", "en": "Hyaluronic acid", "type": "Ingredient"},
-        {"kw": "펩타이드", "en": "Peptide", "type": "Ingredient"},
-        {"kw": "비타민C세럼", "en": "Vitamin C serum", "type": "Ingredient"},
-        {"kw": "세라마이드", "en": "Ceramide", "type": "Ingredient"},
-        {"kw": "판테놀", "en": "Panthenol", "type": "Ingredient"},
-        {"kw": "엑소좀", "en": "Exosome", "type": "Ingredient"},
-        {"kw": "아젤라익산", "en": "Azelaic acid", "type": "Ingredient"}
+        {
+          "kw": "선스틱",
+          "en": "Sun stick",
+          "type": "Product type"
+        },
+        {
+          "kw": "톤업크림",
+          "en": "Tone-up cream",
+          "type": "Product type"
+        },
+        {
+          "kw": "토너패드",
+          "en": "Toner pads",
+          "type": "Product type"
+        },
+        {
+          "kw": "앰플",
+          "en": "Ampoule",
+          "type": "Product type"
+        },
+        {
+          "kw": "수분크림",
+          "en": "Moisturizing cream",
+          "type": "Product type"
+        },
+        {
+          "kw": "클렌징오일",
+          "en": "Cleansing oil",
+          "type": "Product type"
+        },
+        {
+          "kw": "클렌징폼",
+          "en": "Cleansing foam",
+          "type": "Product type"
+        },
+        {
+          "kw": "마스크팩",
+          "en": "Sheet masks",
+          "type": "Product type"
+        },
+        {
+          "kw": "슬리핑마스크",
+          "en": "Sleeping mask",
+          "type": "Product type"
+        },
+        {
+          "kw": "쿠션팩트",
+          "en": "Cushion compact",
+          "type": "Product type"
+        },
+        {
+          "kw": "립틴트",
+          "en": "Lip tint",
+          "type": "Product type"
+        },
+        {
+          "kw": "아이크림",
+          "en": "Eye cream",
+          "type": "Product type"
+        },
+        {
+          "kw": "미스트",
+          "en": "Face mist",
+          "type": "Product type"
+        },
+        {
+          "kw": "필링젤",
+          "en": "Peeling gel",
+          "type": "Product type"
+        },
+        {
+          "kw": "바디로션",
+          "en": "Body lotion",
+          "type": "Product type"
+        },
+        {
+          "kw": "헤어에센스",
+          "en": "Hair essence",
+          "type": "Product type"
+        },
+        {
+          "kw": "탈모샴푸",
+          "en": "Anti-hair-loss shampoo",
+          "type": "Product type"
+        },
+        {
+          "kw": "PDRN",
+          "en": "PDRN",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "레티놀",
+          "en": "Retinol",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "나이아신아마이드",
+          "en": "Niacinamide",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "시카크림",
+          "en": "Cica (centella) cream",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "어성초",
+          "en": "Heartleaf (houttuynia)",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "콜라겐",
+          "en": "Collagen",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "히알루론산",
+          "en": "Hyaluronic acid",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "펩타이드",
+          "en": "Peptide",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "비타민C세럼",
+          "en": "Vitamin C serum",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "세라마이드",
+          "en": "Ceramide",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "판테놀",
+          "en": "Panthenol",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "엑소좀",
+          "en": "Exosome",
+          "type": "Ingredient"
+        },
+        {
+          "kw": "아젤라익산",
+          "en": "Azelaic acid",
+          "type": "Ingredient"
+        }
       ]
     },
     {
@@ -49,24 +173,89 @@
       "title": "K-Food",
       "category_code": "50000006",
       "category_name_kr": "식품",
-      "anchor": {"kw": "라면", "en": "Ramyeon (instant noodles)", "type": "Product type"},
+      "anchor": {
+        "kw": "라면",
+        "en": "Ramyeon (instant noodles)",
+        "type": "Product type"
+      },
       "keywords": [
-        {"kw": "불닭볶음면", "en": "Buldak spicy noodles", "type": "Product"},
-        {"kw": "떡볶이", "en": "Tteokbokki", "type": "Product type"},
-        {"kw": "냉동김밥", "en": "Frozen gimbap", "type": "Product type"},
-        {"kw": "김치", "en": "Kimchi", "type": "Product type"},
-        {"kw": "고추장", "en": "Gochujang", "type": "Product type"},
-        {"kw": "김부각", "en": "Seaweed chips (gim-bugak)", "type": "Product type"},
-        {"kw": "조미김", "en": "Seasoned laver", "type": "Product type"},
-        {"kw": "약과", "en": "Yakgwa (honey cookie)", "type": "Product type"},
-        {"kw": "누룽지", "en": "Nurungji (scorched rice)", "type": "Product type"},
-        {"kw": "곤약젤리", "en": "Konjac jelly", "type": "Product type"},
-        {"kw": "단백질바", "en": "Protein bar", "type": "Product type"},
-        {"kw": "단백질쉐이크", "en": "Protein shake", "type": "Product type"},
-        {"kw": "그릭요거트", "en": "Greek yogurt", "type": "Product type"},
-        {"kw": "제로음료", "en": "Zero-sugar drinks", "type": "Product type"},
-        {"kw": "저당소스", "en": "Low-sugar sauce", "type": "Product type"}
+        {
+          "kw": "불닭볶음면",
+          "en": "Buldak spicy noodles",
+          "type": "Product"
+        },
+        {
+          "kw": "떡볶이",
+          "en": "Tteokbokki",
+          "type": "Product type"
+        },
+        {
+          "kw": "냉동김밥",
+          "en": "Frozen gimbap",
+          "type": "Product type"
+        },
+        {
+          "kw": "김치",
+          "en": "Kimchi",
+          "type": "Product type"
+        },
+        {
+          "kw": "고추장",
+          "en": "Gochujang",
+          "type": "Product type"
+        },
+        {
+          "kw": "김부각",
+          "en": "Seaweed chips (gim-bugak)",
+          "type": "Product type"
+        },
+        {
+          "kw": "조미김",
+          "en": "Seasoned laver",
+          "type": "Product type"
+        },
+        {
+          "kw": "약과",
+          "en": "Yakgwa (honey cookie)",
+          "type": "Product type"
+        },
+        {
+          "kw": "누룽지",
+          "en": "Nurungji (scorched rice)",
+          "type": "Product type"
+        },
+        {
+          "kw": "곤약젤리",
+          "en": "Konjac jelly",
+          "type": "Product type"
+        },
+        {
+          "kw": "단백질바",
+          "en": "Protein bar",
+          "type": "Product type"
+        },
+        {
+          "kw": "단백질쉐이크",
+          "en": "Protein shake",
+          "type": "Product type"
+        },
+        {
+          "kw": "그릭요거트",
+          "en": "Greek yogurt",
+          "type": "Product type"
+        },
+        {
+          "kw": "제로음료",
+          "en": "Zero-sugar drinks",
+          "type": "Product type"
+        },
+        {
+          "kw": "저당소스",
+          "en": "Low-sugar sauce",
+          "type": "Product type"
+        }
       ]
     }
-  ]
+  ],
+  "rank_min_level": 10.0
 }

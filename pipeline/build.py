@@ -67,8 +67,15 @@ def sparkline(series, w=120, h=28):
 
 # ---------- data views ----------
 
+def rank_min_level():
+    cfg = json.loads((ROOT / "config" / "watchlist.json").read_text(encoding="utf-8"))
+    return float(cfg.get("rank_min_level", 0))
+
+
 def ranked(seg):
-    items = [i for i in seg["items"] if not i["is_anchor"]]
+    # Low-volume terms swing wildly in % terms; they are kept in the data but never ranked.
+    floor = rank_min_level()
+    items = [i for i in seg["items"] if not i["is_anchor"] and i["level"] >= floor]
     rising = sorted([i for i in items if i["momentum"] is not None and i["momentum"] > 0],
                     key=lambda i: i["momentum"], reverse=True)
     cooling = sorted([i for i in items if i["momentum"] is not None and i["momentum"] < 0],
@@ -288,7 +295,8 @@ equals 100. A term with an index of 50 drew about half as many shopping-search c
 the last 7 days.</p>
 <h2>Momentum</h2>
 <p>Momentum compares a term's average index over the most recent 7 days with its average over the 28 days
-before. Terms with very low volume are left out of momentum rankings to avoid noise.</p>
+before. Terms whose demand index is below 10 are left out of the rising and cooling rankings and the
+headline, because small volumes produce large, misleading percentage swings. Their data is still archived.</p>
 <h2>What this is not</h2>
 <ul>
 <li>It is not sales data and not a count of searches. It shows relative interest.</li>
