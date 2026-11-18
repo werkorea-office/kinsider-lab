@@ -1,460 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-INSIDER LAB | Domestic Market Intelligence & Sourcing</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .font-mono-code { font-family: 'JetBrains Mono', monospace; }
-        .hero-bg {
-            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 80%);
-        }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glow-pink {
-            box-shadow: 0 0 60px -15px rgba(236, 72, 153, 0.25);
-        }
-        .grid-pattern {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K-INSIDER LAB | Korea consumer demand, measured daily</title>
+<meta name="description" content="Daily demand index for K-beauty and K-food categories and ingredients, measured from Korean shopping-search data. For importers, distributors and brand teams.">
+<link rel="canonical" href="https://www.kinsider-lab.com/">
+<meta property="og:title" content="K-INSIDER LAB | Korea consumer demand, measured daily">
+<meta property="og:description" content="Daily demand index for K-beauty and K-food categories and ingredients, measured from Korean shopping-search data. For importers, distributors and brand teams.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+
 </head>
-<body class="bg-[#070a12] text-slate-100 antialiased selection:bg-pink-500 selection:text-white">
-
-    <!-- Top Ticker Bar -->
-    <div class="bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white text-xs font-medium py-2 px-6 flex justify-between items-center border-b border-white/10">
-        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
-            <span class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="font-bold tracking-wider uppercase text-[11px]">K-INSIDER ENGINE: ACTIVE</span>
-                <span class="hidden md:inline text-pink-200">| Korea Retail & B2B Sourcing Intelligence</span>
-            </span>
-            <span id="last-updated-badge" class="text-[11px] text-pink-100 font-mono-code hidden sm:inline">Data Sync: Live Verified</span>
-        </div>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="max-w-[1400px] mx-auto px-6 py-5 flex justify-between items-center sticky top-0 bg-[#070a12]/90 backdrop-blur-xl z-50 border-b border-slate-800/80">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-gradient-to-tr from-pink-600 to-rose-500 rounded-xl flex items-center justify-center font-black text-white text-2xl shadow-lg shadow-pink-500/25">K</div>
-            <div class="flex flex-col">
-                <span class="text-xl font-extrabold tracking-tight text-white leading-none">K-INSIDER<span class="text-pink-500">.LAB</span></span>
-                <span class="text-[10px] text-slate-400 tracking-widest font-mono-code uppercase mt-0.5">Global B2B Sourcing Intelligence</span>
-            </div>
-        </div>
-        
-        <div class="hidden lg:flex items-center space-x-10 text-sm font-semibold text-slate-300">
-            <a href="#top10" class="hover:text-pink-400 transition-colors">4-Category Index</a>
-            <a href="#sources" class="hover:text-pink-400 transition-colors">Data Sources</a>
-            <a href="#sample" class="hover:text-pink-400 transition-colors">Executive Briefing</a>
-            <a href="#sourcing" class="hover:text-pink-400 transition-colors">Supplier Matching</a>
-        </div>
-
-        <a href="#subscribe" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-5 py-3 rounded-xl transition-all shadow-lg shadow-pink-600/30">
-            Get Intelligence Report
-        </a>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
     </nav>
+  </div>
+</header>
+<main>
 
-    <!-- Hero Section -->
-    <header class="hero-bg grid-pattern pt-20 pb-20 px-6 text-center relative overflow-hidden border-b border-slate-800/80">
-        <div class="max-w-5xl mx-auto relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-semibold px-4 py-2 rounded-full mb-8 shadow-inner">
-                <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-                <span>Direct Korea Data Engine across Beauty, Aesthetics, Food & OEM</span>
-            </div>
-            
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.1]">
-                Access Rising <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400">Korea-Local Trends</span> Before Global Market Launch
-            </h1>
-            
-            <p class="text-lg md:text-xl text-slate-400 mt-8 max-w-3xl mx-auto font-normal leading-relaxed">
-                Synthesizing domestic Korean channels across Beauty, Aesthetics, Food, and OEM/ODM Sourcing into structured buyer intelligence reports.
-            </p>
-            
-            <!-- Hero Subscription Form -->
-            <div id="subscribe" class="mt-10 max-w-xl mx-auto">
-                <form action="https://formspree.io/f/mjygjowd" method="POST" class="flex flex-col sm:flex-row gap-3">
-                    <input type="email" name="email" placeholder="Enter your corporate email (e.g. buyer@retailer.com)" required 
-                        class="w-full px-5 py-4 rounded-xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-sm shadow-inner">
-                    <button type="submit" 
-                        class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-pink-600/30 transition-all text-sm whitespace-nowrap">
-                        Subscribe Free Briefing
-                    </button>
-                </form>
-                <div class="flex items-center justify-center gap-6 mt-4 text-xs text-slate-500 font-mono-code">
-                    <span>✓ Weekly Market Summary</span>
-                    <span>✓ Verified Sourcing Contacts</span>
-                    <span>✓ Privacy Protected</span>
-                </div>
-            </div>
-        </div>
-    </header>
+<section class="hero"><div class="wrap">
+  <p class="eyebrow">Korea consumer demand · launching</p>
+  <h1>See what Korea is shopping for, before it ships abroad.</h1>
+  <p class="lede">K-INSIDER LAB turns Korean online-shopping search data into a daily demand index
+  for K-beauty and K-food categories and ingredients. Built for importers, distributors and brand teams.</p>
+  <div class="notice">The first daily brief is published as soon as the data connection goes live.
+  Every number on this site will come from Naver DataLab and be dated. Nothing is estimated or filled in.</div>
+</div></section>
 
-    <!-- Verified Domestic Data Coverage -->
-    <section id="sources" class="bg-slate-950 border-b border-slate-800/80 py-12 px-6">
-        <div class="max-w-[1400px] mx-auto text-center">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono-code mb-4 block">DOMESTIC KOREA DATA COVERAGE</span>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm font-semibold text-slate-300">
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">Olive Young & Hwahae Rankings</div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">Medical Aesthetic & Clinic Demand</div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">K-Food Global Viral Index</div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">CGMP OEM/ODM Sourcing Network</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Top 3 Highlights -->
-    <section id="radar" class="py-20 px-6 bg-[#070a12]">
-        <div class="max-w-[1400px] mx-auto">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                <div>
-                    <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">KOREA MARKET SPOTLIGHT</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-white mt-1">Featured Emerging Hero Items</h2>
-                </div>
-            </div>
-
-            <div id="radar-cards-container" class="grid lg:grid-cols-3 gap-8">
-                <!-- Dynamically populated via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- 4-Category Live Table Section -->
-    <section id="top10" class="py-16 px-6 bg-slate-950/80 border-t border-slate-800/80">
-        <div class="max-w-[1400px] mx-auto">
-            <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">LOCAL KOREAN MARKET INDEX</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-white mt-1">4-Category Live Intelligence Feed</h2>
-                </div>
-                
-                <!-- 4대 카테고리 탭 버튼 -->
-                <div class="flex flex-wrap gap-2.5 font-mono-code text-xs">
-                    <button onclick="switchCategory('beauty', this)" data-cat="beauty" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30">💄 K-Beauty</button>
-                    <button onclick="switchCategory('aesthetics', this)" data-cat="aesthetics" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-cyan-400 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10">💉 Aesthetics</button>
-                    <button onclick="switchCategory('food', this)" data-cat="food" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-amber-400 border-amber-500/40 hover:border-amber-400 hover:bg-amber-500/10">🍲 K-Food</button>
-                    <button onclick="switchCategory('oem', this)" data-cat="oem" class="cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-emerald-400 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10">🏭 OEM/ODM</button>
-                </div>
-            </div>
-
-            <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-900/90 border-b border-slate-800 text-xs font-mono-code text-slate-400 uppercase tracking-wider">
-                                <th class="py-4 px-6">Rank</th>
-                                <th class="py-4 px-6">Velocity</th>
-                                <th class="py-4 px-6">Brand / Supplier</th>
-                                <th class="py-4 px-6">Product / Solution</th>
-                                <th class="py-4 px-6">Category</th>
-                                <th class="py-4 px-6">Korea Market Insight</th>
-                            </tr>
-                        </thead>
-                        <tbody id="top10-table-body" class="divide-y divide-slate-800/60 text-sm text-slate-300">
-                            <!-- Populated dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Sample Briefing Preview -->
-    <section id="sample" class="py-24 bg-[#070a12] border-t border-slate-800/80 px-6">
-        <div class="max-w-[1200px] mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">SAMPLE DISPATCH</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2">Executive Sourcing Briefing Sample</h2>
-            </div>
-
-            <!-- Terminal Mockup -->
-            <div class="bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
-                <div class="bg-slate-900/90 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-xs font-mono-code text-slate-400 ml-4">K-INSIDER_Briefing_PDRN_Ampoule.md</span>
-                    </div>
-                    <span class="text-[11px] font-mono-code bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">STATUS: VERIFIED</span>
-                </div>
-
-                <div class="p-8 font-sans space-y-6 text-sm text-slate-300">
-                    <div>
-                        <span class="text-xs font-mono-code text-pink-400">[LOCAL TREND BREAKOUT]</span>
-                        <h4 class="text-2xl font-bold text-white mt-1">PDRN (Salmon DNA) Barrier Repair Ampoules</h4>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-800 space-y-3">
-                        <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono-code">Korean Local Sentiment & Review Analysis:</h5>
-                        <p class="text-slate-300 leading-relaxed text-sm">
-                            High volume of Korean consumer reviews on Hwahae comparing topical PDRN with clinical skin booster injections. Domestic users report high satisfaction in rapid skin barrier recovery and post-trouble scar care.
-                        </p>
-                    </div>
-
-                    <div class="grid md:grid-cols-3 gap-4 font-mono-code text-xs">
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <span class="text-pink-400 font-bold block mb-1">SOURCING TIP</span>
-                            Target formulas under $28 MSRP with clear percentage labeling of PDRN.
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <span class="text-purple-400 font-bold block mb-1">MARKETING ANGLE</span>
-                            Position as "No-Needle Derm Booster" for western markets.
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <span class="text-emerald-400 font-bold block mb-1">COMPLIANCE NOTE</span>
-                            Ensure FDA cosmetic labelling guidelines for OTC barrier claims.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sourcing Agency & Brokerage Feature -->
-    <section id="sourcing" class="py-20 px-6 bg-slate-950 border-t border-slate-800 text-center">
-        <div class="max-w-4xl mx-auto">
-            <span class="text-xs font-bold text-pink-500 uppercase tracking-widest font-mono-code">DIRECT KOREA NETWORK</span>
-            <h2 class="text-3xl md:text-5xl font-black text-white mt-2 mb-6">Need Direct Brand or OEM/ODM Supplier Intro?</h2>
-            <p class="text-slate-400 text-base mb-10 max-w-2xl mx-auto">
-                Our local team in Korea bridges global buyers directly with verified brand owners and CGMP-certified cosmetic manufacturers for private label & distribution.
-            </p>
-
-            <form action="https://formspree.io/f/mjygjowd" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-                <input type="email" name="email" placeholder="Enter business email for Sourcing Inquiry" required 
-                    class="w-full px-5 py-4 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 text-sm">
-                <button type="submit" 
-                    class="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl transition text-sm whitespace-nowrap">
-                    Inquire Sourcing
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-slate-900 bg-slate-950 text-xs text-slate-500">
-        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div class="text-left space-y-1.5 leading-relaxed">
-                <p class="font-bold text-slate-200 text-sm">K-INSIDER LAB (디시전에스 / DECISION S)</p>
-                <p><strong>CEO:</strong> Duck-Hee Lee (이덕희)</p>
-                <p><strong>Business Registration No.:</strong> 666-45-01149 | <strong>Mail Order License:</strong> 2026-충북충주-0005호</p>
-                <p><strong>Address:</strong> 3F, 235-1, Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea (충청북도 충주시 갱고개로 235-1, 3층)</p>
-                <p><strong>Contact:</strong> werkorea.office@gmail.com | Global Market Intelligence & Beauty Sourcing Agency</p>
-            </div>
-            <div class="flex flex-wrap items-center gap-4 text-slate-400">
-                <a href="#subscribe" class="hover:text-pink-400 transition-colors">Privacy Policy</a>
-                <span>•</span>
-                <a href="#subscribe" class="hover:text-pink-400 transition-colors">Terms of Service</a>
-                <span>•</span>
-                <a href="#sourcing" class="hover:text-pink-400 transition-colors">OEM/ODM Sourcing Inquiry</a>
-            </div>
-        </div>
-        <div class="text-center mt-8 pt-8 border-t border-slate-900/60 text-slate-600">
-            &copy; 2026 K-INSIDER LAB. Powered by DECISION S. All rights reserved.
-        </div>
-    </footer>
-
-    <!-- JS Ingestion with 4-Category Support (10-Items Each Baseline) -->
-    <script>
-        let allCategoryData = {};
-        let currentCategory = 'beauty';
-
-        // 4대 카테고리 완전 채움 베이스라인 데이터 (각 10개씩)
-        const defaultCategories = {
-            beauty: [
-                { rank: 1, velocity: "+44", brand_en: "Beauty of Joseon", product_en: "Relief Sun: Rice + Probiotics", category: "Sun Care", ai_summary: "Surging demand in Korea due to viral reviews. High potential for global re-sellers." },
-                { rank: 2, velocity: "+10", brand_en: "VT Cosmetics", product_en: "Reedle Shot 100 Essence", category: "Serum / Essence", ai_summary: "Micro-needle texture ingredient reviews exploding on domestic platforms." },
-                { rank: 3, velocity: "+77", brand_en: "Anua", product_en: "Heartleaf 77% Soothing Toner", category: "Toner", ai_summary: "Trouble care & soothing trend pushing steep ranking velocity." },
-                { rank: 4, velocity: "+31", brand_en: "Mediheal", product_en: "Madecassoside Blemish Pad", category: "Toner Pad", ai_summary: "Daily skin barrier recovery demand rising among local users." },
-                { rank: 5, velocity: "+45", brand_en: "Biodance", product_en: "Bio-Collagen Real Deep Mask", category: "Sheet Mask", ai_summary: "Overnight hydrogel collagen mask trending heavily in local retail." },
-                { rank: 6, velocity: "+56", brand_en: "Round Lab", product_en: "Birch Juice Moisturizing Sunscreen", category: "Sun Care", ai_summary: "Non-whitecast hydrating daily UV protection standard." },
-                { rank: 7, velocity: "+33", brand_en: "COSRX", product_en: "Advanced Snail 96 Mucin Power Essence", category: "Essence", ai_summary: "Steady-seller maintaining high rank in Korean online stores." },
-                { rank: 8, velocity: "+67", brand_en: "Sungboon Editor", product_en: "Green Tomato Pore Lifting Ampoule", category: "Ampoule", ai_summary: "Pore tightening targeting proven in domestic channels." },
-                { rank: 9, velocity: "+21", brand_en: "Torriden", product_en: "Dive-In Low Molecule Hyaluronic Acid Serum", category: "Serum", ai_summary: "Inner-dryness hydrating serum top ranking in Olive Young." },
-                { rank: 10, velocity: "+78", brand_en: "numbuzin", product_en: "No.3 Skin Softening Serum", category: "Serum", ai_summary: "Fermented ingredient skin texture improvement reviews active." }
-            ],
-            aesthetics: [
-                { rank: 1, velocity: "+50", brand_en: "Rejuran", product_en: "Healer Turnover Ampoule Dual Effect", category: "Skin Booster", ai_summary: "Surging demand in global clinics due to PDRN medical aesthetic linkage." },
-                { rank: 2, velocity: "+42", brand_en: "Inmode / Oligio", product_en: "Post-RF Thermal Gel Cream", category: "Post-Treatment", ai_summary: "High clinic demand for rapid soothing post high-frequency RF procedures." },
-                { rank: 3, velocity: "+38", brand_en: "Medytox / Hugel", product_en: "Botulinum Peptide Recovery Cream", category: "Dermo-Cosmetic", ai_summary: "Functional homecare formulation expanding among Gangnam clinic users." },
-                { rank: 4, velocity: "+29", brand_en: "Dongkook Pharm", product_en: "Centellian24 Madeca Cream Season 6", category: "Barrier Repair", ai_summary: "Pharma-grade TECA extract driving steady high volume sales." },
-                { rank: 5, velocity: "+61", brand_en: "PharmaResearch", product_en: "Rejuran Derma Healer Moisture Treatment", category: "PDRN Care", ai_summary: "Patented c-PDRN technology targeting anti-aging & skin firmness." },
-                { rank: 6, velocity: "+35", brand_en: "Exosome Science", product_en: "ASCE+ Signal Sore Concentrate", category: "Exosome", ai_summary: "Next-gen stem cell exosome homecare adoption rising rapidly." },
-                { rank: 7, velocity: "+19", brand_en: "Histolab", product_en: "EGF Complex Ampoule 50%", category: "Clinic Professional", ai_summary: "Dermatologist-distributed post-laser skin regeneration serum." },
-                { rank: 8, velocity: "+53", brand_en: "CellFusion C", product_en: "Laser Sunscreen 100 SPF50+", category: "Medical Sun Care", ai_summary: "Hypoallergenic post-procedure sun protection baseline." },
-                { rank: 9, velocity: "+40", brand_en: "EASYDEW", product_en: "DW-EGF Melatoning One Day Ampoule", category: "Pigmentation", ai_summary: "Medical-grade DW-EGF targeting hyperpigmentation & blemishes." },
-                { rank: 10, velocity: "+27", brand_en: "Oracle Medical", product_en: "Dermasys Hydro Mask", category: "Soothing Sheet", ai_summary: "Hospital-exclusive calming hydrogel mask entering consumer retail." }
-            ],
-            food: [
-                { rank: 1, velocity: "+90", brand_en: "Samyang", product_en: "Buldak Carbonara Hot Chicken Flavor", category: "K-Spicy / Sauce", ai_summary: "Surging global demand due to TikTok mukbang challenges & retail expansion." },
-                { rank: 2, velocity: "+84", brand_en: "Nongshim", product_en: "Shin Ramyun Tom Yum & Toomba Edition", category: "Instant Noodle", ai_summary: "Fusion spicy flavor line expanding globally with record export velocity." },
-                { rank: 3, velocity: "+65", brand_en: "CJ CheilJedang", product_en: "Bibigo Frozen Kimchi Mandu", category: "Frozen K-Food", ai_summary: "High demand across US & European supermarket chains for healthy snacks." },
-                { rank: 4, velocity: "+71", brand_en: "Ottogi", product_en: "K-BBQ Honey Garlic Sesame Dip", category: "Sauce / Seasoning", ai_summary: "Western demand spike for authentic Korean BBQ restaurant-grade sauces." },
-                { rank: 5, velocity: "+48", brand_en: "HBAF", product_en: "Honey Butter Almond & Roasted Corn", category: "Nut Snack", ai_summary: "Iconic souvenir snack maintaining steady cross-border e-commerce momentum." },
-                { rank: 6, velocity: "+59", brand_en: "Orion", product_en: "Turtle Chips Sweet Vanilla & Choco", category: "Confectionery", ai_summary: "Multi-layered crunchy snack ranking top in Asian & US snack categories." },
-                { rank: 7, velocity: "+33", brand_en: "Binggrae", product_en: "Banana Flavored Milk Drinks", category: "Beverage", ai_summary: "Unbeatable RTD Korean beverage favorite with sustained viral popularity." },
-                { rank: 8, velocity: "+76", brand_en: "K-Bio Ferment", product_en: "Sparkling Yuzu Kombucha Powder", category: "Healthy Drinks", ai_summary: "Zero-sugar sticks trending heavily among wellness-conscious buyers." },
-                { rank: 9, velocity: "+52", brand_en: "Samyang Sauce", product_en: "Buldak Original Squeeze Bottle", category: "Condiment", ai_summary: "Standalone hot sauce sales expanding rapidly into foodservice channels." },
-                { rank: 10, velocity: "+41", brand_en: "Pulmuone", product_en: "Tofu Tendon Spicy Rice Cake (Tteokbokki)", category: "Meal Kit", ai_summary: "Plant-based healthy Korean street food meal kit gaining traction." }
-            ],
-            oem: [
-                { rank: 1, velocity: "+65", brand_en: "Cosmax / Kolmar", product_en: "Custom Sun-Serum Turnkey Solution", category: "Sun Care OEM", ai_summary: "Surging inquiries from global indie brands for low-MOQ sun care manufacturing." },
-                { rank: 2, velocity: "+58", brand_en: "Cosmecca Korea", product_en: "Micro-Needle PDRN Patch Fabrication", category: "Patch / Dissolving", ai_summary: "Patented microneedle delivery technology high demand for spot treatment." },
-                { rank: 3, velocity: "+70", brand_en: "Intercos Korea", product_en: "Hybrid Color-Changing Skin Tint Balm", category: "Make-up Hybrid", ai_summary: "Skincare-infused color cosmetic formulations gaining EU buyer focus." },
-                { rank: 4, velocity: "+44", brand_en: "Hankook Cosmetics", product_en: "Fermented Rice Water Brightening Line", category: "Clean Beauty", ai_summary: "Sustainable upcycled Korean ingredient turnkey ODM contracts rising." },
-                { rank: 5, velocity: "+39", brand_en: "Nowcos", product_en: "Airless Cushion Foundation Refill Kit", category: "Packaging OEM", ai_summary: "Eco-friendly mono-material refill packaging solutions in high demand." },
-                { rank: 6, velocity: "+62", brand_en: "BioCostech", product_en: "Hydrogel Overnight Sheet Mask Line", category: "Sheet Mask OEM", ai_summary: "High-density collagen hydrogel manufacturing capacity bookings full." },
-                { rank: 7, velocity: "+31", brand_en: "MegaCos", product_en: "Vegan Certified Calming Toner Pads", category: "Pad OEM", ai_summary: "Biodegradable dual-textured pad fabric ODM production scaling up." },
-                { rank: 8, velocity: "+55", brand_en: "KOLMAR Korea", product_en: "Next-Gen Non-Nano Mineral Filter Sun", category: "Sun Care Tech", ai_summary: "US FDA compliant OTC sun relief formula turnkey manufacturing." },
-                { rank: 9, velocity: "+47", brand_en: "COSMAX", product_en: "Microbiome Balance Scalp Tonic", category: "Hair & Scalp", ai_summary: "Anti-hair loss & scalp barrier care ODM formulas expanding fast." },
-                { rank: 10, velocity: "+36", brand_en: "ICURE", product_en: "Transdermal Skin Absorption Patch", category: "TDDS Bio Tech", ai_summary: "Pharmaceutical transdermal patch tech applied to aesthetic skincare." }
-            ]
-        };
-
-        document.addEventListener("DOMContentLoaded", async function() {
-            allCategoryData = defaultCategories;
-
-            try {
-                let response = await fetch("./data/processed_latest.json");
-                if (!response.ok) response = await fetch("./data/history.json");
-
-                if (response.ok) {
-                    const json = await response.json();
-                    
-                    if (json && json.categories) {
-                        allCategoryData = json.categories;
-                        const lastBadge = document.getElementById("last-updated-badge");
-                        if (json.last_updated) {
-                            lastBadge.innerText = `Data Sync: ${json.last_updated} Live Active`;
-                        }
-                    }
-                }
-            } catch (err) {
-                console.log("Using default multi-category baseline data:", err);
-            }
-
-            // 초기 뷰티 카테고리 렌더링
-            renderCategoryView('beauty');
-        });
-
-        // 탭 전환 핸들러
-        function switchCategory(catKey, btnElement) {
-            currentCategory = catKey;
-
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                const type = btn.getAttribute('data-cat');
-                if (type === 'beauty') {
-                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-pink-400 border-pink-500/40 hover:border-pink-400 hover:bg-pink-500/10";
-                } else if (type === 'aesthetics') {
-                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-cyan-400 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10";
-                } else if (type === 'food') {
-                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-amber-400 border-amber-500/40 hover:border-amber-400 hover:bg-amber-500/10";
-                } else if (type === 'oem') {
-                    btn.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-slate-900 text-emerald-400 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10";
-                }
-            });
-
-            if (catKey === 'beauty') {
-                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-pink-600 text-white border-pink-500 shadow-lg shadow-pink-600/30";
-            } else if (catKey === 'aesthetics') {
-                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-600/30";
-            } else if (catKey === 'food') {
-                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-600/30";
-            } else if (catKey === 'oem') {
-                btnElement.className = "cat-btn px-4 py-2.5 rounded-xl border font-bold transition-all bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-600/30";
-            }
-
-            renderCategoryView(catKey);
-        }
-
-        // 화면 렌더링 함수
-        function renderCategoryView(catKey) {
-            const list = allCategoryData[catKey] || [];
-
-            renderCards(list.slice(0, 3));
-            renderTable(list);
-        }
-
-        function renderCards(top3) {
-            const cardsContainer = document.getElementById("radar-cards-container");
-            cardsContainer.innerHTML = "";
-
-            if (top3.length === 0) {
-                cardsContainer.innerHTML = `<p class="col-span-full text-center text-slate-500 py-8 font-mono-code">No items available for this category yet.</p>`;
-                return;
-            }
-
-            const colors = [
-                "text-pink-400 bg-pink-500/10 border-pink-500/20",
-                "text-purple-400 bg-purple-500/10 border-purple-500/20",
-                "text-blue-400 bg-blue-500/10 border-blue-500/20"
-            ];
-
-            top3.forEach((item, index) => {
-                const badgeStyle = colors[index % colors.length];
-                const rankStr = item.rank || (index + 1);
-                const velStr = item.velocity || "+30";
-                const brand = item.brand_en || "K-Brand";
-                const prod = item.product_en || "Hero Product Item";
-                const cat = item.category || "General";
-
-                cardsContainer.innerHTML += `
-                    <div class="glass-panel p-8 rounded-2xl hover:border-pink-500/50 transition-all glow-pink relative flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-6">
-                                <span class="text-xs font-black border px-3 py-1 rounded-lg ${badgeStyle}">RANK #${rankStr}</span>
-                                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono-code">${velStr}</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-2">${brand}</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed mb-6">${prod}</p>
-                        </div>
-                        <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
-                            <span class="font-mono-code">${cat}</span>
-                            <span class="text-pink-400 font-semibold">High Demand</span>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function renderTable(items) {
-            const tableBody = document.getElementById("top10-table-body");
-            tableBody.innerHTML = "";
-
-            if (items.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500 font-mono-code">No data available for this category.</td></tr>`;
-                return;
-            }
-
-            items.forEach((item, index) => {
-                const rankStr = item.rank || (index + 1);
-                const velStr = item.velocity || "+10";
-                const brand = item.brand_en || "-";
-                const prod = item.product_en || "-";
-                const cat = item.category || "Market";
-                const summary = item.ai_summary || "-";
-
-                tableBody.innerHTML += `
-                    <tr class="hover:bg-slate-900/50 transition-colors">
-                        <td class="py-4 px-6 font-mono-code font-bold text-pink-400">#${rankStr}</td>
-                        <td class="py-4 px-6 font-mono-code text-emerald-400 font-bold">${velStr}</td>
-                        <td class="py-4 px-6 font-bold text-white">${brand}</td>
-                        <td class="py-4 px-6 text-slate-200">${prod}</td>
-                        <td class="py-4 px-6 text-xs font-mono-code text-purple-300">${cat}</td>
-                        <td class="py-4 px-6 text-xs text-slate-400">${summary}</td>
-                    </tr>
-                `;
-            });
-        }
-    </script>
+<section class="subscribe" id="subscribe">
+  <div class="wrap sub-in">
+    <div>
+      <h2>The weekly Korea demand brief</h2>
+      <p>Every Monday: the categories and ingredients gaining ground in Korean online shopping,
+      before they reach export shelves. Free for buyers, distributors and brand teams.</p>
+    </div>
+    <form action="https://formspree.io/f/mjygjowd" method="POST" class="sub-form">
+      <input type="hidden" name="_subject" value="K-INSIDER LAB weekly brief signup">
+      <input type="hidden" name="form" value="weekly-brief">
+      <label class="sr" for="email">Business email</label>
+      <input id="email" type="email" name="email" required placeholder="you@company.com">
+      <input type="text" name="company" placeholder="Company (optional)">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

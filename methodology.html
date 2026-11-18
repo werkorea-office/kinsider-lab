@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology | K-INSIDER LAB</title>
+<meta name="description" content="How the K-INSIDER LAB demand index is calculated.">
+<link rel="canonical" href="https://www.kinsider-lab.com/methodology.html">
+<meta property="og:title" content="Methodology | K-INSIDER LAB">
+<meta property="og:description" content="How the K-INSIDER LAB demand index is calculated.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/methodology.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=3">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="hero slim"><div class="wrap">
+  <p class="eyebrow">Methodology</p>
+  <h1>How the numbers are made</h1>
+</div></section>
+<section class="seg prose"><div class="wrap">
+<h2>Source</h2>
+<p>All figures come from <b>Naver DataLab Shopping Insight</b>, which reports the relative volume of
+shopping-search clicks on Naver, Korea's largest search and shopping platform, within a product category
+(for example “화장품/미용”, cosmetics &amp; beauty). We request daily data for a fixed watchlist of Korean
+search terms, every day, automatically.</p>
+<h2>Demand index</h2>
+<p>Naver returns values relative to the highest point inside each request, so raw numbers from different
+requests cannot be compared. Every request we send therefore includes the same <b>baseline term</b>
+(Sunscreen for beauty, Ramyeon for food). We rescale each request so that the baseline's 8-week average
+equals 100. A term with an index of 50 drew about half as many shopping-search clicks as the baseline over
+the last 7 days.</p>
+<h2>Momentum</h2>
+<p>Momentum compares a term's average index over the most recent 7 days with its average over the 28 days
+before. Terms with very low volume are left out of momentum rankings to avoid noise.</p>
+<h2>What this is not</h2>
+<ul>
+<li>It is not sales data and not a count of searches. It shows relative interest.</li>
+<li>It covers search terms (categories and ingredients), not individual products or brands.</li>
+<li>It reflects Naver users in Korea; other channels can behave differently.</li>
+</ul>
+<h2>Integrity rules</h2>
+<ul>
+<li>No number is written by hand or by AI. Text on this site is produced from the data by fixed templates.</li>
+<li>If the data source fails on a given day, we show the last verified data with its real date, never a
+filled-in value.</li>
+<li>Every daily brief is archived with its raw data file so past calls can be checked.</li>
+</ul>
+<h2>Watchlist</h2>
+<p>The current watchlist is public: <a href="/config/watchlist.json">watchlist.json</a>. Terms are added
+as new categories and ingredients emerge.</p>
+</div></section>
+
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
