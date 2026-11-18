@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from pipeline import build, cards, collect, datalab, metrics, signals
+from pipeline import build, cards, collect, datalab, metrics, newsletter, signals
 
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime(2026, 11, 18, 7, 0, tzinfo=KST)
@@ -117,6 +117,10 @@ class CollectTest(unittest.TestCase):
                 self.assertGreater(pdf.stat().st_size, 50000)
             finally:
                 cards.OUT = saved_out
+            brief = newsletter.build_brief(snap, dt.date(2026, 11, 23))
+            self.assertTrue(brief["subject"].startswith("Korea this week: "))
+            self.assertNotIn("+0%", brief["html"])
+            self.assertEqual(newsletter.send_time(dt.date(2026, 11, 23)).hour, 14)  # 9 AM EST = 14:00 UTC
             self.assertTrue((sb.root / "signals.html").exists())
             self.assertTrue(any((sb.root / "term").glob("brands-*.html")))
 

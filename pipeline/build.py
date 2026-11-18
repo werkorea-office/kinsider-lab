@@ -14,7 +14,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 SITE_URL = "https://www.kinsider-lab.com"
 BRAND = "K-INSIDER LAB"
-FORM_ACTION = "https://formspree.io/f/mjygjowd"
+FORM_ACTION = "https://formspree.io/f/mjygjowd"  # lead record (company, role)
+SITE_CFG = json.loads((Path(__file__).resolve().parent.parent / "config" / "site.json").read_text(encoding="utf-8"))
+KIT_FORM = SITE_CFG.get("kit_form_id") or ""      # newsletter list (double opt-in, unsubscribe handled by Kit)
 KST = dt.timezone(dt.timedelta(hours=9))
 
 e = html.escape
@@ -102,7 +104,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "7"
+CSS_VERSION = "8"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -175,6 +177,13 @@ def page(title, body, description, path, extra_head=""):
     }})
     .catch(function () {{ document.getElementById("kl-visits").style.display = "none"; }});
 }})();
+function klSubscribe(email, company, source) {{
+  var d = new FormData();
+  d.append("email_address", email);
+  if (company) d.append("fields[company]", company);
+  d.append("fields[source]", source);
+  return fetch("https://app.kit.com/forms/{KIT_FORM}/subscriptions", {{ method: "POST", body: d, headers: {{ Accept: "application/json" }} }});
+}}
 </script>
 </body>
 </html>
@@ -190,16 +199,34 @@ def subscribe_block():
       <p>Every Monday: the categories and ingredients gaining ground in Korean online shopping,
       before they reach export shelves. Free for buyers, distributors and brand teams.</p>
     </div>
-    <form action="{FORM_ACTION}" method="POST" class="sub-form">
+    <form action="{FORM_ACTION}" method="POST" class="sub-form" id="sub-form">
       <input type="hidden" name="_subject" value="K-INSIDER LAB weekly brief signup">
       <input type="hidden" name="form" value="weekly-brief">
       <label class="sr" for="email">Business email</label>
       <input id="email" type="email" name="email" required placeholder="you@company.com">
       <input type="text" name="company" placeholder="Company (optional)">
       <button type="submit">Subscribe</button>
+      <p class="form-msg" id="sub-msg"></p>
     </form>
   </div>
-</section>"""
+</section>
+<script>
+(function () {{
+  var f = document.getElementById("sub-form"), kit = "{KIT_FORM}";
+  if (!f) return;
+  f.addEventListener("submit", function (ev) {{
+    ev.preventDefault();
+    var data = new FormData(f), msg = document.getElementById("sub-msg");
+    var jobs = [fetch("{FORM_ACTION}", {{ method: "POST", body: data, headers: {{ Accept: "application/json" }} }})];
+    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief"));
+    Promise.all(jobs).then(function (rs) {{
+      if (!rs.every(function (r) {{ return r.ok; }})) throw 0;
+      f.reset();
+      msg.textContent = kit ? "Almost done: check your inbox and confirm your subscription." : "Thank you. You're on the list.";
+    }}).catch(function () {{ msg.textContent = "Something went wrong. Please try again."; }});
+  }});
+}})();
+</script>"""
 
 
 # ---------- sections ----------
@@ -416,6 +443,7 @@ calls of the month and their track record. Free for buyers, distributors and bra
 <input type="email" name="email" required placeholder="you@company.com">
 <input type="text" name="company" placeholder="Company">
 <input type="text" name="role" placeholder="Role (e.g. buyer, distributor, brand)">
+<label class="opt"><input type="checkbox" name="brief" value="yes" checked> Also send me the free weekly brief</label>
 <button type="submit">Unlock reports</button><p class="form-msg" id="report-msg"></p></form></div>
 </div></section>
 <script>
@@ -430,7 +458,9 @@ calls of the month and their track record. Free for buyers, distributors and bra
   f.addEventListener("submit", function (ev) {{
     ev.preventDefault();
     var data = new FormData(f); data.append("_subject", "K-INSIDER LAB report download"); data.append("form", "monthly-report");
-    fetch("{FORM_ACTION}", {{ method: "POST", body: data, headers: {{ Accept: "application/json" }} }})
+    var jobs = [fetch("{FORM_ACTION}", {{ method: "POST", body: data, headers: {{ Accept: "application/json" }} }})];
+    if ("{KIT_FORM}" && data.get("brief") === "yes") jobs.push(klSubscribe(data.get("email"), data.get("company"), "monthly-report"));
+    Promise.all(jobs).then(function (rs) {{ return rs[0]; }})
       .then(function (r) {{ if (!r.ok) throw 0; try {{ localStorage.setItem("kl_reports", "1"); }} catch (e) {{}} unlock(); }})
       .catch(function () {{ document.getElementById("report-msg").textContent = "Something went wrong. Please try again."; }});
   }});
@@ -597,6 +627,18 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
              "Monthly PDF report on Korean consumer demand for K-beauty and K-food: rising categories, ingredients, "
              "brands and breakout calls.", "/reports.html"), encoding="utf-8")
 
+    nl_dir = ROOT / "newsletter"
+    nl_dir.mkdir(exist_ok=True)
+    issues = sorted([f.stem for f in nl_dir.glob("20*.html")], reverse=True)
+    items = "".join(f'<li><a href="/newsletter/{d}.html">{nice_date(d)}</a></li>' for d in issues) or \
+        "<li>The first weekly brief goes out on Monday, 23 November 2026.</li>"
+    (nl_dir / "index.html").write_text(
+        page(f"Weekly brief archive | {BRAND}",
+             f'''<section class="hero slim"><div class="wrap"><p class="eyebrow">Weekly brief</p>
+<h1>Every weekly Korea demand brief</h1><p class="lede small">Sent every Monday, 9:00 AM US Eastern.</p></div></section>
+<section class="seg"><div class="wrap"><ul class="archive-list">{items}</ul></div></section>{subscribe_block()}''',
+             "Archive of the K-INSIDER LAB weekly Korea demand brief.", "/newsletter/"), encoding="utf-8")
+
     (ROOT / "exports.html").write_text(
         page(f"K-beauty & K-food exports by market | {BRAND}", exports_page(),
              "Official Korea Customs export statistics for cosmetics, hair care, noodles and sauces by destination country.",
@@ -641,7 +683,7 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/reports.html", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(

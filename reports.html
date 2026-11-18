@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://www.kinsider-lab.com/reports.html">
 <link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/style.css?v=7">
+<link rel="stylesheet" href="/assets/style.css?v=8">
 
 </head>
 <body>
@@ -43,6 +43,7 @@ calls of the month and their track record. Free for buyers, distributors and bra
 <input type="email" name="email" required placeholder="you@company.com">
 <input type="text" name="company" placeholder="Company">
 <input type="text" name="role" placeholder="Role (e.g. buyer, distributor, brand)">
+<label class="opt"><input type="checkbox" name="brief" value="yes" checked> Also send me the free weekly brief</label>
 <button type="submit">Unlock reports</button><p class="form-msg" id="report-msg"></p></form></div>
 </div></section>
 <script>
@@ -57,7 +58,9 @@ calls of the month and their track record. Free for buyers, distributors and bra
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var data = new FormData(f); data.append("_subject", "K-INSIDER LAB report download"); data.append("form", "monthly-report");
-    fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })
+    var jobs = [fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })];
+    if ("" && data.get("brief") === "yes") jobs.push(klSubscribe(data.get("email"), data.get("company"), "monthly-report"));
+    Promise.all(jobs).then(function (rs) { return rs[0]; })
       .then(function (r) { if (!r.ok) throw 0; try { localStorage.setItem("kl_reports", "1"); } catch (e) {} unlock(); })
       .catch(function () { document.getElementById("report-msg").textContent = "Something went wrong. Please try again."; });
   });
@@ -96,6 +99,13 @@ calls of the month and their track record. Free for buyers, distributors and bra
     })
     .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
 })();
+function klSubscribe(email, company, source) {
+  var d = new FormData();
+  d.append("email_address", email);
+  if (company) d.append("fields[company]", company);
+  d.append("fields[source]", source);
+  return fetch("https://app.kit.com/forms//subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+}
 </script>
 </body>
 </html>

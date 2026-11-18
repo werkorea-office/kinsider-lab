@@ -121,3 +121,6 @@ td.num.up,td.num.down{font-weight:700}
 td.num{white-space:nowrap}
 .reports li{display:flex;gap:18px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
 .reports li .d{font-family:var(--mono);color:var(--muted);min-width:130px;font-size:14px}
+.sub-form .opt{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted,#667085);width:100%}
+.sub-form .opt input{width:auto;margin:0}
+.form-msg{width:100%;margin:6px 0 0;font-size:14px}

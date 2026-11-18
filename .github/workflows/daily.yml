@@ -8,6 +8,9 @@ on:
       force_report:
         description: "Build the monthly report now (yes/no)"
         default: "no"
+      newsletter:
+        description: "Weekly email: 'auto' (Mondays) or 'draft' (test draft in Kit now)"
+        default: "auto"
 
 permissions:
   contents: write
@@ -52,6 +55,12 @@ jobs:
       - name: Make social card
         run: python -m pipeline.cards
 
+      - name: Weekly email brief (Mondays; 'draft' input makes a test draft in Kit)
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+        run: |
+          if [ "${{ inputs.newsletter }}" = "draft" ]; then python -m pipeline.newsletter --draft; else python -m pipeline.newsletter; fi
+
       - name: Monthly report (1st of the month)
         run: |
           if [ "${{ inputs.force_report }}" = "yes" ]; then python -m pipeline.report --force; else python -m pipeline.report; fi
@@ -61,7 +70,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief cards term signals.html reports.html reports exports.html
+          git add -A data index.html archive.html methodology.html 404.html feed.xml sitemap.xml robots.txt brief cards term signals.html reports.html reports exports.html newsletter
           if git diff --staged --quiet; then
             echo "Nothing changed."
           else
