@@ -97,7 +97,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "3"
+CSS_VERSION = "4"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -146,9 +146,28 @@ def page(title, body, description, path, extra_head=""):
       {BRAND} is not affiliated with or endorsed by Naver.</p>
       <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
       <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
     </div>
   </div>
 </footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {{
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try {{ seen = localStorage.getItem("kl_seen"); }} catch (e) {{}}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), {{ method: first ? "POST" : "GET" }})
+    .then(function (r) {{ return r.ok ? r.json() : Promise.reject(r.status); }})
+    .then(function (j) {{
+      if (first) {{ try {{ localStorage.setItem("kl_seen", day); }} catch (e) {{}} }}
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    }})
+    .catch(function () {{ document.getElementById("kl-visits").style.display = "none"; }});
+}})();
+</script>
 </body>
 </html>
 """

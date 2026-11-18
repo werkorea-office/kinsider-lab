@@ -90,6 +90,8 @@ td.num.up,td.num.down{font-weight:700}
 .foot-in{display:grid;grid-template-columns:1fr 1.4fr;gap:30px}
 .logo.small{color:var(--ink);font-size:13px;margin-bottom:6px}
 .foot p{margin:4px 0}
+.visits{margin-top:10px!important;color:var(--ink2)}
+.visits b{font-family:var(--mono);color:var(--ink)}
 
 @media (max-width:760px){
   .top nav a:not(.btn-sm){display:none}
