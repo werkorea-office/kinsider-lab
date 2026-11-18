@@ -196,6 +196,14 @@ def kit(method, path, key, body=None):
         raise RuntimeError(f"Kit HTTP {err.code}: {err.read().decode('utf-8', 'replace')[:400]}")
 
 
+def ensure_fields(key):
+    """Custom fields the site forms send (company, source); Kit drops unknown fields."""
+    have = {f.get("key") for f in kit("GET", "/v4/custom_fields", key).get("custom_fields", [])}
+    for label in ("Company", "Source"):
+        if label.lower() not in have:
+            kit("POST", "/v4/custom_fields", key, {"label": label})
+
+
 def send_time(day):
     """Monday 9:00 AM New York time, expressed in UTC (handles daylight saving)."""
     from zoneinfo import ZoneInfo
@@ -237,6 +245,10 @@ def main(force=False, draft=False):
     if not key:
         print(f"Web copy written (newsletter/{day}.html); KIT_API_KEY not set, nothing sent.")
         return 0
+    try:
+        ensure_fields(key)
+    except RuntimeError as err:
+        print(f"Custom fields not checked: {err}")
     when = None if draft else send_time(day)
     if when and when < dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=10):
         when = dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=15)
