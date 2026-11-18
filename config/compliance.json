@@ -1,0 +1,77 @@
+{
+  "reviewed": "2026-11-19",
+  "disclaimer": "General orientation for buyers, not legal advice. Requirements change; confirm with a regulatory specialist or the authority before you ship.",
+  "markets": {
+    "cosmetics": [
+      {
+        "market": "United States",
+        "steps": [
+          "The Korean manufacturing facility must be registered with FDA and each product listed under MoCRA (enforced since 1 July 2024). Registration is renewed every two years.",
+          "A responsible person (brand, packer or distributor named on the label) lists the product, keeps safety substantiation and reports serious adverse events to FDA within 15 business days.",
+          "Registration and listing are not FDA approval. Treat any supplier claim of an 'FDA-approved cosmetic' with caution.",
+          "Ask the supplier for: FDA facility registration number, product listing number, English label, full INCI ingredient list, GMP (ISO 22716) certificate."
+        ],
+        "sources": [
+          ["FDA: Modernization of Cosmetics Regulation Act (MoCRA)", "https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-2022-mocra"]
+        ]
+      },
+      {
+        "market": "European Union",
+        "steps": [
+          "Every product needs an EU-based Responsible Person (Regulation (EC) No 1223/2009, Article 4). For a Korean brand this is usually the importer or an appointed service provider.",
+          "The Responsible Person holds the Product Information File (PIF) with the Cosmetic Product Safety Report (CPSR) and notifies the product on the CPNP portal before it is placed on the market. One notification covers the EU/EEA.",
+          "Labels must meet EU rules (ingredients, warnings, Responsible Person address, local language).",
+          "Ask the supplier for: formula and INCI list, safety data for the CPSR, stability and challenge tests, GMP (ISO 22716) certificate."
+        ],
+        "sources": [
+          ["EUR-Lex: Regulation (EC) No 1223/2009", "https://eur-lex.europa.eu/eli/reg/2009/1223/oj"]
+        ]
+      },
+      {
+        "market": "United Kingdom (Great Britain)",
+        "steps": [
+          "A UK-based Responsible Person has been required since 1 January 2021; an EU notification does not cover Great Britain.",
+          "The UK Responsible Person notifies each product on the SCPN portal before sale and keeps the PIF.",
+          "Ask the supplier for the same file set as for the EU; many service providers handle CPNP and SCPN together."
+        ],
+        "sources": [
+          ["GOV.UK: cosmetic product notifications (SCPN)", "https://www.gov.uk/government/news/new-data-on-uk-cosmetic-product-safety-notifications"]
+        ]
+      }
+    ],
+    "food": [
+      {
+        "market": "United States",
+        "steps": [
+          "Facilities that make, pack or store the food must be registered with FDA (renewed every two years), with a US agent for foreign facilities.",
+          "FDA must receive Prior Notice before each shipment arrives; shipments without it are refused and held at the importer's cost.",
+          "The US importer must run a Foreign Supplier Verification Program (FSVP) for the Korean supplier.",
+          "FDA does not pre-approve foods, labels or importers; labels must meet US rules (English, Nutrition Facts, allergens)."
+        ],
+        "sources": [
+          ["FDA: Importing human foods", "https://www.fda.gov/industry/importing-fda-regulated-products/importing-human-foods"]
+        ]
+      }
+    ]
+  },
+  "flags": [
+    {
+      "applies_to": ["Sunscreen", "Sun stick"],
+      "title": "Sunscreen is a drug in the US",
+      "text": "In the US, sunscreens are over-the-counter drugs, not cosmetics: only UV filters on FDA's OTC sunscreen monograph (M020) may be used, and many filters common in Korean formulas are not on it. FDA added bemotrizinol (up to 6%) by final order on 10 June 2026, effective 9 August 2026 — the first new filter in over 20 years. Check every filter in the formula before importing. The EU and UK regulate sunscreens as cosmetics with their own approved UV-filter list (Annex VI).",
+      "sources": [["SGS: FDA adds bemotrizinol to the OTC sunscreen monograph", "https://www.sgs.com/en/news/2026/06/safeguards-08326-fda-adds-bemotrizinol-to-otc-sunscreen-monograph"]]
+    },
+    {
+      "applies_to": ["Tone-up cream", "Cushion compact"],
+      "title": "If it carries an SPF claim",
+      "text": "Tone-up creams and cushions often carry an SPF. With an SPF claim, the product is an OTC sunscreen drug in the US and must use only FDA-monograph UV filters; without the claim it can be sold as a cosmetic. Confirm which version the supplier is offering.",
+      "sources": [["SGS: FDA adds bemotrizinol to the OTC sunscreen monograph", "https://www.sgs.com/en/news/2026/06/safeguards-08326-fda-adds-bemotrizinol-to-otc-sunscreen-monograph"]]
+    },
+    {
+      "applies_to": ["Retinol"],
+      "title": "EU retinol limits",
+      "text": "Under Regulation (EU) 2024/996, retinol, retinyl acetate and retinyl palmitate are capped at 0.3% retinol equivalent in face and other leave-on or rinse-off products and 0.05% in body lotions, and the label must read 'Contains Vitamin A. Consider your daily intake before use.' Korean formulas made for the home market may exceed these limits.",
+      "sources": [["EUR-Lex: Regulation (EU) 2024/996", "https://eur-lex.europa.eu/eli/reg/2024/996/oj"]]
+    }
+  ]
+}

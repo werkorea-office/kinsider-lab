@@ -104,7 +104,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "8"
+CSS_VERSION = "9"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -135,6 +135,7 @@ def page(title, body, description, path, extra_head=""):
       <a href="/">Today</a>
       <a href="/signals.html">Signals</a>
       <a href="/exports.html">Exports</a>
+      <a href="/import-guide.html">Import guide</a>
       <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
@@ -401,6 +402,64 @@ within {rule.get('cooldown_days', 28)} days. Calls are never edited or deleted. 
 <a href="/data/signals.json">signals.json</a>.</p></div></section>"""
 
 
+_COMPLIANCE = None
+
+
+def compliance():
+    global _COMPLIANCE
+    if _COMPLIANCE is None:
+        # editorial config ships with the code (like site.json), not with the data directory
+        path = Path(__file__).resolve().parent.parent / "config" / "compliance.json"
+        _COMPLIANCE = json.loads(path.read_text(encoding="utf-8"))
+    return _COMPLIANCE
+
+
+def src_links(sources):
+    return " · ".join(f'<a href="{e(u)}" rel="noopener">{e(t)}</a>' for t, u in sources)
+
+
+def checklist_html(kind, compact=False):
+    c = compliance()
+    blocks = []
+    for m in c["markets"].get(kind, []):
+        steps = "".join(f"<li>{e(s)}</li>" for s in m["steps"])
+        if compact:
+            blocks.append(f"<details><summary>{e(m['market'])}</summary><ul>{steps}</ul>"
+                          f"<p class=\"note\">Source: {src_links(m['sources'])}</p></details>")
+        else:
+            blocks.append(f"<h3>{e(m['market'])}</h3><ul>{steps}</ul><p class=\"note\">Source: {src_links(m['sources'])}</p>")
+    return "".join(blocks)
+
+
+def flags_for(en):
+    return [f for f in compliance()["flags"] if en in f["applies_to"]]
+
+
+def buyer_section(seg, it):
+    kind = "food" if seg["id"] == "food" else "cosmetics"
+    c = compliance()
+    flags = "".join(f'<div class="flag"><b>{e(f["title"])}</b><p>{e(f["text"])}</p>'
+                    f'<p class="note">Source: {src_links(f["sources"])}</p></div>' for f in flags_for(it["en"]))
+    return (f'<h3>Before you import</h3>{flags}{checklist_html(kind, compact=True)}'
+            f'<p class="note">{e(c.get("disclaimer", ""))} Reviewed {nice_date(c["reviewed"])}. '
+            f'<a href="/import-guide.html">Full import checklist</a></p>')
+
+
+def import_guide_page():
+    c = compliance()
+    flags = "".join(f'<div class="flag"><b>{e(f["title"])}</b> <span class="note">({e(", ".join(f["applies_to"]))})</span>'
+                    f'<p>{e(f["text"])}</p><p class="note">Source: {src_links(f["sources"])}</p></div>' for f in c["flags"])
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">For buyers and distributors</p>
+<h1>Importing K-beauty and K-food: the checklist</h1>
+<p class="lede small">What has to be in place before Korean cosmetics or food can be sold in the US, EU and UK, and what
+to ask the supplier for. Reviewed {nice_date(c['reviewed'])}. {e(c['disclaimer'])}</p></div></section>
+<section class="seg"><div class="wrap">
+<h2>Cosmetics</h2>{checklist_html("cosmetics")}
+<h2>Product-specific flags</h2>{flags}
+<h2>Food</h2>{checklist_html("food")}
+</div></section>{subscribe_block()}"""
+
+
 _NOTES = None
 
 
@@ -431,6 +490,7 @@ def term_page(seg, it, history_rows, sigs):
 <section class="seg"><div class="wrap"><h3>Last 8 weeks (weekly average)</h3>
 <div class="bigchart {pct_class(it['momentum'])}">{big}</div>
 {'<h3>Breakout calls</h3><ul>' + call_html + '</ul>' if calls else ''}
+{buyer_section(seg, it)}
 <h3>Daily record</h3>
 {'<div class="tbl-wrap"><table><thead><tr><th class="num">Date</th><th class="num">Demand index</th><th class="num">Momentum</th></tr></thead><tbody>' + hrows + '</tbody></table></div>' if hrows else '<p class="note">The daily record starts with the first brief.</p>'}
 <p class="note">Index: shopping-search clicks in Naver's “{e(seg['category_name_kr'])}” category, {e(seg['anchor']['en'])} 8-week average = 100.
@@ -692,6 +752,12 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
 <section class="seg"><div class="wrap"><ul class="archive-list">{items}</ul></div></section>{subscribe_block()}''',
              "Archive of the K-INSIDER LAB weekly Korea demand brief.", "/newsletter/"), encoding="utf-8")
 
+    (ROOT / "import-guide.html").write_text(
+        page(f"Importing K-beauty & K-food: US, EU, UK checklist | {BRAND}", import_guide_page(),
+             "What must be in place before Korean cosmetics or food can be sold in the US, EU and UK: MoCRA, "
+             "CPNP, SCPN, FDA food registration, sunscreen and retinol rules.", "/import-guide.html"),
+        encoding="utf-8")
+
     (ROOT / "exports.html").write_text(
         page(f"K-beauty & K-food exports by market | {BRAND}", exports_page(),
              "Official Korea Customs export statistics for cosmetics, hair care, noodles and sauces by destination country.",
@@ -738,7 +804,7 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
