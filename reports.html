@@ -59,7 +59,7 @@ calls of the month and their track record. Free for buyers, distributors and bra
     ev.preventDefault();
     var data = new FormData(f); data.append("_subject", "K-INSIDER LAB report download"); data.append("form", "monthly-report");
     var jobs = [fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })];
-    if ("" && data.get("brief") === "yes") jobs.push(klSubscribe(data.get("email"), data.get("company"), "monthly-report"));
+    if ("10207075" && data.get("brief") === "yes") jobs.push(klSubscribe(data.get("email"), data.get("company"), "monthly-report"));
     Promise.all(jobs).then(function (rs) { return rs[0]; })
       .then(function (r) { if (!r.ok) throw 0; try { localStorage.setItem("kl_reports", "1"); } catch (e) {} unlock(); })
       .catch(function () { document.getElementById("report-msg").textContent = "Something went wrong. Please try again."; });
@@ -104,7 +104,7 @@ function klSubscribe(email, company, source) {
   d.append("email_address", email);
   if (company) d.append("fields[company]", company);
   d.append("fields[source]", source);
-  return fetch("https://app.kit.com/forms//subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+  return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
 }
 </script>
 </body>

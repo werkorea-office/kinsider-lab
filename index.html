@@ -408,7 +408,7 @@ shows what Koreans want now; these figures show what is already crossing borders
 </section>
 <script>
 (function () {
-  var f = document.getElementById("sub-form"), kit = "";
+  var f = document.getElementById("sub-form"), kit = "10207075";
   if (!f) return;
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
@@ -461,7 +461,7 @@ function klSubscribe(email, company, source) {
   d.append("email_address", email);
   if (company) d.append("fields[company]", company);
   d.append("fields[source]", source);
-  return fetch("https://app.kit.com/forms//subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+  return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
 }
 </script>
 </body>
