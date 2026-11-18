@@ -61,7 +61,7 @@ def render(run_date, label, title_lines, rows, out_png, extra=None):
         d.text((125, y + 42), name, font=fit(d, name, 44, True, 600), fill=INK, anchor="lm")
         d.text((125, y + 88), sub, font=fit(d, sub, 24, False, 600), fill=MUTED, anchor="lm")
         d.text((S - 60, y + 58), value, font=fit(d, value, 52, True, 260), fill=color, anchor="rm")
-        y += 116
+        y += 110
     d.line([60, y, S - 60, y], fill=LINE, width=2)
     if extra and len(rows) < 5:
         title, name, value, color = extra
@@ -107,11 +107,12 @@ def breakout_card(snapshot):
     for x in active[:5]:
         ch = x["latest"]["level"] / x["early_baseline"] - 1 if x.get("early_baseline") else 0
         rows.append((x["en"], f"{x['segment_title']} · called {build.nice_date(x['called'])}", build.pct(ch), color_for(ch)))
-    caption = ["Breakout signals from Korean online shopping: rises that held for two weeks.", ""]
-    caption += [f"• {x['en']} ({x['segment_title']}), called {build.nice_date(x['called'])}" for x in active[:5]]
+    caption = ["Breakout signals from Korean online shopping: rises that held for two weeks.",
+               "Change = last 7 days vs. the 3 weeks before the prior week.", ""]
+    caption += [f"• {r[0]} {r[2]} ({r[1]})" for r in rows]
     caption += ["", "Every call is tracked publicly after 7, 14 and 28 days, hits and misses: "
                     "link in bio (kinsider-lab.com/signals)", "", TAGS]
-    return ("BREAKOUT SIGNALS · KOREA", ["Two-week rises in Korean", "shopping searches"], rows, None, "\n".join(caption))
+    return ("BREAKOUT SIGNALS · LAST 7 DAYS VS. 3-WEEK BASE", ["Two-week rises in Korean", "shopping searches"], rows, None, "\n".join(caption))
 
 
 def track_card(snapshot):
