@@ -41,6 +41,7 @@
 1. **링크드인 토큰 재발급 (60일마다):** GitHub 실패 알림 메일이 오면 LinkedIn 개발자 앱 K-INSIDER LAB Publisher → Auth → 토큰 생성 → `LINKEDIN_ACCESS_TOKEN` 교체
 2. **실패 알림 메일 확인:** GitHub Actions가 실패하면 메일이 옵니다. 로그의 마지막 오류 줄을 보면 원인이 나옵니다.
 3. **월 1회 자산 지표 확인:** `data/assets.csv`
+4. **분기 1회 규제 정보 재검토:** `config/compliance.json`(수입 체크리스트·품목별 주의사항). 규제가 바뀌면 문구와 `reviewed` 날짜를 고칩니다. 출처 없는 내용은 넣지 않습니다.
 
 ## 6. 품질 원칙 (바꾸지 말 것)
 - 순위는 지수 10 미만을 제외하고, 기준 키워드는 순위에 넣지 않습니다.
