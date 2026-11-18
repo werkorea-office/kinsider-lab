@@ -9,7 +9,7 @@ on:
         description: "Build the monthly report now (yes/no)"
         default: "no"
       newsletter:
-        description: "Weekly email: 'auto' (Mondays) or 'draft' (test draft in Kit now)"
+        description: "Weekly email: 'auto' (Mondays), 'draft' (test draft in Kit) or 'status' (list health)"
         default: "auto"
 
 permissions:
@@ -61,7 +61,11 @@ jobs:
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
         run: |
-          if [ "${{ inputs.newsletter }}" = "draft" ]; then python -m pipeline.newsletter --draft; else python -m pipeline.newsletter; fi
+          case "${{ inputs.newsletter }}" in
+            draft) python -m pipeline.newsletter --draft ;;
+            status) python -m pipeline.newsletter --status ;;
+            *) python -m pipeline.newsletter ;;
+          esac
 
       - name: Monthly report (1st of the month)
         run: |

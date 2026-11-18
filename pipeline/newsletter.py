@@ -270,5 +270,26 @@ def main(force=False, draft=False):
     return 0
 
 
+def status():
+    """Prints list health: subscriber states (no addresses) and sender setup."""
+    key = os.environ.get("KIT_API_KEY", "").strip()
+    if not key:
+        print("KIT_API_KEY not set.")
+        return 1
+    acct = kit("GET", "/v4/account", key)
+    a = acct.get("account", {})
+    print(f"Account plan: {a.get('plan_type')}, primary email set: {bool(a.get('primary_email_address'))}")
+    counts = {}
+    for state in ("active", "inactive", "bounced", "complained", "cancelled"):
+        res = kit("GET", f"/v4/subscribers?status={state}&per_page=500", key)
+        counts[state] = len(res.get("subscribers", []))
+    print("Subscribers by state:", counts)
+    for b in kit("GET", "/v4/broadcasts?per_page=10", key).get("broadcasts", []):
+        print(f"Broadcast {b.get('id')}: {b.get('subject')!r} send_at={b.get('send_at')} public={b.get('public')}")
+    return 0
+
+
 if __name__ == "__main__":
+    if "--status" in sys.argv:
+        sys.exit(status())
     sys.exit(main(force="--force" in sys.argv, draft="--draft" in sys.argv))
