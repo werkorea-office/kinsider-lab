@@ -144,3 +144,15 @@ class ResponseParsingTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class InstagramSafetyTest(unittest.TestCase):
+    def test_no_token_never_posts(self):
+        import os
+        from pipeline import social_instagram
+        saved = os.environ.pop("IG_ACCESS_TOKEN", None)
+        try:
+            self.assertEqual(social_instagram.publish(), 0)
+        finally:
+            if saved is not None:
+                os.environ["IG_ACCESS_TOKEN"] = saved
