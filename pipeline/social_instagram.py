@@ -141,6 +141,26 @@ def refresh():
     return 1
 
 
+def check():
+    """Verifies GH_SECRETS_TOKEN can reach this repo's secrets API without changing anything."""
+    gh_token = os.environ.get("GH_SECRETS_TOKEN", "").strip()
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    if not gh_token:
+        print("GH_SECRETS_TOKEN not set.")
+        return 1
+    req = urllib.request.Request(f"https://api.github.com/repos/{repo}/actions/secrets/public-key")
+    req.add_header("Authorization", f"Bearer {gh_token}")
+    req.add_header("Accept", "application/vnd.github+json")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            key = json.loads(r.read())
+        print(f"GH_SECRETS_TOKEN OK: can manage secrets of {repo} (key {key['key_id']}).")
+        return 0
+    except urllib.error.HTTPError as e:
+        print(f"GH_SECRETS_TOKEN check failed: HTTP {e.code}")
+        return 1
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "publish"
-    sys.exit(publish() if cmd == "publish" else refresh())
+    sys.exit({"publish": publish, "refresh": refresh, "check": check}[cmd]())

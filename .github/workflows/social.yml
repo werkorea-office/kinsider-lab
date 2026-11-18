@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "publish or refresh"
+        description: "publish, refresh or check"
         default: publish
 
 permissions:
@@ -41,6 +41,12 @@ jobs:
         run: |
           pip install pynacl==1.*
           python -m pipeline.social_instagram refresh
+
+      - name: Check secrets-updater token
+        if: inputs.task == 'check'
+        env:
+          GH_SECRETS_TOKEN: ${{ secrets.GH_SECRETS_TOKEN }}
+        run: python -m pipeline.social_instagram check
 
       - name: Publish today's card
         if: github.event_name == 'workflow_run' || inputs.task == 'publish'
