@@ -1,10 +1,8 @@
 name: Social publishing
 
 on:
-  workflow_run:
-    workflows: ["Daily Korea demand brief"]
-    types: [completed]
   schedule:
+    - cron: '0 14 * * *'  # 23:00 KST = 9:00 AM US Eastern (EST) / 10:00 AM (EDT): post today's card
     - cron: '0 3 * * 1'   # Mondays 12:00 KST: extend the Instagram token
   workflow_dispatch:
     inputs:
@@ -21,7 +19,6 @@ concurrency:
 
 jobs:
   instagram:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -34,7 +31,7 @@ jobs:
           python-version: '3.12'
 
       - name: Refresh token (weekly)
-        if: github.event_name == 'schedule' || inputs.task == 'refresh'
+        if: github.event.schedule == '0 3 * * 1' || inputs.task == 'refresh'
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           GH_SECRETS_TOKEN: ${{ secrets.GH_SECRETS_TOKEN }}
@@ -49,7 +46,7 @@ jobs:
         run: python -m pipeline.social_instagram check
 
       - name: Publish today's card
-        if: github.event_name == 'workflow_run' || inputs.task == 'publish'
+        if: github.event.schedule == '0 14 * * *' || inputs.task == 'publish'
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python -m pipeline.social_instagram publish
