@@ -238,3 +238,20 @@ class ExportsParseTest(unittest.TestCase):
         finally:
             if saved is not None:
                 os.environ["DATA_GO_KR_KEY"] = saved
+
+
+class AlertsTest(unittest.TestCase):
+    def test_alert_content_and_no_key(self):
+        import os
+        from pipeline import alerts
+        calls = [{"id": "x1", "segment": "beauty", "segment_title": "K-Beauty", "kw": "PDRN", "en": "PDRN",
+                  "type": "Ingredient", "level_at_call": 30.0, "early_baseline": 20.0, "momentum_at_call": 0.4}]
+        subject, body = alerts.build_alert(calls, "2026-11-19")
+        self.assertEqual(subject, "Breakout in Korea: PDRN +50%")
+        self.assertIn("/term/beauty-pdrn.html", body)
+        saved = os.environ.pop("KIT_API_KEY", None)
+        try:
+            self.assertEqual(alerts.main(), 0)
+        finally:
+            if saved is not None:
+                os.environ["KIT_API_KEY"] = saved

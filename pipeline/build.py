@@ -17,6 +17,12 @@ BRAND = "K-INSIDER LAB"
 FORM_ACTION = "https://formspree.io/f/mjygjowd"  # lead record (company, role)
 SITE_CFG = json.loads((Path(__file__).resolve().parent.parent / "config" / "site.json").read_text(encoding="utf-8"))
 KIT_FORM = SITE_CFG.get("kit_form_id") or ""      # newsletter list (double opt-in, unsubscribe handled by Kit)
+
+
+def kit_alert_tag():
+    """Kit tag id for breakout alerts, written by `python -m pipeline.alerts --setup`."""
+    path = Path(__file__).resolve().parent.parent / "data" / "kit.json"
+    return str(json.loads(path.read_text()).get("alert_tag_id", "")) if path.exists() else ""
 KST = dt.timezone(dt.timedelta(hours=9))
 
 e = html.escape
@@ -178,9 +184,10 @@ def page(title, body, description, path, extra_head=""):
     }})
     .catch(function () {{ document.getElementById("kl-visits").style.display = "none"; }});
 }})();
-function klSubscribe(email, company, source) {{
+function klSubscribe(email, company, source, alerts) {{
   var d = new FormData();
   d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
   if (company) d.append("fields[company]", company);
   d.append("fields[source]", source);
   return fetch("https://app.kit.com/forms/{KIT_FORM}/subscriptions", {{ method: "POST", body: d, headers: {{ Accept: "application/json" }} }});
@@ -206,6 +213,7 @@ def subscribe_block():
       <label class="sr" for="email">Business email</label>
       <input id="email" type="email" name="email" required placeholder="you@company.com">
       <input type="text" name="company" placeholder="Company (optional)">
+      {'<label class="opt"><input type="checkbox" name="alerts" value="yes"> Also email me breakout alerts the day they are called (a few a month)</label>' if KIT_FORM and kit_alert_tag() else ''}
       <button type="submit">Subscribe</button>
       <p class="form-msg" id="sub-msg"></p>
     </form>
@@ -219,7 +227,7 @@ def subscribe_block():
     ev.preventDefault();
     var data = new FormData(f), msg = document.getElementById("sub-msg");
     var jobs = [fetch("{FORM_ACTION}", {{ method: "POST", body: data, headers: {{ Accept: "application/json" }} }})];
-    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief"));
+    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief", data.get("alerts") === "yes"));
     Promise.all(jobs).then(function (rs) {{
       if (!rs.every(function (r) {{ return r.ok; }})) throw 0;
       f.reset();

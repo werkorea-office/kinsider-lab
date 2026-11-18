@@ -52,6 +52,12 @@ jobs:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python -m pipeline.exports ${{ inputs.force_exports == 'yes' && '--force' || '' }} || echo "Export statistics unavailable today; site keeps last verified figures."
 
+      - name: Kit setup (breakout-alert tag for the site forms)
+        continue-on-error: true
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+        run: python -m pipeline.alerts --setup
+
       - name: Build site
         run: python -m pipeline.build
 
@@ -70,6 +76,13 @@ jobs:
             *) python -m pipeline.newsletter ;;
           esac
 
+      - name: Breakout alert email (only on days with new calls)
+        id: alerts
+        continue-on-error: true
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+        run: python -m pipeline.alerts
+
       - name: Monthly report (1st of the month)
         run: |
           if [ "${{ inputs.force_report }}" = "yes" ]; then python -m pipeline.report --force; else python -m pipeline.report; fi
@@ -87,8 +100,8 @@ jobs:
             git push
           fi
 
-      - name: Fail visibly if the weekly email could not be scheduled
-        if: steps.newsletter.outcome == 'failure'
+      - name: Fail visibly if an email step failed
+        if: steps.newsletter.outcome == 'failure' || steps.alerts.outcome == 'failure'
         run: |
-          echo "Weekly email brief failed; the site and data were still published. See the step log above."
+          echo "An email step failed (weekly brief or breakout alert); the site and data were still published. See the step logs above."
           exit 1

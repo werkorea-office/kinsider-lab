@@ -26,6 +26,7 @@
 | 매일 23:00 | 인스타그램 캐러셀 + 링크드인 PDF 문서 발행 → 자산 지표 기록 | `.github/workflows/social.yml` |
 | 매주 월 12:00 | 인스타그램 토큰 자동 연장 | `social.yml` |
 | 월요일 23:00 | 주간 브리프 이메일 발송 (Kit 예약, 미국 동부 오전 9시) | `pipeline/newsletter.py` |
+| 매일 06:30 (신호가 난 날만) | 급상승 즉시 알림 이메일 (Kit 태그 "Breakout alerts" 구독자, 하루 최대 1통) | `pipeline/alerts.py` |
 
 ## 4. 비밀값 (GitHub → Settings → Secrets → Actions)
 | 이름 | 용도 | 만료 |
