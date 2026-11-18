@@ -401,8 +401,20 @@ within {rule.get('cooldown_days', 28)} days. Calls are never edited or deleted. 
 <a href="/data/signals.json">signals.json</a>.</p></div></section>"""
 
 
+_NOTES = None
+
+
+def note_for(seg_id, kw):
+    global _NOTES
+    if _NOTES is None:
+        cfg = json.loads((ROOT / "config" / "watchlist.json").read_text(encoding="utf-8"))
+        _NOTES = {(s["id"], k["kw"]): k.get("note", "") for s in cfg["segments"] for k in [s["anchor"]] + s["keywords"]}
+    return _NOTES.get((seg_id, kw), "")
+
+
 def term_page(seg, it, history_rows, sigs):
     big = sparkline(it["series"], w=640, h=160)
+    note = note_for(seg["id"], it["kw"])
     hist = [r for r in history_rows if r["segment"] == seg["id"] and r["keyword_kr"] == it["kw"]][-30:]
     hrows = "".join(f"<tr><td class=\"num\">{nice_date(r['run_date'])}</td><td class=\"num\">{float(r['level']):.0f}</td>"
                     f"<td class=\"num\">{pct(float(r['momentum'])) if r['momentum'] else '–'}</td></tr>" for r in reversed(hist))
@@ -411,7 +423,8 @@ def term_page(seg, it, history_rows, sigs):
     kind = "brand" if seg["id"] == "brands" else "search term"
     return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">{e(seg['title'])} · {e(it['type'])}</p>
 <h1>{e(it['en'])} <span class="kr-title" lang="ko">{e(it['kw'])}</span></h1>
-<p class="lede">Korean shopping-search demand for this {kind}, updated daily from Naver DataLab.</p>
+{f'<p class="lede">{e(note)}</p>' if note else ''}
+<p class="lede small">Korean shopping-search demand for this {kind}, updated daily from Naver DataLab.</p>
 <div class="stats"><div><span>Demand index (7 days)</span><b>{it['level']:.0f}</b></div>
 <div><span>Momentum vs prior 4 weeks</span><b class="{pct_class(it['momentum'])}">{pct(it['momentum'])}</b></div>
 <div><span>Data through</span><b>{nice_date(seg['data_end'])}</b></div></div></div></section>
@@ -421,7 +434,8 @@ def term_page(seg, it, history_rows, sigs):
 <h3>Daily record</h3>
 {'<div class="tbl-wrap"><table><thead><tr><th class="num">Date</th><th class="num">Demand index</th><th class="num">Momentum</th></tr></thead><tbody>' + hrows + '</tbody></table></div>' if hrows else '<p class="note">The daily record starts with the first brief.</p>'}
 <p class="note">Index: shopping-search clicks in Naver's “{e(seg['category_name_kr'])}” category, {e(seg['anchor']['en'])} 8-week average = 100.
-<a href="/methodology.html">Methodology</a></p></div></section>"""
+<a href="/methodology.html">Methodology</a></p></div></section>
+{subscribe_block()}"""
 
 
 def reports_page():
@@ -656,8 +670,10 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
             for it in seg["items"]:
                 sl = slug(seg["id"], it["en"])
                 (tdir / f"{sl}.html").write_text(page(
-                    f"{it['en']} demand in Korea | {BRAND}", term_page(seg, it, history_rows, sigs),
-                    f"Daily Korean shopping-search demand for {it['en']} ({it['kw']}): index, momentum and 8-week trend.",
+                    f"{it['en']} in Korea: shopping demand trend {seg['data_end'][:4]} | {BRAND}",
+                    term_page(seg, it, history_rows, sigs),
+                    (note_for(seg["id"], it["kw"]) + " " if note_for(seg["id"], it["kw"]) else "")
+                    + f"Daily Korean shopping-search demand for {it['en']} ({it['kw']}): index, momentum and 8-week trend.",
                     f"/term/{sl}.html"), encoding="utf-8")
                 term_urls.append(f"/term/{sl}.html")
 

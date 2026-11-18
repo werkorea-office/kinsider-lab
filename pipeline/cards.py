@@ -539,6 +539,21 @@ def caption(story, run_date):
     return "\n".join(lines)
 
 
+def linkedin_caption(story, run_date):
+    """LinkedIn is the trust/B2B channel: lead with what it means for buyers, fewer hashtags."""
+    lines = [story["headline"], "", "What buyers and brand teams should note:"]
+    for v in story["items"]:
+        lines.append(f"• {v['name']} {v['change_text']} ({v['status'][0].lower()}): {v['note']}")
+    lines += ["",
+              "Korean shoppers often move first: ingredients and formats that gain search demand in Korea tend to "
+              "reach export shelves later. We measure that demand daily from Naver shopping searches, and every "
+              "breakout call we make stays public with its result.",
+              "", "Full data, 8-week charts and the free Monday brief: https://www.kinsider-lab.com",
+              "", f"Data to {build.nice_date(run_date)}. Source: Naver DataLab Shopping Insight.",
+              "", "#KBeauty #KFood #MarketIntelligence #ConsumerTrends"]
+    return "\n".join(lines)
+
+
 def render(story, snapshot, out_dir):
     run = snapshot["run_date"]
     issue = (dt.date.fromisoformat(run) - LAUNCH).days + 1
@@ -557,6 +572,7 @@ def render(story, snapshot, out_dir):
         s.save(out_dir / name)
         names.append(name)
     (out_dir / "caption.txt").write_text(caption(story, run), encoding="utf-8")
+    (out_dir / "caption-linkedin.txt").write_text(linkedin_caption(story, run), encoding="utf-8")
     meta = {"date": run, "issue": issue, "story": story["segment"], "title": story["headline"], "slides": names}
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
     return meta

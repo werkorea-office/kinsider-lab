@@ -68,12 +68,19 @@ jobs:
           python -m pipeline.social_instagram dryrun
           python -m pipeline.social_linkedin dryrun
 
+      - name: Asset ledger (visitors, subscribers, followers)
+        if: always() && (github.event.schedule == '0 14 * * *' || inputs.task == 'publish')
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+        run: python -m pipeline.assets
+
       - name: Save posting ledger
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/social || true
+          git add data/social data/assets.csv 2>/dev/null || git add data/social || true
           if git diff --staged --quiet; then echo "No ledger change."; else
             git commit -m "Social ledger $(TZ=Asia/Seoul date +%F) [skip ci]"
             git pull --rebase origin main && git push

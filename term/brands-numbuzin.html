@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
-<title>numbuzin demand in Korea | K-INSIDER LAB</title>
-<meta name="description" content="Daily Korean shopping-search demand for numbuzin (넘버즈인): index, momentum and 8-week trend.">
+<title>numbuzin in Korea: shopping demand trend 2026 | K-INSIDER LAB</title>
+<meta name="description" content="Skincare brand with numbered, concern-specific lines. Daily Korean shopping-search demand for numbuzin (넘버즈인): index, momentum and 8-week trend.">
 <link rel="canonical" href="https://www.kinsider-lab.com/term/brands-numbuzin.html">
-<meta property="og:title" content="numbuzin demand in Korea | K-INSIDER LAB">
-<meta property="og:description" content="Daily Korean shopping-search demand for numbuzin (넘버즈인): index, momentum and 8-week trend.">
+<meta property="og:title" content="numbuzin in Korea: shopping demand trend 2026 | K-INSIDER LAB">
+<meta property="og:description" content="Skincare brand with numbered, concern-specific lines. Daily Korean shopping-search demand for numbuzin (넘버즈인): index, momentum and 8-week trend.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.kinsider-lab.com/term/brands-numbuzin.html">
 <link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
@@ -34,7 +34,8 @@
 <main>
 <section class="hero slim"><div class="wrap"><p class="eyebrow">K-Beauty Brands · Brand</p>
 <h1>numbuzin <span class="kr-title" lang="ko">넘버즈인</span></h1>
-<p class="lede">Korean shopping-search demand for this brand, updated daily from Naver DataLab.</p>
+<p class="lede">Skincare brand with numbered, concern-specific lines.</p>
+<p class="lede small">Korean shopping-search demand for this brand, updated daily from Naver DataLab.</p>
 <div class="stats"><div><span>Demand index (7 days)</span><b>278</b></div>
 <div><span>Momentum vs prior 4 weeks</span><b class="up">+39%</b></div>
 <div><span>Data through</span><b>17 Nov 2026</b></div></div></div></section>
@@ -45,6 +46,42 @@
 <div class="tbl-wrap"><table><thead><tr><th class="num">Date</th><th class="num">Demand index</th><th class="num">Momentum</th></tr></thead><tbody><tr><td class="num">18 Nov 2026</td><td class="num">278</td><td class="num">+39%</td></tr></tbody></table></div>
 <p class="note">Index: shopping-search clicks in Naver's “화장품/미용” category, LANEIGE 8-week average = 100.
 <a href="/methodology.html">Methodology</a></p></div></section>
+
+<section class="subscribe" id="subscribe">
+  <div class="wrap sub-in">
+    <div>
+      <h2>The weekly Korea demand brief</h2>
+      <p>Every Monday: the categories and ingredients gaining ground in Korean online shopping,
+      before they reach export shelves. Free for buyers, distributors and brand teams.</p>
+    </div>
+    <form action="https://formspree.io/f/mjygjowd" method="POST" class="sub-form" id="sub-form">
+      <input type="hidden" name="_subject" value="K-INSIDER LAB weekly brief signup">
+      <input type="hidden" name="form" value="weekly-brief">
+      <label class="sr" for="email">Business email</label>
+      <input id="email" type="email" name="email" required placeholder="you@company.com">
+      <input type="text" name="company" placeholder="Company (optional)">
+      <button type="submit">Subscribe</button>
+      <p class="form-msg" id="sub-msg"></p>
+    </form>
+  </div>
+</section>
+<script>
+(function () {
+  var f = document.getElementById("sub-form"), kit = "10207075";
+  if (!f) return;
+  f.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var data = new FormData(f), msg = document.getElementById("sub-msg");
+    var jobs = [fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })];
+    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief"));
+    Promise.all(jobs).then(function (rs) {
+      if (!rs.every(function (r) { return r.ok; })) throw 0;
+      f.reset();
+      msg.textContent = kit ? "Almost done: check your inbox and confirm your subscription." : "Thank you. You're on the list.";
+    }).catch(function () { msg.textContent = "Something went wrong. Please try again."; });
+  });
+})();
+</script>
 </main>
 <footer class="foot">
   <div class="wrap foot-in">

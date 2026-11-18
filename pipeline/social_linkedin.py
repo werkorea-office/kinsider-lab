@@ -128,8 +128,11 @@ def publish():
         folder, meta, caption = found
         _, _, me = req("GET", "https://api.linkedin.com/v2/userinfo", token)
         author = f"urn:li:person:{me['sub']}"
-        caption = caption.replace("link in bio (kinsider-lab.com)", "https://www.kinsider-lab.com")
-        caption = caption.replace("Swipe for the", "Swipe through the")
+        li_caption = folder / "caption-linkedin.txt"
+        if li_caption.exists():
+            caption = li_caption.read_text(encoding="utf-8")
+        else:
+            caption = caption.replace("link in bio (kinsider-lab.com)", "https://www.kinsider-lab.com")
         try:
             content, kind = document_content(token, author, folder, meta, deck_pdf), "document"
         except RuntimeError as e:  # documents need an extra permission on some app tiers
