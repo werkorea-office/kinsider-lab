@@ -39,13 +39,13 @@ def call(method, url, params, timeout=60):
         raise RuntimeError(f"HTTP {e.code}: {e.read().decode('utf-8', 'replace')[:400]}")
 
 
-def wait_until_public(url, minutes=15):
+def wait_until_public(url, minutes=15, kind="image/"):
     deadline = time.time() + minutes * 60
     while time.time() < deadline:
         try:
             req = urllib.request.Request(url, method="HEAD")
             with urllib.request.urlopen(req, timeout=20) as r:
-                if r.status == 200 and r.headers.get("Content-Type", "").startswith("image/"):
+                if r.status == 200 and r.headers.get("Content-Type", "").startswith(kind):
                     return True
         except Exception:
             pass
@@ -142,7 +142,7 @@ def publish_reel(today, meta, caption, token, ledger):
         return 0
     url = f"{SITE}/cards/{today}/{meta['reel']}"
     try:
-        if not wait_until_public(url):
+        if not wait_until_public(url, minutes=3, kind="video/"):
             print("Reel not reachable; skipped.")
             return 0
         container = call("POST", f"{API}/me/media", {"media_type": "REELS", "video_url": url, "caption": caption,
