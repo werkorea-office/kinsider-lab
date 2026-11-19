@@ -571,7 +571,7 @@ def make_reel(out_dir, names):
     inputs, chains = [], []
     for i, name in enumerate(names):
         inputs += ["-loop", "1", "-t", str(REEL_SECONDS[min(i, len(REEL_SECONDS) - 1)]), "-i", str(out_dir / name)]
-        chains.append(f"[{i}:v]scale=1080:1350,pad=1080:1920:0:285:color=0x0B1220,setsar=1,fps=30[v{i}]")
+        chains.append(f"[{i}:v]scale=1080:1350,pad=1080:1920:0:285:color=0xD9481C,setsar=1,fps=30[v{i}]")
     graph = ";".join(chains) + ";" + "".join(f"[v{i}]" for i in range(len(names))) + f"concat=n={len(names)}:v=1:a=0,format=yuv420p[out]"
     cmd = ["ffmpeg", "-y", "-loglevel", "error", *inputs,
            "-f", "lavfi", "-t", str(sum(REEL_SECONDS[:len(names)])), "-i", "anullsrc=r=44100:cl=stereo",

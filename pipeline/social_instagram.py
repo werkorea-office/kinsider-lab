@@ -146,7 +146,7 @@ def publish_reel(today, meta, caption, token, ledger):
             print("Reel not reachable; skipped.")
             return 0
         container = call("POST", f"{API}/me/media", {"media_type": "REELS", "video_url": url, "caption": caption,
-                                                       "share_to_feed": "true", "access_token": token}, timeout=120)
+                                                       "share_to_feed": "false", "access_token": token}, timeout=120)
         wait_finished(container["id"], token, "the reel")
         result = call("POST", f"{API}/me/media_publish", {"creation_id": container["id"], "access_token": token})
     except Exception as exc:
