@@ -111,8 +111,8 @@ def publish():
     _, meta, caption = found
     ledger = load_ledger()
     if any(p["date"] == today for p in ledger["posts"]):
-        print(f"Already posted {today}; skipping.")
-        return 0
+        print(f"Carousel already posted {today}.")
+        return publish_reel(today, meta, caption, token, ledger)
     urls = [f"{SITE}/cards/{today}/{name}" for name in meta["slides"]]
     for url in urls:
         if not wait_until_public(url):
