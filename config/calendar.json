@@ -1,0 +1,26 @@
+{
+ "reviewed": "2026-11-19",
+ "note": "Retailer sale dates follow each retailer's own announcement; dates marked 'expected' follow the usual pattern and are confirmed about a week before.",
+ "events": [
+  {"start": "2026-11-11", "end": "2026-11-11", "name": "Pepero Day & 11.11 sales", "kind": "food", "status": "fixed",
+   "why": "Korea's biggest snack gifting day and the start of year-end online sales.", "act": "Snack and confectionery demand peaks; plan next year's gift SKUs now."},
+  {"start": "2026-11-25", "end": "2026-11-27", "name": "Olive Young Day", "kind": "beauty", "status": "expected",
+   "why": "Monthly 3-day member sale at Korea's largest beauty retailer.", "act": "Watch which items sell out; they signal next quarter's reorders."},
+  {"start": "2026-11-30", "end": "2026-12-06", "name": "Olive Young Sale (year-end)", "kind": "beauty", "status": "expected",
+   "why": "The largest of four quarterly sales; year-end gift sets and Olive Young Awards winners.", "act": "Gift-set formats launched here reach overseas 2-3 months later. Creators: haul and 'what Koreans bought' content."},
+  {"start": "2026-11-01", "end": "2026-12-10", "name": "Kimjang season", "kind": "food", "status": "fixed",
+   "why": "Households make a winter's worth of kimchi; gochugaru, salted shrimp and napa cabbage prices move.", "act": "Expect tighter supply and higher prices on gochugaru and kimchi inputs."},
+  {"start": "2027-01-26", "end": "2027-02-05", "name": "Seollal pre-holiday shipping cut-off", "kind": "both", "status": "expected",
+   "why": "Factories, forwarders and couriers clear backlogs before the Lunar New Year shutdown.", "act": "Place orders and book freight before late January; production slots fill early."},
+  {"start": "2027-02-06", "end": "2027-02-09", "name": "Seollal (Lunar New Year) holiday", "kind": "both", "status": "fixed",
+   "why": "National holiday: most factories, customs brokers and couriers stop.", "act": "No shipping or production; expect delays for a week after."},
+  {"start": "2027-02-28", "end": "2027-03-06", "name": "Olive Young Sale (spring)", "kind": "beauty", "status": "expected",
+   "why": "New-semester colour makeup and season-change skincare.", "act": "Sunscreen launches start here, months before Western summer."},
+  {"start": "2027-05-30", "end": "2027-06-05", "name": "Olive Young Sale (summer)", "kind": "beauty", "status": "expected",
+   "why": "Sun care, cooling and soothing lines.", "act": "Summer bestsellers here are next year's import candidates."},
+  {"start": "2027-08-29", "end": "2027-09-04", "name": "Olive Young Sale (autumn)", "kind": "beauty", "status": "expected",
+   "why": "Firming and nourishing lines, Chuseok gift sets.", "act": "Barrier and moisture categories rise into winter."},
+  {"start": "2027-09-14", "end": "2027-09-16", "name": "Chuseok holiday", "kind": "both", "status": "fixed",
+   "why": "Korea's harvest holiday; gift sets (ginseng, spam, fruit, beauty) peak in the two weeks before.", "act": "Book freight before early September; gift-set demand shows in search two weeks ahead."}
+ ]
+}

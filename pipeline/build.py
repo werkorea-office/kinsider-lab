@@ -142,6 +142,7 @@ def page(title, body, description, path, extra_head=""):
       <a href="/signals.html">Signals</a>
       <a href="/exports.html">Exports</a>
       <a href="/import-guide.html">Import guide</a>
+      <a href="/calendar.html">Calendar</a>
       <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
@@ -514,6 +515,25 @@ Bulk copying or resale of the data requires written permission from brief@kinsid
 to the extent permitted by law. These terms are governed by the laws of the Republic of Korea.</p>"""
 
 
+def calendar_page(today):
+    cal = json.loads((Path(__file__).resolve().parent.parent / "config" / "calendar.json").read_text(encoding="utf-8"))
+    rows = []
+    for ev in sorted(cal["events"], key=lambda x: x["start"]):
+        if ev["end"] < today:
+            continue
+        when = nice_date(ev["start"]) + ("" if ev["start"] == ev["end"] else f" – {nice_date(ev['end'])}")
+        now = ' <span class="tag">Now</span>' if ev["start"] <= today else ""
+        tag = "" if ev["status"] == "fixed" else ' <span class="note">(expected)</span>'
+        rows.append(f'<tr><td>{when}{tag}</td><td><b>{e(ev["name"])}</b>{now}<br><span class="note">{e(ev["kind"])}</span></td>'
+                    f'<td>{e(ev["why"])}</td><td>{e(ev["act"])}</td></tr>')
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">For buyers, sellers and creators</p>
+<h1>Korea commerce calendar</h1>
+<p class="lede small">The dates that move Korean beauty and food demand, prices and shipping, and what to do before each one.
+{e(cal['note'])} Reviewed {nice_date(cal['reviewed'])}.</p></div></section>
+<section class="seg"><div class="wrap"><div class="tbl-wrap"><table><thead><tr><th>When</th><th>Event</th><th>Why it matters</th>
+<th>What to do</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div></div></section>{subscribe_block()}"""
+
+
 def import_guide_page():
     c = compliance()
     flags = "".join(f'<div class="flag"><b>{e(f["title"])}</b> <span class="note">({e(", ".join(f["applies_to"]))})</span>'
@@ -828,6 +848,12 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
         (ROOT / fname).write_text(page(f"{title} | {BRAND}", static_page(eyebrow, title, body), desc, f"/{fname}"),
                                   encoding="utf-8")
 
+    (ROOT / "calendar.html").write_text(
+        page(f"Korea commerce calendar: K-beauty & K-food sales, holidays, shipping | {BRAND}",
+             calendar_page(dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).date().isoformat()),
+             "Olive Young sales, Seollal and Chuseok shutdowns, Kimjang and gifting peaks: the Korean dates "
+             "that move beauty and food demand, with what buyers should do before each.", "/calendar.html"),
+        encoding="utf-8")
     (ROOT / "import-guide.html").write_text(
         page(f"Importing K-beauty & K-food: US, EU, UK checklist | {BRAND}", import_guide_page(),
              "What must be in place before Korean cosmetics or food can be sold in the US, EU and UK: MoCRA, "
@@ -880,7 +906,7 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/calendar.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
