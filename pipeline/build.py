@@ -110,7 +110,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "10"
+CSS_VERSION = "11"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -451,7 +451,16 @@ def buyer_section(seg, it):
                     f'<p class="note">Source: {src_links(f["sources"])}</p></div>' for f in flags_for(it["en"]))
     return (f'<h3>Before you import</h3>{flags}{checklist_html(kind, compact=True)}'
             f'<p class="note">{e(c.get("disclaimer", ""))} Reviewed {nice_date(c["reviewed"])}. '
-            f'<a href="/import-guide.html">Full import checklist</a></p>')
+            f'<a href="/import-guide.html">Full import checklist</a></p>{cite_block(seg, it)}')
+
+
+def cite_block(seg, it):
+    """Free reuse with attribution: every citation is a backlink and a new buyer."""
+    url = f"{SITE_URL}/term/{slug(seg['id'], it['en'])}.html"
+    ref = f"K-INSIDER LAB, \"{it['en']} in Korea: shopping demand trend\", {url}"
+    return (f'<h3>Cite or reuse this data</h3><p class="note">Free to quote and chart in articles, decks and '
+            f'reports under CC BY 4.0 — just credit and link K-INSIDER LAB.</p>'
+            f'<pre class="cite">{e(ref)}</pre>')
 
 
 def static_page(eyebrow, title, html_body):

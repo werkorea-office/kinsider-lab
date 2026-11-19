@@ -133,6 +133,28 @@ def publish():
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
     print(f"Posted {today} carousel ({len(urls)} slides) to Instagram: {result.get('id')}")
+    return publish_reel(today, meta, caption, token, ledger)
+
+
+def publish_reel(today, meta, caption, token, ledger):
+    """Same research as a Reel, for reach beyond followers. Never blocks the carousel."""
+    if not meta.get("reel") or any(r["date"] == today for r in ledger.setdefault("reels", [])):
+        return 0
+    url = f"{SITE}/cards/{today}/{meta['reel']}"
+    try:
+        if not wait_until_public(url):
+            print("Reel not reachable; skipped.")
+            return 0
+        container = call("POST", f"{API}/me/media", {"media_type": "REELS", "video_url": url, "caption": caption,
+                                                       "share_to_feed": "true", "access_token": token}, timeout=120)
+        wait_finished(container["id"], token, "the reel")
+        result = call("POST", f"{API}/me/media_publish", {"creation_id": container["id"], "access_token": token})
+    except Exception as exc:
+        print(f"Reel failed (carousel already posted): {exc}")
+        return 0
+    ledger["reels"].append({"date": today, "media_id": result.get("id")})
+    LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
+    print(f"Posted {today} reel: {result.get('id')}")
     return 0
 
 

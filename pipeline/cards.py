@@ -554,6 +554,38 @@ def linkedin_caption(story, run_date):
     return "\n".join(lines)
 
 
+REEL_SECONDS = [4, 3, 3, 3, 3, 3]  # cover holds a beat longer; ~19 s total
+
+
+def make_reel(out_dir, names):
+    """9:16 Reel from the slides (slides centred on the brand background).
+
+    Reels reach non-followers; carousels mostly reach followers, so the same
+    research ships in both formats. Returns False (carousel still posts) when
+    ffmpeg is missing or fails.
+    """
+    import shutil
+    import subprocess
+    if not shutil.which("ffmpeg"):
+        return False
+    inputs, chains = [], []
+    for i, name in enumerate(names):
+        inputs += ["-loop", "1", "-t", str(REEL_SECONDS[min(i, len(REEL_SECONDS) - 1)]), "-i", str(out_dir / name)]
+        chains.append(f"[{i}:v]scale=1080:1350,pad=1080:1920:0:285:color=0x0B1220,setsar=1,fps=30[v{i}]")
+    graph = ";".join(chains) + ";" + "".join(f"[v{i}]" for i in range(len(names))) + f"concat=n={len(names)}:v=1:a=0,format=yuv420p[out]"
+    cmd = ["ffmpeg", "-y", "-loglevel", "error", *inputs,
+           "-f", "lavfi", "-t", str(sum(REEL_SECONDS[:len(names)])), "-i", "anullsrc=r=44100:cl=stereo",
+           "-filter_complex", graph, "-map", "[out]", "-map", f"{len(names)}:a",
+           "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-c:a", "aac", "-shortest",
+           "-movflags", "+faststart", str(out_dir / "reel.mp4")]
+    try:
+        subprocess.run(cmd, check=True, timeout=300)
+        return True
+    except Exception as exc:
+        print(f"Reel skipped: {exc}")
+        return False
+
+
 def render(story, snapshot, out_dir):
     run = snapshot["run_date"]
     issue = (dt.date.fromisoformat(run) - LAUNCH).days + 1
@@ -574,6 +606,8 @@ def render(story, snapshot, out_dir):
     (out_dir / "caption.txt").write_text(caption(story, run), encoding="utf-8")
     (out_dir / "caption-linkedin.txt").write_text(linkedin_caption(story, run), encoding="utf-8")
     meta = {"date": run, "issue": issue, "story": story["segment"], "title": story["headline"], "slides": names}
+    if make_reel(out_dir, names):
+        meta["reel"] = "reel.mp4"
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
     return meta
 
