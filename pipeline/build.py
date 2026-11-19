@@ -110,7 +110,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "11"
+CSS_VERSION = "12"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -148,7 +148,7 @@ def page(title, body, description, path, extra_head=""):
       <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
-      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+      <a class="btn-sm" href="/#subscribe" aria-label="Get the free weekly brief"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="l">Get the weekly brief</span><span class="s">Free brief</span></a>
     </nav>
   </div>
 </header>
