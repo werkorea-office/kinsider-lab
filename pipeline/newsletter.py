@@ -131,6 +131,20 @@ def exports_section():
                 14, MUTED) + rows_html(rows))
 
 
+def creator_section(items):
+    """Ready-to-film angles for creators and sellers: the Korean search term is the research shortcut."""
+    items = [i for i in items if i]
+    if not items:
+        return ""
+    lines = "".join(
+        p(f"<b>{e(i['en'])}</b> ({e(i['kw'])}), {build.pct(i['momentum'])} in Korean shopping searches. "
+          f"Angle: \"What Koreans are buying right now: {e(i['en'])}\". Research tip: search "
+          f"<b>{e(i['kw'])}</b> on Olive Young or Naver Shopping to see the exact products Koreans are clicking.", 15)
+        for i in items)
+    return (h2("Content angles this week", "FOR CREATORS & SELLERS") + lines
+            + p("Free to use with credit: \"Data: K-INSIDER LAB (kinsider-lab.com)\".", 13, MUTED))
+
+
 def build_brief(snapshot, day):
     nm = notes()
     run = dt.date.fromisoformat(snapshot["run_date"])
@@ -155,7 +169,7 @@ def build_brief(snapshot, day):
             "clicks, plus official export figures. Change = last 7 days vs. the prior 28 days.", 15, MUTED)
         + (f'<a href="{SITE}"><img src="{cover}" width="100%" alt="This week\'s Korea demand signal" '
            f'style="display:block;width:100%;max-width:600px;border-radius:8px;margin:18px 0 6px"></a>' if (WEB / f"{day.isoformat()}-cover.jpg").exists() else "")
-        + beauty + brands + food + signals_section(run) + exports_section()
+        + beauty + brands + food + creator_section([top_b, top_br, top_f]) + signals_section(run) + exports_section()
         + h2("Go deeper", "K-INSIDER LAB")
         + p(f'<a href="{SITE}" style="color:{ACCENT};font-weight:700">Daily data for every tracked term</a> · '
             f'<a href="{SITE}/reports.html" style="color:{ACCENT};font-weight:700">Monthly PDF report</a> · '

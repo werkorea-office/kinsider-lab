@@ -143,6 +143,8 @@ def page(title, body, description, path, extra_head=""):
       <a href="/exports.html">Exports</a>
       <a href="/import-guide.html">Import guide</a>
       <a href="/calendar.html">Calendar</a>
+      <a href="/market/">Markets</a>
+      <a href="/sourcing-guide.html">Sourcing</a>
       <a href="/reports.html">Reports</a>
       <a href="/archive.html">Archive</a>
       <a href="/methodology.html">Methodology</a>
@@ -658,7 +660,7 @@ def export_rows(ex, hs):
         unit = last12 / kg12 if kg12 > 0 else None            # US$ per kg, trailing 12 months
         unit_prev = usd_prev12 / kg_prev12 if kg_prev12 > 0 else None
         growth12 = (last12 / usd_prev12 - 1) if usd_prev12 > 0 else None
-        rows.append({"country": names.get(code, code), "now": now, "yoy": yoy, "last12": last12,
+        rows.append({"code": code, "country": names.get(code, code), "now": now, "yoy": yoy, "last12": last12,
                      "unit": unit, "unit_change": (unit / unit_prev - 1) if unit and unit_prev else None,
                      "growth12": growth12})
     return sorted(rows, key=lambda r: r["now"], reverse=True)
@@ -729,6 +731,59 @@ def exports_page():
 <p class="lede small">Latest month: {month_label(ex['latest_month'])}. Source: {e(ex['source'])}. Refreshed weekly;
 Customs revises the previous month around the 15th.</p></div></section>
 <section class="seg"><div class="wrap">{blocks}</div></section>"""
+
+
+def market_slug(code):
+    return f"/market/{code.lower()}.html"
+
+
+def market_page(ex, code, name):
+    rows, total = [], 0
+    for prod in ex["products"]:
+        all_rows = export_rows(ex, prod["hs"])
+        r = next((x for x in all_rows if x["code"] == code), None)
+        if not r:
+            continue
+        rank = 1 + sorted([x["last12"] for x in all_rows], reverse=True).index(r["last12"])
+        total += r["last12"]
+        unit = f"${r['unit']:,.1f}" if r["unit"] else "–"
+        rows.append(f"<tr><td>{e(prod['en'])} <span class=\"note\">HS {prod['hs']}</span></td>"
+                    f"<td class=\"num\">{usd(r['last12'])}</td><td class=\"num {pct_class(r['growth12'])}\">{pct(r['growth12'])}</td>"
+                    f"<td class=\"num {pct_class(r['yoy'])}\">{pct(r['yoy'])}</td><td class=\"num\">{unit}</td>"
+                    f"<td class=\"num\">#{rank} of {len(all_rows)}</td></tr>")
+    body = (f'<div class="tbl-wrap"><table><thead><tr><th>Product</th><th class="num">Exports, last 12 mo.</th>'
+            f'<th class="num">vs. prior 12 mo.</th><th class="num">{month_label(ex["latest_month"])} vs. year before</th>'
+            f'<th class="num">US$ per kg</th><th class="num">Rank among tracked markets</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>')
+    others = " · ".join(f'<a href="{market_slug(c["code"])}">{e(c["name"])}</a>' for c in ex["countries"] if c["code"] != code)
+    return total, f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Market profile · official trade data</p>
+<h1>Korean beauty &amp; food exports to {e(name)}</h1>
+<p class="lede small">How much Korean skin care, hair care, noodles and sauces ship to {e(name)}, how fast it is growing,
+and the price level per kg. Latest month {month_label(ex['latest_month'])}. Source: {e(ex['source'])}.</p></div></section>
+<section class="seg"><div class="wrap">{body}
+<p class="note">Growth above +20% with a rising US$ per kg usually means a market is trading up to premium Korean goods;
+falling US$ per kg points to volume and price competition. Pair this with what Koreans are searching now on the
+<a href="/">daily dashboard</a> and the <a href="/calendar.html">commerce calendar</a>.</p>
+<h3>Other markets</h3><p class="note">{others}</p></div></section>{subscribe_block()}"""
+
+
+def markets_index(ex, totals):
+    rows = "".join(f'<tr><td><a href="{market_slug(c)}">{e(n)}</a></td><td class="num">{usd(t)}</td></tr>'
+                   for c, n, t in sorted(totals, key=lambda x: x[2], reverse=True))
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Market profiles</p>
+<h1>Where Korean beauty &amp; food exports go</h1>
+<p class="lede small">One page per market: tracked Korean beauty and food exports, growth and price per kg.
+Latest month {month_label(ex['latest_month'])}.</p></div></section>
+<section class="seg"><div class="wrap"><div class="tbl-wrap"><table><thead><tr><th>Market</th>
+<th class="num">Tracked exports, last 12 mo.</th></tr></thead><tbody>{rows}</tbody></table></div></div></section>{subscribe_block()}"""
+
+
+def guide_page(name):
+    g = json.loads((Path(__file__).resolve().parent.parent / "config" / f"{name}.json").read_text(encoding="utf-8"))
+    secs = "".join(f"<h2>{e(x['h'])}</h2>" + "".join(f"<p>{x_}</p>" for x_ in x["p"]) for x in g["sections"])
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">{e(g['eyebrow'])}</p><h1>{e(g['title'])}</h1>
+<p class="lede small">{e(g['lede'])} Reviewed {nice_date(g['reviewed'])}.</p></div></section>
+<section class="seg"><div class="wrap prose">{secs}</div></section>{subscribe_block()}"""
 
 
 # ---------- static pages ----------
@@ -848,6 +903,27 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
         (ROOT / fname).write_text(page(f"{title} | {BRAND}", static_page(eyebrow, title, body), desc, f"/{fname}"),
                                   encoding="utf-8")
 
+    ex = load_exports()
+    if ex and ex.get("latest_month"):
+        (ROOT / "market").mkdir(exist_ok=True)
+        totals = []
+        for c in ex["countries"]:
+            total, html_ = market_page(ex, c["code"], c["name"])
+            totals.append((c["code"], c["name"], total))
+            (ROOT / market_slug(c["code"]).lstrip("/")).write_text(
+                page(f"Korean cosmetics & food exports to {c['name']}: size, growth, price | {BRAND}", html_,
+                     f"Official Korea Customs data on K-beauty and K-food exports to {c['name']}: last 12 months, "
+                     f"growth and US$ per kg.", market_slug(c["code"])), encoding="utf-8")
+        (ROOT / "market" / "index.html").write_text(
+            page(f"Korean beauty & food exports by market | {BRAND}", markets_index(ex, totals),
+                 "Market-by-market profiles of Korean cosmetics and food exports from official customs data.",
+                 "/market/"), encoding="utf-8")
+    for name, fname, title, desc in [
+        ("lag", "korea-to-world.html", "From Korea to the world: how K-trends travel",
+         "Documented cases of Korean beauty and food trends that reached US and European shelves, and how long it took."),
+        ("odm", "sourcing-guide.html", "How to make your own K-beauty brand: Korean OEM/ODM sourcing guide",
+         "How Korean cosmetic OEM/ODM manufacturing works: major makers, minimum orders, timelines and documents.")]:
+        (ROOT / fname).write_text(page(f"{title} | {BRAND}", guide_page(name), desc, f"/{fname}"), encoding="utf-8")
     (ROOT / "calendar.html").write_text(
         page(f"Korea commerce calendar: K-beauty & K-food sales, holidays, shipping | {BRAND}",
              calendar_page(dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).date().isoformat()),
@@ -906,8 +982,9 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/calendar.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
-             + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
+    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/calendar.html", "/market/", "/korea-to-world.html", "/sourcing-guide.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
+             + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls
+             + [f"/market/{c['code'].lower()}.html" for c in (load_exports() or {}).get("countries", [])])
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n',

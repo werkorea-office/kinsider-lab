@@ -34,7 +34,9 @@ PRODUCTS = [
 COUNTRIES = [
     ("US", "United States"), ("CN", "China"), ("JP", "Japan"), ("HK", "Hong Kong"), ("VN", "Vietnam"),
     ("TW", "Taiwan"), ("TH", "Thailand"), ("AE", "United Arab Emirates"), ("GB", "United Kingdom"),
-    ("RU", "Russia"), ("PL", "Poland"), ("AU", "Australia"),
+    ("RU", "Russia"), ("PL", "Poland"), ("AU", "Australia"), ("CA", "Canada"), ("DE", "Germany"),
+    ("FR", "France"), ("NL", "Netherlands"), ("SG", "Singapore"), ("MY", "Malaysia"), ("ID", "Indonesia"),
+    ("PH", "Philippines"), ("MX", "Mexico"), ("KZ", "Kazakhstan"), ("SA", "Saudi Arabia"), ("NZ", "New Zealand"),
 ]
 
 
