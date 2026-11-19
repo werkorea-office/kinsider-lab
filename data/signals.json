@@ -27,7 +27,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 43.35
+    "level": 49.78
    }
   },
   {
@@ -46,7 +46,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 362.17
+    "level": 403.13
    }
   },
   {
@@ -65,7 +65,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 165.79
+    "level": 178.13
    }
   },
   {
@@ -84,7 +84,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 209.26
+    "level": 221.88
    }
   },
   {
@@ -103,7 +103,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 310.66
+    "level": 331.25
    }
   },
   {
@@ -122,7 +122,45 @@
    "checks": {},
    "latest": {
     "date": "2026-11-19",
-    "level": 98.19
+    "level": 115.63
+   }
+  },
+  {
+   "id": "brands:달바:2026-11-19",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "달바",
+   "en": "d'Alba",
+   "type": "Brand",
+   "called": "2026-11-19",
+   "data_end": "2026-11-18",
+   "level_at_call": 740.63,
+   "momentum_at_call": 0.2177,
+   "prev_week": 723.44,
+   "early_baseline": 569.79,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-19",
+    "level": 740.63
+   }
+  },
+  {
+   "id": "brands:정샘물:2026-11-19",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "정샘물",
+   "en": "JUNGSAEMMOOL",
+   "type": "Brand",
+   "called": "2026-11-19",
+   "data_end": "2026-11-18",
+   "level_at_call": 479.69,
+   "momentum_at_call": 1.0231,
+   "prev_week": 448.44,
+   "early_baseline": 166.67,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-19",
+    "level": 479.69
    }
   }
  ]
