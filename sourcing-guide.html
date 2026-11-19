@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
+<title>How to make your own K-beauty brand: Korean OEM/ODM sourcing guide | K-INSIDER LAB</title>
+<meta name="description" content="How Korean cosmetic OEM/ODM manufacturing works: major makers, minimum orders, timelines and documents.">
+<link rel="canonical" href="https://www.kinsider-lab.com/sourcing-guide.html">
+<meta property="og:title" content="How to make your own K-beauty brand: Korean OEM/ODM sourcing guide | K-INSIDER LAB">
+<meta property="og:description" content="How Korean cosmetic OEM/ODM manufacturing works: major makers, minimum orders, timelines and documents.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/sourcing-guide.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=11">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/exports.html">Exports</a>
+      <a href="/import-guide.html">Import guide</a>
+      <a href="/calendar.html">Calendar</a>
+      <a href="/market/">Markets</a>
+      <a href="/sourcing-guide.html">Sourcing</a>
+      <a href="/reports.html">Reports</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero slim"><div class="wrap"><p class="eyebrow">For new brands</p><h1>Making your own K-beauty brand: Korean OEM/ODM sourcing guide</h1>
+<p class="lede small">Most K-beauty brands do not own factories. They work with Korean contract manufacturers, which is why a new brand can launch a Korean-made product without building a lab. This is how it works. General guidance, not legal advice; confirm every term with the manufacturer. Reviewed 19 Nov 2026.</p></div></section>
+<section class="seg"><div class="wrap prose"><h2>OEM vs. ODM</h2><p><b>OEM</b>: you bring the formula and specification; the factory produces it. <b>ODM</b>: the factory's own lab develops or adapts the formula for you, and you sell it under your brand. Most new brands use ODM.</p><p>Korea's largest cosmetic ODMs, such as Cosmax and Kolmar Korea, also make products for many well-known global brands. Many smaller, specialist makers (sun care, masks, hair, colour) accept smaller first orders.</p><h2>What to expect</h2><p><b>Minimum order:</b> set per product and per packaging item; large ODMs generally expect larger runs than specialist makers, and stock formulas usually allow smaller first orders than custom ones. <b>Timeline:</b> development and sampling, stability testing, packaging sourcing and production usually take several months from brief to shipment. <b>Cost drivers:</b> active ingredients, packaging (often the largest variable), and order size.</p><p>Ask early who sources packaging and who owns the formula. If you may switch makers later, agree formula ownership in writing.</p><h2>Documents to ask for</h2><p>Full ingredient list (INCI) and percentages where your market requires them; certificate of analysis per batch; GMP (ISO 22716 / CGMP) status of the factory; stability and preservative-efficacy test results; safety data for the EU/UK Responsible Person (CPSR); and, for the US, facility registration and product listing under MoCRA. Sunscreens are regulated as drugs in the US and need separate handling. See the <a href="/import-guide.html">import checklist</a>.</p><h2>Where to find manufacturers</h2><p>KOTRA's <a href="https://www.buykorea.org">buyKOREA</a> lists Korean suppliers and can arrange introductions. Korean beauty trade shows, such as K-Beauty Expo Korea, gather many contract manufacturers in one place. Before you brief a maker, check which ingredients and formats are rising in Korea now on the <a href="/">daily dashboard</a>; Korean makers already have formulas for what Koreans are buying.</p></div></section>
+<section class="subscribe" id="subscribe">
+  <div class="wrap sub-in">
+    <div>
+      <h2>The weekly Korea demand brief</h2>
+      <p>Every Monday: the categories and ingredients gaining ground in Korean online shopping,
+      before they reach export shelves. Free for buyers, distributors and brand teams.</p>
+    </div>
+    <form action="https://formspree.io/f/mjygjowd" method="POST" class="sub-form" id="sub-form">
+      <input type="hidden" name="_subject" value="K-INSIDER LAB weekly brief signup">
+      <input type="hidden" name="form" value="weekly-brief">
+      <label class="sr" for="email">Business email</label>
+      <input id="email" type="email" name="email" required placeholder="you@company.com">
+      <input type="text" name="company" placeholder="Company (optional)">
+      <label class="opt"><input type="checkbox" name="alerts" value="yes"> Also email me breakout alerts the day they are called (a few a month)</label>
+      <button type="submit">Subscribe</button>
+      <p class="form-msg" id="sub-msg"></p>
+    </form>
+  </div>
+</section>
+<script>
+(function () {
+  var f = document.getElementById("sub-form"), kit = "10207075";
+  if (!f) return;
+  f.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var data = new FormData(f), msg = document.getElementById("sub-msg");
+    var jobs = [fetch("https://formspree.io/f/mjygjowd", { method: "POST", body: data, headers: { Accept: "application/json" } })];
+    if (kit) jobs.push(klSubscribe(data.get("email"), data.get("company"), "weekly-brief", data.get("alerts") === "yes"));
+    Promise.all(jobs).then(function (rs) {
+      if (!rs.every(function (r) { return r.ok; })) throw 0;
+      f.reset();
+      msg.textContent = kit ? "Almost done: check your inbox and confirm your subscription." : "Thank you. You're on the list.";
+    }).catch(function () { msg.textContent = "Something went wrong. Please try again."; });
+  });
+})();
+</script>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/about.html">About</a> · <a href="/methodology.html">Methodology &amp; limits</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="biz">Operated by DecisionS (디시전에스) · 3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea · Business reg. 666-45-01149 · <a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try { seen = localStorage.getItem("kl_seen"); } catch (e) {}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), { method: first ? "POST" : "GET" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (j) {
+      if (first) { try { localStorage.setItem("kl_seen", day); } catch (e) {} }
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    })
+    .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
+})();
+function klSubscribe(email, company, source, alerts) {
+  var d = new FormData();
+  d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
+  if (company) d.append("fields[company]", company);
+  d.append("fields[source]", source);
+  return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+}
+</script>
+</body>
+</html>
