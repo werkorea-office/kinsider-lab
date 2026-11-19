@@ -110,7 +110,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "9"
+CSS_VERSION = "10"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -162,7 +162,8 @@ def page(title, body, description, path, extra_head=""):
       <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by {BRAND};
       {BRAND} is not affiliated with or endorsed by Naver.</p>
       <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
-      <p><a href="/methodology.html">Methodology &amp; limits</a> · <a href="/feed.xml">RSS</a></p>
+      <p><a href="/about.html">About</a> · <a href="/methodology.html">Methodology &amp; limits</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="biz">Operated by DecisionS (디시전에스) · 3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea · Business reg. 666-45-01149 · <a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a></p>
       <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
     </div>
   </div>
@@ -451,6 +452,57 @@ def buyer_section(seg, it):
     return (f'<h3>Before you import</h3>{flags}{checklist_html(kind, compact=True)}'
             f'<p class="note">{e(c.get("disclaimer", ""))} Reviewed {nice_date(c["reviewed"])}. '
             f'<a href="/import-guide.html">Full import checklist</a></p>')
+
+
+def static_page(eyebrow, title, html_body):
+    return (f'<section class="hero slim"><div class="wrap"><p class="eyebrow">{e(eyebrow)}</p><h1>{e(title)}</h1></div></section>'
+            f'<section class="seg"><div class="wrap prose">{html_body}</div></section>')
+
+
+ABOUT = """<p>K-INSIDER LAB measures what Korean consumers are shopping for, every day, and publishes it in English for
+buyers, distributors, retailers and brand teams outside Korea. Korea is where many beauty and food trends start;
+our job is to show that demand early, with numbers you can check.</p>
+<h2>What we publish</h2><ul>
+<li>A daily demand index for K-beauty products, ingredients and brands and for K-food, from Naver shopping-search clicks.</li>
+<li>Breakout calls when a rise holds for two weeks, with every result checked after 7, 14 and 28 days and kept public.</li>
+<li>Official Korea Customs export figures by product and destination market.</li>
+<li>An import checklist for the US, EU and UK, with sources.</li></ul>
+<h2>Principles</h2><ul>
+<li>Data first: we report measured demand and official figures, never paid placements.</li>
+<li>No product verdicts: we do not tell you a product is good or bad; we show what Korean shoppers do.</li>
+<li>Nothing hidden: methods, watchlist and the full breakout ledger are public, misses included.</li></ul>
+<h2>Who we are</h2><p>K-INSIDER LAB is operated by DecisionS (디시전에스), a Korean company based in Chungju, Republic of Korea
+(business registration 666-45-01149). Contact: <a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a>.
+Data partners and custom research requests are welcome.</p>"""
+
+PRIVACY = """<p>Last updated 19 November 2026. This policy explains what personal data K-INSIDER LAB (operated by DecisionS,
+3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea; contact
+<a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a>) collects and why.</p>
+<h2>What we collect</h2><ul>
+<li><b>Email subscription:</b> your email address and, if you give them, company and role. We use them to send the weekly
+brief, breakout alerts you opted into, and report links. You confirm by email before anything is sent (double opt-in).</li>
+<li><b>Visit counts:</b> the site counts visits per day without cookies; your browser stores a local flag so a visit is counted once a day.
+No IP addresses or identifiers are stored by us.</li></ul>
+<h2>Service providers</h2><p>Kit (email delivery and list management), Formspree (form submissions), GitHub Pages (hosting) and
+Cloudflare (network and visit counter) process data on our behalf, some of them in the United States.</p>
+<h2>Your choices and rights</h2><ul>
+<li>Every email has an unsubscribe link; unsubscribing stops all emails at once.</li>
+<li>You can ask to see, correct or delete your data at any time by writing to brief@kinsider-lab.com.
+Depending on where you live (for example the EU/UK under the GDPR, or Korea under PIPA) you may also object to processing
+or complain to your data protection authority.</li>
+<li>We keep subscriber data while you are subscribed and delete it within 30 days of a deletion request.</li></ul>
+<p>We do not sell personal data and do not use it for advertising.</p>"""
+
+TERMS = """<p>Last updated 19 November 2026. By using kinsider-lab.com you agree to these terms.</p>
+<h2>Information, not advice</h2><p>Indices, breakout calls, export figures and import checklists are provided for information.
+They are not investment, legal or regulatory advice. Search demand indicates interest, not sales. Confirm regulatory
+requirements with a qualified specialist before importing or selling products.</p>
+<h2>Sources</h2><p>Search data: Naver DataLab Shopping Insight (relative click indices, not absolute volumes).
+Trade data: Korea Customs Service via data.go.kr. Figures may be revised by their sources.</p>
+<h2>Use of our content</h2><p>You may quote and share charts and figures with credit and a link to kinsider-lab.com.
+Bulk copying or resale of the data requires written permission from brief@kinsider-lab.com.</p>
+<h2>Liability</h2><p>The site is provided as is. DecisionS is not liable for decisions made on the basis of the information,
+to the extent permitted by law. These terms are governed by the laws of the Republic of Korea.</p>"""
 
 
 def import_guide_page():
@@ -760,6 +812,13 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
 <section class="seg"><div class="wrap"><ul class="archive-list">{items}</ul></div></section>{subscribe_block()}''',
              "Archive of the K-INSIDER LAB weekly Korea demand brief.", "/newsletter/"), encoding="utf-8")
 
+    for fname, title, eyebrow, body, desc in [
+        ("about.html", "About K-INSIDER LAB", "About", ABOUT, "Who runs K-INSIDER LAB, what we publish and how."),
+        ("privacy.html", "Privacy policy", "Legal", PRIVACY, "How K-INSIDER LAB handles subscriber data."),
+        ("terms.html", "Terms of use", "Legal", TERMS, "Terms of use for kinsider-lab.com data and content.")]:
+        (ROOT / fname).write_text(page(f"{title} | {BRAND}", static_page(eyebrow, title, body), desc, f"/{fname}"),
+                                  encoding="utf-8")
+
     (ROOT / "import-guide.html").write_text(
         page(f"Importing K-beauty & K-food: US, EU, UK checklist | {BRAND}", import_guide_page(),
              "What must be in place before Korean cosmetics or food can be sold in the US, EU and UK: MoCRA, "
@@ -812,7 +871,7 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls)
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(

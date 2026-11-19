@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
+<title>Privacy policy | K-INSIDER LAB</title>
+<meta name="description" content="How K-INSIDER LAB handles subscriber data.">
+<link rel="canonical" href="https://www.kinsider-lab.com/privacy.html">
+<meta property="og:title" content="Privacy policy | K-INSIDER LAB">
+<meta property="og:description" content="How K-INSIDER LAB handles subscriber data.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/privacy.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=10">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/exports.html">Exports</a>
+      <a href="/import-guide.html">Import guide</a>
+      <a href="/reports.html">Reports</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero slim"><div class="wrap"><p class="eyebrow">Legal</p><h1>Privacy policy</h1></div></section><section class="seg"><div class="wrap prose"><p>Last updated 19 November 2026. This policy explains what personal data K-INSIDER LAB (operated by DecisionS,
+3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea; contact
+<a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a>) collects and why.</p>
+<h2>What we collect</h2><ul>
+<li><b>Email subscription:</b> your email address and, if you give them, company and role. We use them to send the weekly
+brief, breakout alerts you opted into, and report links. You confirm by email before anything is sent (double opt-in).</li>
+<li><b>Visit counts:</b> the site counts visits per day without cookies; your browser stores a local flag so a visit is counted once a day.
+No IP addresses or identifiers are stored by us.</li></ul>
+<h2>Service providers</h2><p>Kit (email delivery and list management), Formspree (form submissions), GitHub Pages (hosting) and
+Cloudflare (network and visit counter) process data on our behalf, some of them in the United States.</p>
+<h2>Your choices and rights</h2><ul>
+<li>Every email has an unsubscribe link; unsubscribing stops all emails at once.</li>
+<li>You can ask to see, correct or delete your data at any time by writing to brief@kinsider-lab.com.
+Depending on where you live (for example the EU/UK under the GDPR, or Korea under PIPA) you may also object to processing
+or complain to your data protection authority.</li>
+<li>We keep subscriber data while you are subscribed and delete it within 30 days of a deletion request.</li></ul>
+<p>We do not sell personal data and do not use it for advertising.</p></div></section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/about.html">About</a> · <a href="/methodology.html">Methodology &amp; limits</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="biz">Operated by DecisionS (디시전에스) · 3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea · Business reg. 666-45-01149 · <a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try { seen = localStorage.getItem("kl_seen"); } catch (e) {}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), { method: first ? "POST" : "GET" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (j) {
+      if (first) { try { localStorage.setItem("kl_seen", day); } catch (e) {} }
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    })
+    .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
+})();
+function klSubscribe(email, company, source, alerts) {
+  var d = new FormData();
+  d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
+  if (company) d.append("fields[company]", company);
+  d.append("fields[source]", source);
+  return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+}
+</script>
+</body>
+</html>

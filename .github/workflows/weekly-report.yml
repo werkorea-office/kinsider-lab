@@ -1,0 +1,20 @@
+name: Weekly report
+on:
+  schedule:
+    - cron: '50 22 * * 0'   # Monday 07:50 KST
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+  actions: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pipeline.weekly_report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

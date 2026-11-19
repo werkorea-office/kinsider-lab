@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="IPej6igUojUVcGnqx8ramo7kEpV0j911z2cvqXVXMqk">
+<title>Terms of use | K-INSIDER LAB</title>
+<meta name="description" content="Terms of use for kinsider-lab.com data and content.">
+<link rel="canonical" href="https://www.kinsider-lab.com/terms.html">
+<meta property="og:title" content="Terms of use | K-INSIDER LAB">
+<meta property="og:description" content="Terms of use for kinsider-lab.com data and content.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kinsider-lab.com/terms.html">
+<link rel="alternate" type="application/rss+xml" title="K-INSIDER LAB daily brief" href="/feed.xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=10">
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></a>
+    <nav>
+      <a href="/">Today</a>
+      <a href="/signals.html">Signals</a>
+      <a href="/exports.html">Exports</a>
+      <a href="/import-guide.html">Import guide</a>
+      <a href="/reports.html">Reports</a>
+      <a href="/archive.html">Archive</a>
+      <a href="/methodology.html">Methodology</a>
+      <a class="btn-sm" href="/#subscribe">Get the weekly brief</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero slim"><div class="wrap"><p class="eyebrow">Legal</p><h1>Terms of use</h1></div></section><section class="seg"><div class="wrap prose"><p>Last updated 19 November 2026. By using kinsider-lab.com you agree to these terms.</p>
+<h2>Information, not advice</h2><p>Indices, breakout calls, export figures and import checklists are provided for information.
+They are not investment, legal or regulatory advice. Search demand indicates interest, not sales. Confirm regulatory
+requirements with a qualified specialist before importing or selling products.</p>
+<h2>Sources</h2><p>Search data: Naver DataLab Shopping Insight (relative click indices, not absolute volumes).
+Trade data: Korea Customs Service via data.go.kr. Figures may be revised by their sources.</p>
+<h2>Use of our content</h2><p>You may quote and share charts and figures with credit and a link to kinsider-lab.com.
+Bulk copying or resale of the data requires written permission from brief@kinsider-lab.com.</p>
+<h2>Liability</h2><p>The site is provided as is. DecisionS is not liable for decisions made on the basis of the information,
+to the extent permitted by law. These terms are governed by the laws of the Republic of Korea.</p></div></section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo small"><span class="mark">K</span><span>K-INSIDER <b>LAB</b></span></div>
+      <p>Daily, data-sourced signals on what Korean consumers are shopping for.</p>
+    </div>
+    <div class="foot-meta">
+      <p>Source data: Naver DataLab Shopping Insight. Indices are calculated by K-INSIDER LAB;
+      K-INSIDER LAB is not affiliated with or endorsed by Naver.</p>
+      <p>Operated by 디시전에스 (DecisionS), Chungju, Republic of Korea.</p>
+      <p><a href="/about.html">About</a> · <a href="/methodology.html">Methodology &amp; limits</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/feed.xml">RSS</a></p>
+      <p class="biz">Operated by DecisionS (디시전에스) · 3F, 235-1 Gaenggogae-ro, Chungju-si, Chungcheongbuk-do, Republic of Korea · Business reg. 666-45-01149 · <a href="mailto:brief@kinsider-lab.com">brief@kinsider-lab.com</a></p>
+      <p class="visits" id="kl-visits">Visitors today <b id="kl-today">–</b> · All-time <b id="kl-total">–</b></p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Daily visitor counter: one count per browser per day (KST), counted by a Cloudflare Worker. */
+(function () {
+  var api = "https://kinsider-visitors.werkorea-office.workers.dev";
+  var day = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+  var seen = null;
+  try { seen = localStorage.getItem("kl_seen"); } catch (e) {}
+  var first = seen !== day;
+  fetch(api + (first ? "/hit" : "/"), { method: first ? "POST" : "GET" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (j) {
+      if (first) { try { localStorage.setItem("kl_seen", day); } catch (e) {} }
+      document.getElementById("kl-today").textContent = Number(j.today).toLocaleString("en-US");
+      document.getElementById("kl-total").textContent = Number(j.total).toLocaleString("en-US");
+    })
+    .catch(function () { document.getElementById("kl-visits").style.display = "none"; });
+})();
+function klSubscribe(email, company, source, alerts) {
+  var d = new FormData();
+  d.append("email_address", email);
+  if (alerts) d.append("fields[alerts]", "yes");
+  if (company) d.append("fields[company]", company);
+  d.append("fields[source]", source);
+  return fetch("https://app.kit.com/forms/10207075/subscriptions", { method: "POST", body: d, headers: { Accept: "application/json" } });
+}
+</script>
+</body>
+</html>

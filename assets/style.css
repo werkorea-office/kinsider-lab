@@ -128,3 +128,5 @@ td.num{white-space:nowrap}
 .flag p{margin:6px 0}
 details{border-top:1px solid #e2dfd8;padding:10px 0}
 details summary{cursor:pointer;font-weight:600}
+.prose{max-width:760px}.prose h2{margin-top:28px}.prose li{margin:6px 0}
+.biz{font-size:12px;opacity:.75}
