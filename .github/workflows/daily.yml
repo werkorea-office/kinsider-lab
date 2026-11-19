@@ -100,6 +100,9 @@ jobs:
             git push
           fi
 
+      - name: Notify search engines (IndexNow)
+        run: python -m pipeline.indexnow
+
       - name: Fail visibly if an email step failed
         if: steps.newsletter.outcome == 'failure' || steps.alerts.outcome == 'failure'
         run: |
