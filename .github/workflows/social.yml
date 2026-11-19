@@ -2,7 +2,12 @@ name: Social publishing
 
 on:
   schedule:
-    - cron: '0 14 * * *'  # 23:00 KST = 9:00 AM US Eastern (EST) / 10:00 AM (EDT): post today's card
+    # 23:00 KST = 9:00 AM US Eastern. GitHub delays busy on-the-hour schedules (sometimes by hours),
+    # so several off-peak triggers fire; the publish ledgers make every run after the first a no-op.
+    - cron: '53 13 * * *'
+    - cron: '11 14 * * *'
+    - cron: '37 14 * * *'
+    - cron: '17 15 * * *'
     - cron: '0 3 * * 1'   # Mondays 12:00 KST: extend the Instagram token
   workflow_dispatch:
     inputs:
@@ -48,13 +53,13 @@ jobs:
         run: python -m pipeline.social_instagram check
 
       - name: Publish today's card
-        if: github.event.schedule == '0 14 * * *' || inputs.task == 'publish'
+        if: (github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish'
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python -m pipeline.social_instagram publish
 
       - name: Publish today's carousel to LinkedIn
-        if: always() && (github.event.schedule == '0 14 * * *' || inputs.task == 'publish' || inputs.task == 'linkedin')
+        if: always() && ((github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish' || inputs.task == 'linkedin')
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: python -m pipeline.social_linkedin publish
@@ -69,7 +74,7 @@ jobs:
           python -m pipeline.social_linkedin dryrun
 
       - name: Asset ledger (visitors, subscribers, followers)
-        if: always() && (github.event.schedule == '0 14 * * *' || inputs.task == 'publish')
+        if: always() && ((github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish')
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
