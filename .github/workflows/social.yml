@@ -42,11 +42,14 @@ jobs:
       - name: Wait until 23:00 KST (scheduled posting runs only)
         if: github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1'
         run: |
-          now=$(date -u +%s); target=$(date -u -d "$(date -u +%F) 14:00" +%s)
-          wait=$(( target - now ))
-          if [ $wait -ge 18000 ]; then
-            echo "Too early in the KST day (delayed trigger); not posting now." ; echo "SOCIAL_SKIP=1" >> "$GITHUB_ENV"
-          elif [ $wait -gt 0 ]; then echo "Waiting $wait s"; sleep $wait; fi
+          h=$(date -u +%H)
+          if [ "$h" -lt 9 ] || [ "$h" -ge 17 ]; then
+            # Outside 18:00-02:00 KST: a badly delayed trigger. Never post at the wrong time of day.
+            echo "Outside the posting window; not posting now."; echo "SOCIAL_SKIP=1" >> "$GITHUB_ENV"
+          else
+            wait=$(( $(date -u -d "$(date -u +%F) 14:00" +%s) - $(date -u +%s) ))
+            if [ $wait -gt 0 ]; then echo "Waiting $wait s until 23:00 KST"; sleep $wait; fi
+          fi
           git pull -q origin main   # pick up a post made by an earlier run while we waited
 
       - name: Install dependencies
