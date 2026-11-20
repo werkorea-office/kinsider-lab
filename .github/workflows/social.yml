@@ -44,7 +44,9 @@ jobs:
         run: |
           now=$(date -u +%s); target=$(date -u -d "$(date -u +%F) 14:00" +%s)
           wait=$(( target - now ))
-          if [ $wait -gt 0 ] && [ $wait -lt 18000 ]; then echo "Waiting $wait s"; sleep $wait; fi
+          if [ $wait -ge 18000 ]; then
+            echo "Too early in the KST day (delayed trigger); not posting now." ; echo "SOCIAL_SKIP=1" >> "$GITHUB_ENV"
+          elif [ $wait -gt 0 ]; then echo "Waiting $wait s"; sleep $wait; fi
           git pull -q origin main   # pick up a post made by an earlier run while we waited
 
       - name: Install dependencies
@@ -65,13 +67,13 @@ jobs:
         run: python -m pipeline.social_instagram check
 
       - name: Publish today's card
-        if: (github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish'
+        if: env.SOCIAL_SKIP != '1' && ((github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish')
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python -m pipeline.social_instagram publish
 
       - name: Publish today's carousel to LinkedIn
-        if: always() && ((github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish' || inputs.task == 'linkedin')
+        if: always() && env.SOCIAL_SKIP != '1' && ((github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1') || inputs.task == 'publish' || inputs.task == 'linkedin')
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: python -m pipeline.social_linkedin publish
