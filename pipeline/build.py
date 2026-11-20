@@ -110,7 +110,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "13"
+CSS_VERSION = "14"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -141,7 +141,7 @@ def page(title, body, description, path, extra_head=""):
       <a href="/">Today</a>
       <a href="/signals.html">Signals</a>
       <a href="/exports.html">Exports</a>
-      <a href="/import-guide.html">Import guide</a>
+      <a href="/import-guide.html">Import</a>
       <a href="/calendar.html">Calendar</a>
       <a href="/market/">Markets</a>
       <a href="/sourcing-guide.html">Sourcing</a>
