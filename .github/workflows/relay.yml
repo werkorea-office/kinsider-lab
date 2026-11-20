@@ -1,9 +1,12 @@
 name: Posting relay (holds the 23:00 KST slot)
 
-# GitHub's cron can start hours late, so posting time is not left to it. The morning data run
-# starts this relay; each hop waits on a runner (max ~5.5 h, the job limit is 6 h) and then either
-# starts the next hop or, at 23:00 KST, starts the social publish run. Free on a public repo.
-# A GITHUB_TOKEN may start workflow_dispatch runs, so no extra secret is needed.
+# Posting time is not left to GitHub's cron, which can start hours late.
+# The morning data run (and any early scheduled run) starts this relay. Each hop waits on a
+# runner and hands over to the next hop; the final hop owns the 23:00 KST slot with three plans:
+#   Plan A  at 23:00 start the normal social publish run, then verify the post exists.
+#   Plan B  if nothing was posted after 25 min, start the publish run again, verify again.
+#   Plan C  if still nothing, publish directly from this job (no dependency on other runs).
+# Every plan checks the posting ledger first, so nothing is posted twice. Free on a public repo.
 on:
   workflow_dispatch:
     inputs:
@@ -13,36 +16,90 @@ on:
 
 permissions:
   actions: write
-  contents: read
+  contents: write
 
 concurrency:
   group: relay
   cancel-in-progress: true
 
 jobs:
-  wait:
+  slot:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 355
+    env:
+      GH_TOKEN: ${{ github.token }}
+      R: ${{ github.repository }}
     steps:
-      - name: Wait, then hand over
+      - name: Timer
+        id: timer
         env:
-          GH_TOKEN: ${{ github.token }}
           HOP: ${{ inputs.hop }}
         run: |
           target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
-          # Morning KST is still the previous UTC day after 14:00 UTC: aim at the next 14:00 UTC.
+          # Morning KST is still the previous UTC day: aim at the next 14:00 UTC.
           if [ $(( now - target )) -ge 10800 ]; then target=$(( target + 86400 )); fi
-          if [ $now -ge $target ]; then
-            if [ $(( now - target )) -lt 10800 ]; then
-              gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish"; echo "Publish started (late by $(( (now-target)/60 )) min)."
-            fi
+          wait=$(( target - now ))
+          if [ $wait -gt 16200 ]; then
+            nap=$(( wait - 7200 )); [ $nap -gt 19800 ] && nap=19800
+            if [ "$HOP" -ge 8 ]; then echo "Too many hops; backups take over."; exit 0; fi
+            echo "Hop $HOP: sleeping $nap s, then handing over."; sleep $nap
+            gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=$(( HOP + 1 ))"
             exit 0
           fi
-          wait=$(( target - now ))
-          if [ $wait -le 19800 ]; then
-            echo "Sleeping $wait s until 23:00 KST"; sleep $wait
-            gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish"; echo "Publish started on time."
-          elif [ "$HOP" -lt 6 ]; then
-            sleep 19800
-            gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=$(( HOP + 1 ))"; echo "Next hop started."
+          if [ $wait -gt 0 ]; then echo "Final hop: sleeping $wait s until 23:00 KST"; sleep $wait; fi
+          if [ $wait -lt -10800 ]; then echo "Slot long past."; exit 0; fi
+          echo "final=1" >> "$GITHUB_OUTPUT"
+
+      - name: Plan A - start the publish run
+        id: a
+        if: steps.timer.outputs.final == '1'
+        run: |
+          posted() { d=$(TZ=Asia/Seoul date +%F)
+            for f in instagram linkedin; do
+              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$d\"" || return 1
+            done; }
+          posted && { echo "Already posted."; echo "done=1" >> "$GITHUB_OUTPUT"; exit 0; }
+          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish" || true
+          sleep 1500
+          posted && echo "done=1" >> "$GITHUB_OUTPUT" || echo "Plan A did not post."
+
+      - name: Plan B - start the publish run again
+        id: b
+        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1'
+        run: |
+          posted() { d=$(TZ=Asia/Seoul date +%F)
+            for f in instagram linkedin; do
+              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$d\"" || return 1
+            done; }
+          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish" || true
+          sleep 1200
+          posted && echo "done=1" >> "$GITHUB_OUTPUT" || echo "Plan B did not post."
+
+      - uses: actions/checkout@v4
+        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        with:
+          python-version: '3.12'
+
+      - name: Plan C - publish directly from this job
+        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        run: |
+          pip install -q pillow==12.* pynacl==1.*
+          python -m pipeline.social_instagram publish || echo "Instagram: plan C failed"
+          python -m pipeline.social_linkedin publish || echo "LinkedIn: plan C failed"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/social
+          if ! git diff --staged --quiet; then
+            git commit -m "Social ledger $(TZ=Asia/Seoul date +%F) (relay plan C) [skip ci]"
+            git pull --rebase origin main && git push
           fi
+          d=$(TZ=Asia/Seoul date +%F)
+          grep -q "\"date\": \"$d\"" data/social/instagram.json || { echo "::error::All three plans failed to post today."; exit 1; }

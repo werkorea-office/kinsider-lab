@@ -21,6 +21,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: social
@@ -46,6 +47,8 @@ jobs:
           if [ "$h" -lt 9 ] || [ "$h" -ge 17 ]; then
             # Outside 18:00-02:00 KST: a badly delayed trigger. Never post at the wrong time of day.
             echo "Outside the posting window; not posting now."; echo "SOCIAL_SKIP=1" >> "$GITHUB_ENV"
+            # Make sure tonight's relay is running (extra starter besides the morning data run).
+            GH_TOKEN="${{ github.token }}" gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/relay.yml/dispatches" -f ref=main || true
           else
             wait=$(( $(date -u -d "$(date -u +%F) 14:00" +%s) - $(date -u +%s) ))
             if [ $wait -gt 0 ]; then echo "Waiting $wait s until 23:00 KST"; sleep $wait; fi
