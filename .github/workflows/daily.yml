@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: daily-brief
@@ -108,6 +109,12 @@ jobs:
             git commit -m "Daily brief $(TZ=Asia/Seoul date +%F) [skip ci]"
             git push
           fi
+
+      - name: Start the 23:00 KST posting relay
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run relay.yml -R "$GITHUB_REPOSITORY" || echo "Relay not started; backup schedules still post."
 
       - name: Notify search engines (IndexNow)
         run: python -m pipeline.indexnow

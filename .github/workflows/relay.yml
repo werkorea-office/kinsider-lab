@@ -1,0 +1,46 @@
+name: Posting relay (holds the 23:00 KST slot)
+
+# GitHub's cron can start hours late, so posting time is not left to it. The morning data run
+# starts this relay; each hop waits on a runner (max ~5.5 h, the job limit is 6 h) and then either
+# starts the next hop or, at 23:00 KST, starts the social publish run. Free on a public repo.
+# A GITHUB_TOKEN may start workflow_dispatch runs, so no extra secret is needed.
+on:
+  workflow_dispatch:
+    inputs:
+      hop:
+        description: "hop counter (set automatically)"
+        default: "1"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: relay
+  cancel-in-progress: true
+
+jobs:
+  wait:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Wait, then hand over
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HOP: ${{ inputs.hop }}
+        run: |
+          target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
+          if [ $now -ge $target ]; then
+            if [ $(( now - target )) -lt 10800 ]; then
+              gh workflow run social.yml -R "$GITHUB_REPOSITORY" -f task=publish; echo "Publish started (late by $(( (now-target)/60 )) min)."
+            else echo "Past today's slot; tomorrow's data run restarts the relay."; fi
+            exit 0
+          fi
+          wait=$(( target - now ))
+          if [ $wait -le 19800 ]; then
+            echo "Sleeping $wait s until 23:00 KST"; sleep $wait
+            gh workflow run social.yml -R "$GITHUB_REPOSITORY" -f task=publish; echo "Publish started on time."
+          elif [ "$HOP" -lt 6 ]; then
+            sleep 19800
+            gh workflow run relay.yml -R "$GITHUB_REPOSITORY" -f hop=$(( HOP + 1 )); echo "Next hop started."
+          fi
