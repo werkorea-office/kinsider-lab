@@ -130,6 +130,7 @@ def page(title, body, description, path, extra_head=""):
 <meta property="og:url" content="{canonical}">
 <link rel="alternate" type="application/rss+xml" title="{BRAND} daily brief" href="/feed.xml">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/style.css?v={CSS_VERSION}">
 {extra_head}
 </head>
