@@ -23,10 +23,33 @@
 |---|---|---|
 | 매일 06:30 | 네이버 수집 → 신호 판정 → 사이트 생성 → 캐러셀 6장 → (1일) 월간 PDF → (월) 주간 이메일 예약 → 커밋 | `.github/workflows/daily.yml` |
 | 매주 1회 | 관세청 수출통계 갱신 (7일 경과 시) | `pipeline/exports.py` |
-| 매일 23:00 | 인스타그램 캐러셀 + 링크드인 PDF 문서 발행 → 자산 지표 기록 | `.github/workflows/social.yml` |
+| 매일 23:00 | 인스타그램 캐러셀·릴스 + 링크드인 PDF 문서 발행 → 자산 지표 기록 (3-2 보장 구조) | `relay.yml` → `social.yml` |
 | 매주 월 12:00 | 인스타그램 토큰 자동 연장 | `social.yml` |
 | 월요일 23:00 | 주간 브리프 이메일 발송 (Kit 예약, 미국 동부 오전 9시) | `pipeline/newsletter.py` |
 | 매일 06:30 (신호가 난 날만) | 급상승 즉시 알림 이메일 (Kit 태그 "Breakout alerts" 구독자, 하루 최대 1통) | `pipeline/alerts.py` |
+
+
+### 3-1. 요일별 SNS 발행 주제 (인스타그램·링크드인 동일, 반드시 준수)
+| 요일 | 시리즈 | 내용 |
+|---|---|---|
+| 월 | Trend Monday | 한국 뷰티 검색 급상승 TOP |
+| 화 | Koreans Actually Use | 한국인이 가장 많이 검색하는 뷰티 브랜드 |
+| 수 | Explained | 성분·음식 설명 (`config/series.json` explained, 주 1개 순환) |
+| 목 | Buy Smart | 구매 요령 (`config/series.json` buysmart, 주 1개 순환) |
+| 금 | K-Food Friday | 한국 음식 검색 급상승 |
+| 토 | Track Record / 급상승 신호 | 적중 기록, 없으면 급상승 신호 |
+| 일 | Korea Price Check | 급상승 브랜드 한국 참고가 (네이버 쇼핑), 실패 시 Buy Smart 대체 |
+매일 캐러셀 6장(피드) + 릴스 2.0(9.6초, 릴스 탭 전용) + 링크드인 PDF 문서. 코드: `pipeline/cards.py` `choose()`, `pipeline/reel.py`.
+
+### 3-2. 23:00 발행 보장 (미발행 금지, 1→2→3 순차)
+GitHub 예약(cron)은 몇 시간씩 늦을 수 있으므로 발행 시각을 cron에 맡기지 않는다. `relay.yml`이 매일 이어 달린다.
+- 준비: 06:40 이후 오늘 카드가 없으면 relay가 데이터 수집(daily.yml)을 직접 시작.
+- **1안** 23:00 정각 정규 발행 실행(social.yml) 시작 → 25분 뒤 인스타·링크드인 기록 확인.
+- **2안** 기록 없으면 발행 실행 재시작 → 20분 뒤 재확인.
+- **3안** 그래도 없으면 relay 자신이 직접 인스타·링크드인 발행. 실패 시 오류 메일.
+- 예비: social.yml 예약 7개(23:00~02:00 KST 사이에만 발행). 모든 단계는 발행 기록을 먼저 확인 → 중복 발행 없음.
+- relay는 발행 후 다음 날 relay를 스스로 시작. 끊기면 아침 데이터 수집 또는 예약 실행이 다시 시작.
+- 모든 자동 커밋은 저장소가 바뀌어 있으면 rebase 후 최대 5회 재시도.
 
 ## 4. 비밀값 (GitHub → Settings → Secrets → Actions)
 | 이름 | 용도 | 만료 |
