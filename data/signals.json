@@ -27,7 +27,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 48.35
+    "level": 50.6
    }
   },
   {
@@ -46,7 +46,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 361.19
+    "level": 405.52
    }
   },
   {
@@ -65,7 +65,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 152.08
+    "level": 175.15
    }
   },
   {
@@ -84,7 +84,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 133.07
+    "level": 153.06
    }
   },
   {
@@ -103,7 +103,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 288.32
+    "level": 355.03
    }
   },
   {
@@ -122,7 +122,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 87.13
+    "level": 107.3
    }
   },
   {
@@ -141,7 +141,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 687.53
+    "level": 779.49
    }
   },
   {
@@ -160,7 +160,45 @@
    "checks": {},
    "latest": {
     "date": "2026-11-20",
-    "level": 408.71
+    "level": 486.0
+   }
+  },
+  {
+   "id": "beauty:아젤라익산:2026-11-20",
+   "segment": "beauty",
+   "segment_title": "K-Beauty",
+   "kw": "아젤라익산",
+   "en": "Azelaic acid",
+   "type": "Ingredient",
+   "called": "2026-11-20",
+   "data_end": "2026-11-19",
+   "level_at_call": 10.44,
+   "momentum_at_call": 1.3471,
+   "prev_week": 5.88,
+   "early_baseline": 3.97,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-20",
+    "level": 10.44
+   }
+  },
+  {
+   "id": "brands:이니스프리:2026-11-20",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "이니스프리",
+   "en": "innisfree",
+   "type": "Brand",
+   "called": "2026-11-20",
+   "data_end": "2026-11-19",
+   "level_at_call": 369.23,
+   "momentum_at_call": 0.3371,
+   "prev_week": 332.94,
+   "early_baseline": 257.2,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-20",
+    "level": 369.23
    }
   }
  ]
