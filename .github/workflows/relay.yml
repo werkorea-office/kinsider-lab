@@ -110,7 +110,7 @@ jobs:
           git add data/social
           if ! git diff --staged --quiet; then
             git commit -m "Social ledger $(TZ=Asia/Seoul date +%F) (relay plan C) [skip ci]"
-            git pull --rebase origin main && git push
+            for i in 1 2 3 4 5; do git pull --rebase -X theirs origin main && git push && break; git rebase --abort 2>/dev/null; sleep $((i*5)); done
           fi
           d=$(TZ=Asia/Seoul date +%F)
           grep -q "\"date\": \"$d\"" data/social/instagram.json || { echo "::error::All three plans failed to post today."; exit 1; }

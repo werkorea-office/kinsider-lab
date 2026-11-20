@@ -107,7 +107,8 @@ jobs:
             echo "Nothing changed."
           else
             git commit -m "Daily brief $(TZ=Asia/Seoul date +%F) [skip ci]"
-            git push
+            # Someone (or another run) may have pushed meanwhile: rebase and retry instead of failing.
+            for i in 1 2 3 4 5; do git push && break; git pull --rebase -X theirs origin main || git rebase --abort; sleep $((i*5)); done
           fi
 
       - name: Start the 23:00 KST posting relay
