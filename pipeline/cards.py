@@ -821,7 +821,8 @@ def render(story, snapshot, out_dir):
     (out_dir / "caption-linkedin.txt").write_text(
         editorial_caption(story, True) if ed else linkedin_caption(story, run), encoding="utf-8")
     meta = {"date": run, "issue": issue, "story": story["segment"], "title": story["headline"], "slides": names}
-    if make_reel(out_dir, names):
+    from . import reel
+    if reel.make(story, out_dir / "reel.mp4") or make_reel(out_dir, names):
         meta["reel"] = "reel.mp4"
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
     return meta

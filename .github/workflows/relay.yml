@@ -13,6 +13,9 @@ on:
       hop:
         description: "hop counter (set automatically)"
         default: "1"
+      tomorrow:
+        description: "1 = aim at tomorrow's slot (set automatically after a slot)"
+        default: "0"
 
 permissions:
   actions: write
@@ -34,14 +37,22 @@ jobs:
         id: timer
         env:
           HOP: ${{ inputs.hop }}
+          TOMORROW: ${{ inputs.tomorrow }}
         run: |
+          # Make sure today's data run happened (its cron can be late too): after 06:40 KST, if
+          # today's cards are missing, start the data run (it is idempotent and serialized).
+          kd=$(TZ=Asia/Seoul date +%F); kh=$(TZ=Asia/Seoul date +%H%M)
+          if [ "$kh" -ge 0640 ] && ! gh api "repos/$R/contents/cards/$kd/meta.json" >/dev/null 2>&1; then
+            gh api -X POST "repos/$R/actions/workflows/daily.yml/dispatches" -f ref=main && echo "Started today's data run."
+          fi
           target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
           # Morning KST is still the previous UTC day: aim at the next 14:00 UTC.
-          if [ $(( now - target )) -ge 10800 ]; then target=$(( target + 86400 )); fi
+          if [ $(( now - target )) -ge 10800 ] || { [ "$TOMORROW" = "1" ] && [ $now -ge $target ]; }; then target=$(( target + 86400 )); fi
           wait=$(( target - now ))
           if [ $wait -gt 16200 ]; then
             nap=$(( wait - 7200 )); [ $nap -gt 19800 ] && nap=19800
-            if [ "$HOP" -ge 8 ]; then echo "Too many hops; backups take over."; exit 0; fi
+            # Short naps until the morning data exists, so a missing data run is noticed early.
+            if ! gh api "repos/$R/contents/cards/$kd/meta.json" >/dev/null 2>&1 && [ "$kh" -ge 0640 ] && [ $nap -gt 3600 ]; then nap=3600; fi
             echo "Hop $HOP: sleeping $nap s, then handing over."; sleep $nap
             gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=$(( HOP + 1 ))"
             exit 0
@@ -103,3 +114,7 @@ jobs:
           fi
           d=$(TZ=Asia/Seoul date +%F)
           grep -q "\"date\": \"$d\"" data/social/instagram.json || { echo "::error::All three plans failed to post today."; exit 1; }
+
+      - name: Start tomorrow's relay
+        if: always() && steps.timer.outputs.final == '1'
+        run: gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=1" -f "inputs[tomorrow]=1" || true
