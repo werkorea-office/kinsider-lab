@@ -2,8 +2,12 @@ name: Social publishing
 
 on:
   schedule:
-    # 23:00 KST = 9:00 AM US Eastern. GitHub delays busy on-the-hour schedules (sometimes by hours),
-    # so several off-peak triggers fire; the publish ledgers make every run after the first a no-op.
+    # Target 23:00 KST (14:00 UTC) = 9:00 AM US Eastern. GitHub can delay schedules by hours, so
+    # early triggers start a runner that waits until 23:00 KST, and late ones are backups. Runs are
+    # serialized (concurrency) and the publish ledgers make every run after the first a no-op.
+    - cron: '7 10 * * *'
+    - cron: '41 11 * * *'
+    - cron: '23 12 * * *'
     - cron: '53 13 * * *'
     - cron: '11 14 * * *'
     - cron: '37 14 * * *'
@@ -25,7 +29,7 @@ concurrency:
 jobs:
   instagram:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,6 +38,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Wait until 23:00 KST (scheduled posting runs only)
+        if: github.event_name == 'schedule' && github.event.schedule != '0 3 * * 1'
+        run: |
+          now=$(date -u +%s); target=$(date -u -d "$(date -u +%F) 14:00" +%s)
+          wait=$(( target - now ))
+          if [ $wait -gt 0 ] && [ $wait -lt 18000 ]; then echo "Waiting $wait s"; sleep $wait; fi
+          git pull -q origin main   # pick up a post made by an earlier run while we waited
 
       - name: Install dependencies
         run: pip install pillow==12.* pynacl==1.*
