@@ -11,7 +11,7 @@ carousels out-perform single images on both Instagram and LinkedIn:
   6  Close      what K-INSIDER LAB tracks and where to get it free
 
 Output: cards/<date>/01.jpg ... NN.jpg, caption.txt, meta.json
-Story by KST weekday: Mon brands, Wed breakout calls, Fri K-food,
+Story by KST weekday: Mon trend, Tue Koreans-actually-use, Wed explained, Thu buy smart, Fri K-food,
 Sat track record, other days K-beauty products & ingredients. Wed/Sat fall
 back to K-beauty when there is not enough to show. Only fresh data is used and
 the ranking rules match the website (index floor, no anchors).
@@ -169,7 +169,7 @@ class Slide:
         self.img.resize((W, H), Image.LANCZOS).save(path, "JPEG", quality=90, subsampling=0, optimize=True)
 
 
-def chrome(s, issue, run_date, page, pages):
+def chrome(s, issue, run_date, page, pages, source="Source: Naver shopping-search clicks, Korea"):
     """Masthead and footer shared by every slide."""
     fg = "white" if s.dark else TEXT
     sub = "#9aa3b5" if s.dark else MUTED
@@ -179,7 +179,7 @@ def chrome(s, issue, run_date, page, pages):
     s.text((118 + s.width("K-INSIDER ", "xbold", 24), 76), "LAB", "xbold", 24, ACCENT, anchor="lm")
     s.text((W - 64, 76), f"No. {issue:03d}  ·  {build.nice_date(run_date).upper()}", "semi", 19, sub, anchor="rm")
     s.line([(64, H - 92), (W - 64, H - 92)], "#2a3346" if s.dark else LINE, 1.5)
-    s.text((64, H - 58), "Source: Naver shopping-search clicks, Korea  ·  kinsider-lab.com", "med", 18, sub, anchor="lm")
+    s.text((64, H - 58), f"{source}  ·  kinsider-lab.com", "med", 18, sub, anchor="lm")
     s.text((W - 64, H - 58), f"{page} / {pages}", "semi", 18, sub, anchor="rm")
 
 
@@ -521,11 +521,136 @@ def track_story(snapshot):
     }
 
 
+def top_brands_story(snapshot):
+    """'Koreans actually use': the brands with the most Korean demand, not just the fastest risers."""
+    seg = seg_by_id(snapshot, "brands")
+    if not seg:
+        return None
+    _, _, biggest = build.ranked(seg)
+    biggest = [i for i in biggest if not i["is_anchor"] and i["momentum"] is not None][:8]
+    if len(biggest) < 3:
+        return None
+    run = dt.date.fromisoformat(snapshot["run_date"])
+    active = {x["kw"] for x in active_breakouts(run) if x["segment"] == "brands"}
+    nm = notes()
+    items = [item_view(seg, it, nm, active) for it in biggest[:3]]
+    table = [{"rank": str(n), "name": it["en"], "sub": f"{it['type']} · {build.pct(it['momentum'])} this week",
+              "value": it["level"], "value_text": f"{it['level']:.0f}", "color": ACCENT}
+             for n, it in enumerate(biggest, 1)]
+    return {
+        "segment": "brands-top", "segment_label": "KOREANS ACTUALLY USE", "kicker": "KOREANS ACTUALLY USE · K-BEAUTY BRANDS",
+        "headline": f"Not hype: the K-beauty brands Koreans search most right now. {items[0]['name']} leads.",
+        "items": items, "dates": seg["dates"],
+        "table_kicker": "KOREANS ACTUALLY USE", "table_title": "Korea's most-searched K-beauty brands this week",
+        "table": table,
+        "table_note": f"Search index, last 7 days ({seg['anchor']['en']}'s 8-week average = 100). "
+                      "Demand from Korean shoppers, not ads or sponsored posts.",
+        "tags": "#kbeauty #koreanskincare #kbeautybrands #whatkoreansuse #koreanbeauty #skincare",
+    }
+
+
+SERIES = {
+    2: ("explained", "EXPLAINED", "K-BEAUTY & K-FOOD, EXPLAINED"),
+    3: ("buysmart", "BUY SMART", "BUY K-BEAUTY & K-FOOD SMART"),
+}
+
+
+def editorial_story(snapshot, wd):
+    """Evergreen explainer from config/series.json, rotated weekly so nothing repeats for months."""
+    key, label, kicker = SERIES[wd]
+    bank = json.loads((Path(__file__).resolve().parent.parent / "config" / "series.json").read_text(encoding="utf-8"))[key]
+    week = (dt.date.fromisoformat(snapshot["run_date"]) - LAUNCH).days // 7
+    t = bank[week % len(bank)]
+    hero = None
+    for seg in snapshot.get("segments", []):
+        for it in seg.get("items", []):
+            if t.get("kw") and it["kw"] == t["kw"] and it.get("series"):
+                hero = {"series": it["series"], "dates": seg["dates"], "change": it["momentum"]}
+    return {"editorial": True, "segment": key, "segment_label": label, "kicker": f"{kicker}",
+            "headline": t["title"], "sub": t["sub"], "kr": t.get("kr", ""), "points": t["points"],
+            "hero": hero, "items": [], "tags": t.get("tags", "") + " #kbeauty #kfood #korea"}
+
+
 def choose(snapshot):
+    """Mon trend, Tue Koreans-actually-use, Wed explained, Thu buy smart, Fri K-food, Sat track record, Sun off."""
     wd = dt.date.fromisoformat(snapshot["run_date"]).weekday()  # 0 = Monday
-    plan = {0: brands_story, 2: breakout_story, 4: food_story, 5: track_story}
-    story = plan[wd](snapshot) if wd in plan else None
-    return story or beauty_story(snapshot)
+    if wd == 6:
+        return None
+    if wd in SERIES:
+        return editorial_story(snapshot, wd)
+    plan = {0: [beauty_story], 1: [top_brands_story, brands_story], 4: [food_story],
+            5: [track_story, breakout_story]}
+    for fn in plan[wd] + [beauty_story]:
+        story = fn(snapshot)
+        if story:
+            return story
+    return None
+
+
+ED_SRC = "K-INSIDER LAB research"
+
+
+def editorial_cover(story, issue, run_date, pages):
+    s = Slide(dark=True)
+    chrome(s, issue, run_date, 1, pages, ED_SRC)
+    s.text((64, 168), story["kicker"], "bold", 22, ACCENT)
+    size = 76
+    lines = s.wrap(story["headline"], "xbold", size, W - 128)
+    while len(lines) > 4 and size > 52:
+        size -= 4
+        lines = s.wrap(story["headline"], "xbold", size, W - 128)
+    y = 214
+    for line in lines:
+        s.text((64, y), line, "xbold", size, "white")
+        y += size * 1.12
+    y = s.paragraph((64, y + 30), story["sub"], "med", 30, "#c9cfdb", W - 128, 1.3, max_lines=3)
+    hero = story.get("hero")
+    if hero:
+        s.text((64, y + 50), "Korean shopping-search demand, last 8 weeks", "semi", 21, "#9aa3b5")
+        chart(s, (64, y + 100, W - 64, H - 200), hero["series"], True, end_label=build.pct(hero["change"]),
+              color=ACCENT, dates=hero["dates"])
+    elif story.get("kr"):
+        s.rect((64, y + 60, W - 64, H - 220), fill=INK2, radius=24)
+        s.text((W / 2, (y + 60 + H - 220) / 2 - 20), story["kr"], "kr", 120, "white", anchor="mm")
+        s.text((W / 2, (y + 60 + H - 220) / 2 + 80), "how it's written in Korean", "semi", 22, "#9aa3b5", anchor="mm")
+    s.text((W - 64, H - 132), "Swipe  →", "bold", 22, "white", anchor="rm")
+    return s
+
+
+def point_slide(story, n, point, issue, run_date, page, pages):
+    s = Slide(dark=False)
+    chrome(s, issue, run_date, page, pages, ED_SRC)
+    s.text((64, 160), f"{n:02d}", "black", 44, ACCENT)
+    s.text((64 + s.width(f"{n:02d} ", "black", 44), 172), f"/ {len(story['points']):02d}   {story['segment_label']}",
+           "bold", 20, MUTED)
+    s.text((W - 40, 120), f"{n}", "black", 420, "#ece9e3", anchor="ra")
+    y = s.paragraph((64, 290), point[0], "black", 84, TEXT, W - 128, 1.08, max_lines=3)
+    s.rect((64, y + 36, 184, y + 46), fill=ACCENT, radius=5)
+    s.paragraph((64, y + 100), point[1], "semi", 44, "#2b3240", W - 128, 1.38, max_lines=7)
+    if len(point) > 2 and point[2]:
+        s.rect((64, H - 300, W - 64, H - 150), fill="#f4f5f7", radius=18)
+        s.text((100, H - 262), "IN KOREAN", "bold", 18, ACCENT)
+        s.text((100, H - 214), point[2], "kr", 40, TEXT)
+    else:
+        day = "Wednesday" if story["segment"] == "explained" else "Thursday"
+        s.rect((64, H - 300, W - 64, H - 150), fill="#f4f5f7", radius=18)
+        s.text((100, H - 262), "SAVE THIS POST", "bold", 18, ACCENT)
+        s.text((100, H - 214), f"New {story['segment_label'].title()} every {day}", "xbold", 34, TEXT)
+    return s
+
+
+def editorial_caption(story, linkedin=False):
+    lines = [story["headline"], "", story["sub"], ""]
+    for n, p in enumerate(story["points"], 1):
+        lines.append(f"{n}. {p[0]}")
+    if linkedin:
+        lines += ["", "Practical K-beauty and K-food knowledge for buyers, sellers and creators abroad, every week, "
+                      "alongside daily Korean demand data: https://www.kinsider-lab.com",
+                  "", "#KBeauty #KFood #Korea #ConsumerTrends"]
+    else:
+        lines += ["", "Save this for later. New K-beauty & K-food data every weekday; free weekly brief: link in bio "
+                      "(kinsider-lab.com)", "", story["tags"]]
+    return "\n".join(lines)
 
 
 def caption(story, run_date):
@@ -589,22 +714,29 @@ def make_reel(out_dir, names):
 def render(story, snapshot, out_dir):
     run = snapshot["run_date"]
     issue = (dt.date.fromisoformat(run) - LAUNCH).days + 1
-    pages = 2 + len(story["items"]) + 1
     if out_dir.exists():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True)
-    slides = [cover_slide(story, issue, run, pages)]
-    for n, item in enumerate(story["items"], 1):
-        slides.append(profile_slide(story, item, n, len(story["items"]), issue, run, n + 1, pages))
-    slides.append(ranking_slide(story, issue, run, pages - 1, pages))
+    if story.get("editorial"):
+        pages = 2 + len(story["points"])
+        slides = [editorial_cover(story, issue, run, pages)]
+        slides += [point_slide(story, n, p, issue, run, n + 1, pages) for n, p in enumerate(story["points"], 1)]
+    else:
+        pages = 2 + len(story["items"]) + 1
+        slides = [cover_slide(story, issue, run, pages)]
+        for n, item in enumerate(story["items"], 1):
+            slides.append(profile_slide(story, item, n, len(story["items"]), issue, run, n + 1, pages))
+        slides.append(ranking_slide(story, issue, run, pages - 1, pages))
     slides.append(close_slide(story, tracked_counts(snapshot), issue, run, pages))
     names = []
     for n, s in enumerate(slides, 1):
         name = f"{n:02d}.jpg"
         s.save(out_dir / name)
         names.append(name)
-    (out_dir / "caption.txt").write_text(caption(story, run), encoding="utf-8")
-    (out_dir / "caption-linkedin.txt").write_text(linkedin_caption(story, run), encoding="utf-8")
+    ed = story.get("editorial")
+    (out_dir / "caption.txt").write_text(editorial_caption(story) if ed else caption(story, run), encoding="utf-8")
+    (out_dir / "caption-linkedin.txt").write_text(
+        editorial_caption(story, True) if ed else linkedin_caption(story, run), encoding="utf-8")
     meta = {"date": run, "issue": issue, "story": story["segment"], "title": story["headline"], "slides": names}
     if make_reel(out_dir, names):
         meta["reel"] = "reel.mp4"

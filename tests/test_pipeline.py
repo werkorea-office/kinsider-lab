@@ -105,7 +105,7 @@ class CollectTest(unittest.TestCase):
             self.assertIsNotNone(chosen)
             out = sb.root / "cards" / snap["run_date"]
             meta = cards.render(chosen, snap, out)
-            self.assertEqual(len(meta["slides"]), 2 + len(chosen["items"]) + 1)
+            self.assertEqual(len(meta["slides"]), 6)
             for name in meta["slides"]:
                 self.assertGreater((out / name).stat().st_size, 20000)
             self.assertIn(chosen["headline"], (out / "caption.txt").read_text(encoding="utf-8"))
