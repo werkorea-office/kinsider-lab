@@ -32,15 +32,15 @@ jobs:
           target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
           if [ $now -ge $target ]; then
             if [ $(( now - target )) -lt 10800 ]; then
-              gh workflow run social.yml -R "$GITHUB_REPOSITORY" -f task=publish; echo "Publish started (late by $(( (now-target)/60 )) min)."
+              gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish"; echo "Publish started (late by $(( (now-target)/60 )) min)."
             else echo "Past today's slot; tomorrow's data run restarts the relay."; fi
             exit 0
           fi
           wait=$(( target - now ))
           if [ $wait -le 19800 ]; then
             echo "Sleeping $wait s until 23:00 KST"; sleep $wait
-            gh workflow run social.yml -R "$GITHUB_REPOSITORY" -f task=publish; echo "Publish started on time."
+            gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish"; echo "Publish started on time."
           elif [ "$HOP" -lt 6 ]; then
             sleep 19800
-            gh workflow run relay.yml -R "$GITHUB_REPOSITORY" -f hop=$(( HOP + 1 )); echo "Next hop started."
+            gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=$(( HOP + 1 ))"; echo "Next hop started."
           fi
