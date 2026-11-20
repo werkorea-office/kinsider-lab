@@ -63,6 +63,13 @@ jobs:
       - name: Build site
         run: python -m pipeline.build
 
+      - name: Sunday Korea price check (Naver Shopping, reference prices)
+        continue-on-error: true
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python -m pipeline.prices
+
       - name: Make social card
         run: python -m pipeline.cards
 

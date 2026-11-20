@@ -255,3 +255,20 @@ class AlertsTest(unittest.TestCase):
         finally:
             if saved is not None:
                 os.environ["KIT_API_KEY"] = saved
+
+
+class PriceCheckTest(unittest.TestCase):
+    def test_listing_filters(self):
+        from pipeline import prices
+        def fake(url, headers=None, timeout=20):
+            return {"items": [{"title": "<b>아누아</b> 토너 기획세트", "lprice": "29000", "mallName": "몰"},
+                              {"title": "다른브랜드 토너", "lprice": "9000", "mallName": "x"},
+                              {"title": "<b>아누아</b> 어성초 토너 250ml", "lprice": "19800", "mallName": "올리브영"}]}
+        got = prices.best_listing("아누아", "a", "b", fake)
+        self.assertEqual(got["price_krw"], 19800)
+        self.assertEqual(got["mall"], "Naver Shopping")
+
+    def test_weekday_and_no_keys_noop(self):
+        from pipeline import prices
+        self.assertEqual(prices.main(now=dt.datetime(2026, 11, 20, tzinfo=prices.KST)), 0)
+

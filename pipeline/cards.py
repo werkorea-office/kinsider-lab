@@ -555,12 +555,12 @@ SERIES = {
 }
 
 
-def editorial_story(snapshot, wd):
+def editorial_story(snapshot, wd, offset=0):
     """Evergreen explainer from config/series.json, rotated weekly so nothing repeats for months."""
     key, label, kicker = SERIES[wd]
     bank = json.loads((Path(__file__).resolve().parent.parent / "config" / "series.json").read_text(encoding="utf-8"))[key]
     week = (dt.date.fromisoformat(snapshot["run_date"]) - LAUNCH).days // 7
-    t = bank[week % len(bank)]
+    t = bank[(week + offset) % len(bank)]
     hero = None
     for seg in snapshot.get("segments", []):
         for it in seg.get("items", []):
@@ -572,10 +572,10 @@ def editorial_story(snapshot, wd):
 
 
 def choose(snapshot):
-    """Mon trend, Tue Koreans-actually-use, Wed explained, Thu buy smart, Fri K-food, Sat track record, Sun off."""
+    """Mon trend, Tue Koreans-actually-use, Wed explained, Thu buy smart, Fri K-food, Sat track record, Sun price check."""
     wd = dt.date.fromisoformat(snapshot["run_date"]).weekday()  # 0 = Monday
     if wd == 6:
-        return None
+        return price_story(snapshot) or editorial_story(snapshot, 3, offset=26)
     if wd in SERIES:
         return editorial_story(snapshot, wd)
     plan = {0: [beauty_story], 1: [top_brands_story, brands_story], 4: [food_story],
@@ -588,6 +588,82 @@ def choose(snapshot):
 
 
 ED_SRC = "K-INSIDER LAB research"
+PRICE_SRC = "Prices: Naver Shopping, Korea (reference)"
+
+
+def price_story(snapshot):
+    path = ROOT / "data" / "prices.json"
+    if not path.exists():
+        return None
+    pr = json.loads(path.read_text(encoding="utf-8"))
+    if pr.get("date") != snapshot["run_date"] or len(pr.get("items", [])) < 3:
+        return None
+    return {"price": True, "segment": "price", "segment_label": "KOREA PRICE CHECK",
+            "kicker": "KOREA PRICE CHECK · SUNDAY",
+            "headline": f"What Koreans pay this week for {pr['items'][0]['brand']}, "
+                        f"{pr['items'][1]['brand']} and {pr['items'][2]['brand']}.",
+            "sub": "Rising brands in Korea, and the reference price Korean shoppers see online today.",
+            "prices": pr["items"], "rate": pr["rate"], "rate_kind": pr["rate_kind"], "items": [],
+            "tags": "#kbeauty #koreanskincare #kbeautyprices #oliveyoung #koreanbeauty"}
+
+
+def price_cover(story, issue, run_date, pages):
+    s = Slide(dark=True)
+    chrome(s, issue, run_date, 1, pages, PRICE_SRC)
+    s.text((64, 168), story["kicker"], "bold", 22, ACCENT)
+    y = s.paragraph((64, 214), story["headline"], "xbold", 70, "white", W - 128, 1.12, max_lines=4)
+    y = s.paragraph((64, y + 24), story["sub"], "med", 30, "#c9cfdb", W - 128, 1.3, max_lines=2)
+    y += 50
+    for p in story["prices"]:
+        s.rect((64, y, W - 64, y + 150), fill=INK2, radius=18)
+        s.text((100, y + 46), p["brand"], "xbold", 38, "white", anchor="lm")
+        s.text((100, y + 104), f"{build.pct(p['momentum'])} Korean searches this week", "semi", 22, "#9aa3b5", anchor="lm")
+        s.text((W - 100, y + 60), f"₩{p['price_krw']:,}", "black", 46, ACCENT, anchor="rm")
+        s.text((W - 100, y + 110), f"≈ US${p['price_usd']:,.2f}", "semi", 24, "#c9cfdb", anchor="rm")
+        y += 172
+    s.text((W - 64, H - 132), "Swipe  →", "bold", 22, "white", anchor="rm")
+    return s
+
+
+def price_slide(story, n, p, issue, run_date, page, pages):
+    s = Slide(dark=False)
+    chrome(s, issue, run_date, page, pages, PRICE_SRC)
+    s.text((64, 160), f"{n:02d}", "black", 44, ACCENT)
+    s.text((64 + s.width(f"{n:02d} ", "black", 44), 172), f"/ 03   KOREA PRICE CHECK", "bold", 20, MUTED)
+    size = s.fit(p["brand"], "black", 96, W - 128, 48)
+    s.text((64, 228), p["brand"], "black", size, TEXT)
+    s.text((64, 228 + size * 1.25), "Searched in Korea as", "med", 21, MUTED)
+    s.text((64 + s.width("Searched in Korea as  ", "med", 21), 228 + size * 1.25 - 4), p["kw"], "kr", 24, TEXT)
+    y = 228 + size * 1.25 + 80
+    s.text((64, y), "MOST RELEVANT LISTING IN KOREA", "bold", 18, ACCENT)
+    y = s.paragraph((64, y + 36), p["title"], "kr", 34, TEXT, W - 128, 1.35, max_lines=3)
+    y += 40
+    s.line([(64, y), (W - 64, y)], LINE, 1.5)
+    s.text((64, y + 40), f"₩{p['price_krw']:,}", "black", 110, TEXT)
+    s.text((64, y + 175), f"≈ US${p['price_usd']:,.2f}  ·  lowest listed price, {p['mall']}", "semi", 26, MUTED)
+    y += 260
+    s.line([(64, y), (W - 64, y)], LINE, 1.5)
+    s.text((64, y + 40), "BUYING ABROAD?", "bold", 18, ACCENT)
+    s.paragraph((64, y + 76), "Use this as a reference: prices abroad add shipping, duties and tax. Buy from the "
+                "brand's official store or an authorised retailer, and compare the same size.",
+                "med", 28, TEXT, W - 128, 1.38, max_lines=4)
+    return s
+
+
+def price_note(story, issue, run_date, page, pages):
+    s = Slide(dark=False)
+    chrome(s, issue, run_date, page, pages, PRICE_SRC)
+    s.text((64, 160), "HOW TO READ THESE PRICES", "bold", 22, ACCENT)
+    y = s.paragraph((64, 210), "Korean prices change daily, and many are sale prices.", "xbold", 56, TEXT, W - 128, 1.12)
+    rk = "live" if story["rate_kind"] == "live" else "approximate"
+    for t in [f"Prices are the lowest listed price on Naver Shopping in Korea on {build.nice_date(run_date)}, "
+              "for the listing that best matches the brand. They are references, not offers.",
+              f"US$ figures use a {rk} exchange rate of ₩{story['rate']:,.0f} per dollar.",
+              "Many Korean shops do not ship abroad or need a Korean phone number to sign up.",
+              "Abroad, compare the same product and size, and buy from official or authorised sellers."]:
+        s.rect((64, y + 48, 74, y + 58), fill=ACCENT, radius=5)
+        y = s.paragraph((100, y + 30), t, "med", 32, TEXT, W - 164, 1.38, max_lines=4) + 10
+    return s
 
 
 def editorial_cover(story, issue, run_date, pages):
@@ -717,7 +793,12 @@ def render(story, snapshot, out_dir):
     if out_dir.exists():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True)
-    if story.get("editorial"):
+    if story.get("price"):
+        pages = 6
+        slides = [price_cover(story, issue, run, pages)]
+        slides += [price_slide(story, n, p, issue, run, n + 1, pages) for n, p in enumerate(story["prices"], 1)]
+        slides.append(price_note(story, issue, run, 5, pages))
+    elif story.get("editorial"):
         pages = 2 + len(story["points"])
         slides = [editorial_cover(story, issue, run, pages)]
         slides += [point_slide(story, n, p, issue, run, n + 1, pages) for n, p in enumerate(story["points"], 1)]
@@ -733,7 +814,9 @@ def render(story, snapshot, out_dir):
         name = f"{n:02d}.jpg"
         s.save(out_dir / name)
         names.append(name)
-    ed = story.get("editorial")
+    if story.get("price"):
+        story["points"] = [(f"{p['brand']}: ₩{p['price_krw']:,} (≈ US${p['price_usd']:,.2f})",) for p in story["prices"]]
+    ed = story.get("editorial") or story.get("price")
     (out_dir / "caption.txt").write_text(editorial_caption(story) if ed else caption(story, run), encoding="utf-8")
     (out_dir / "caption-linkedin.txt").write_text(
         editorial_caption(story, True) if ed else linkedin_caption(story, run), encoding="utf-8")
