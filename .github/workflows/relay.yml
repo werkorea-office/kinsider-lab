@@ -30,10 +30,12 @@ jobs:
           HOP: ${{ inputs.hop }}
         run: |
           target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
+          # Morning KST is still the previous UTC day after 14:00 UTC: aim at the next 14:00 UTC.
+          if [ $(( now - target )) -ge 10800 ]; then target=$(( target + 86400 )); fi
           if [ $now -ge $target ]; then
             if [ $(( now - target )) -lt 10800 ]; then
               gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish"; echo "Publish started (late by $(( (now-target)/60 )) min)."
-            else echo "Past today's slot; tomorrow's data run restarts the relay."; fi
+            fi
             exit 0
           fi
           wait=$(( target - now ))
