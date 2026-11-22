@@ -110,7 +110,7 @@ def headline(snapshot):
 
 # ---------- page shell ----------
 
-CSS_VERSION = "14"
+CSS_VERSION = "15"
 
 
 def page(title, body, description, path, extra_head=""):
@@ -144,6 +144,7 @@ def page(title, body, description, path, extra_head=""):
       <a href="/exports.html">Exports</a>
       <a href="/import-guide.html">Import</a>
       <a href="/calendar.html">Calendar</a>
+      <a href="/stories/">Stories</a>
       <a href="/market/">Markets</a>
       <a href="/sourcing-guide.html">Sourcing</a>
       <a href="/reports.html">Reports</a>
@@ -734,6 +735,37 @@ Customs revises the previous month around the 15th.</p></div></section>
 <section class="seg"><div class="wrap">{blocks}</div></section>"""
 
 
+def load_stories():
+    d = ROOT / "data" / "stories"
+    out = []
+    for f in sorted(d.glob("*.json")) if d.exists() else []:
+        try:
+            out.append(json.loads(f.read_text(encoding="utf-8")))
+        except Exception:
+            pass
+    return sorted(out, key=lambda r: r["key"], reverse=True)
+
+
+def story_page(r):
+    pts = "".join(f"<h2>{i}. {e(p['h'])}</h2><p>{e(p['t'])}</p>"
+                  + (f'<p class="note">In Korean: <span lang="ko">{e(p["kr"])}</span></p>' if p.get("kr") else "")
+                  for i, p in enumerate(r["points"], 1))
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">{e(r['label'])} · {nice_date(r['date'])}</p>
+<h1>{e(r['title'])}</h1><p class="lede small">{e(r['dek'])}</p></div></section>
+<section class="seg"><div class="wrap prose"><img src="/stories/img/{r['key']}.jpg" alt="{e(r['title'])}" width="540" height="675"
+style="max-width:100%;height:auto;border-radius:14px;margin:0 0 24px">{pts}
+<p class="note">From the K-INSIDER LAB Instagram series. Data: Naver shopping-search clicks, Korea, unless stated.
+<a href="/stories/">All stories</a></p></div></section>{subscribe_block()}"""
+
+
+def stories_index(rows):
+    cards_ = "".join(f'<a class="story" href="/stories/{r["key"]}.html"><img src="/stories/img/{r["key"]}.jpg" alt="" loading="lazy">'
+                     f'<span class="note">{e(r["label"])} · {nice_date(r["date"])}</span><b>{e(r["title"])}</b></a>' for r in rows)
+    return f"""<section class="hero slim"><div class="wrap"><p class="eyebrow">Stories</p><h1>K-beauty &amp; K-food stories from Seoul</h1>
+<p class="lede small">Every post from our Instagram and LinkedIn series, kept here: Korean demand data, guides and buying tips.</p></div></section>
+<section class="seg"><div class="wrap"><div class="stories">{cards_}</div></div></section>{subscribe_block()}"""
+
+
 def market_slug(code):
     return f"/market/{code.lower()}.html"
 
@@ -904,6 +936,14 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
         (ROOT / fname).write_text(page(f"{title} | {BRAND}", static_page(eyebrow, title, body), desc, f"/{fname}"),
                                   encoding="utf-8")
 
+    stories = load_stories()
+    (ROOT / "stories").mkdir(exist_ok=True)
+    for r in stories:
+        (ROOT / "stories" / f"{r['key']}.html").write_text(
+            page(f"{r['title']} | {BRAND}", story_page(r), r["dek"][:155] or r["title"], f"/stories/{r['key']}.html"), encoding="utf-8")
+    (ROOT / "stories" / "index.html").write_text(
+        page(f"Stories: K-beauty & K-food from Seoul | {BRAND}", stories_index(stories),
+             "Korean beauty and food stories, guides and demand data from K-INSIDER LAB.", "/stories/"), encoding="utf-8")
     ex = load_exports()
     if ex and ex.get("latest_month"):
         (ROOT / "market").mkdir(exist_ok=True)
@@ -983,9 +1023,10 @@ full history file (<a href="/data/history.csv">history.csv</a>) are kept for eve
     (ROOT / "feed.xml").write_text(rss, encoding="utf-8")
 
     # sitemap + robots
-    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/calendar.html", "/market/", "/korea-to-world.html", "/sourcing-guide.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
+    urls = (["/", "/signals.html", "/exports.html", "/import-guide.html", "/calendar.html", "/stories/", "/market/", "/korea-to-world.html", "/sourcing-guide.html", "/about.html", "/reports.html", "/newsletter/", "/archive.html", "/methodology.html"]
              + [f"/brief/{b['run_date']}.html" for b in briefs] + term_urls
-             + [f"/market/{c['code'].lower()}.html" for c in (load_exports() or {}).get("countries", [])])
+             + [f"/market/{c['code'].lower()}.html" for c in (load_exports() or {}).get("countries", [])]
+             + [f"/stories/{r['key']}.html" for r in load_stories()])
     sm = "".join(f"<url><loc>{SITE_URL}{u}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n',

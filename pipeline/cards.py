@@ -858,6 +858,33 @@ def make_reel(out_dir, names):
         return False
 
 
+def archive_story(story, out_dir, run):
+    """Every published carousel also becomes a permanent article on the site (stories/)."""
+    try:
+        key = out_dir.name
+        if story.get("editorial"):
+            title, dek = story["headline"], story.get("sub", "")
+            points = [{"h": p[0], "t": p[1], "kr": p[2] if len(p) > 2 else ""} for p in story["points"]]
+        elif story.get("price"):
+            title, dek = magazine_title(story)
+            points = [{"h": f"{p['brand']}: ₩{p['price_krw']:,} (≈ US${p['price_usd']:,.2f})", "t": p["title"], "kr": p["kw"]}
+                      for p in story["prices"]]
+        else:
+            title, dek = magazine_title(story)
+            points = [{"h": f"{it['name']} {it['change_text']}", "t": it.get("note", ""), "kr": it.get("kw", "")}
+                      for it in story["items"]]
+        rec = {"key": key, "date": run, "label": story.get("segment_label", ""), "title": title, "dek": dek,
+               "points": points, "tags": story.get("tags", "")}
+        d = ROOT / "data" / "stories"
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"{key}.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
+        img_dir = ROOT / "stories" / "img"
+        img_dir.mkdir(parents=True, exist_ok=True)
+        Image.open(out_dir / "01.jpg").convert("RGB").resize((540, 675), Image.LANCZOS).save(img_dir / f"{key}.jpg", quality=82)
+    except Exception as exc:
+        print(f"Story archive skipped: {exc}")
+
+
 def render(story, snapshot, out_dir):
     run = snapshot["run_date"]
     issue = (dt.date.fromisoformat(run) - LAUNCH).days + 1
@@ -902,6 +929,7 @@ def render(story, snapshot, out_dir):
     from . import reel
     if reel.make(story, out_dir / "reel.mp4") or make_reel(out_dir, names):
         meta["reel"] = "reel.mp4"
+    archive_story(story, out_dir, run)
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
     return meta
 

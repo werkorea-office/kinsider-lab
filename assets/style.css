@@ -135,3 +135,4 @@ details summary{cursor:pointer;font-weight:600}
 .logo{white-space:nowrap;flex-shrink:0}nav{flex-wrap:nowrap;gap:18px}nav a{white-space:nowrap}
 @media(max-width:1280px){nav{gap:14px;font-size:13.5px}nav a[href="/archive.html"],nav a[href="/sourcing-guide.html"],nav a[href="/methodology.html"]{display:none}}
 @media(max-width:1060px){nav a[href="/reports.html"],nav a[href="/market/"],nav a[href="/calendar.html"]{display:none}}
+.stories{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}.story{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit}.story img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px}.story b{font-size:16px;line-height:1.3}
