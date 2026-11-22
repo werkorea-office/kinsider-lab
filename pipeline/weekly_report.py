@@ -64,9 +64,20 @@ def main():
         lines += ["### 실패한 작업 (확인 필요)"] + [f"- {r['name']} {r['created_at'][:10]}: {r['html_url']}" for r in failed[:10]] + [""]
     if li_age is not None and li_age >= 45:
         lines += [f"### 링크드인 토큰 {li_age}일 경과 — 60일 전에 재발급하세요 (OPERATIONS.md 5-1)", ""]
-    if not failed and (li_age is None or li_age < 45):
+    # Seoul Guide (17:00 KST) topic bank: one topic per day, counted from the launch date.
+    bank = json.loads((ROOT / "config" / "series.json").read_text(encoding="utf-8")).get("guides", [])
+    used = (today - dt.date(2026, 11, 18)).days % max(len(bank), 1) + 1 if bank else 0
+    left = len(bank) - used
+    lines.insert(-1, f"| Seoul Guide 남은 주제 (17시 발행) | {left}개 / 전체 {len(bank)}개 |")
+    topics_due = left <= 14
+    if topics_due:
+        end = today + dt.timedelta(days=left)
+        lines += [f"### Seoul Guide 주제가 {left}개 남았습니다 ({end} 이후 처음 주제부터 반복)",
+                  "Claude에게 **\"주제 바꾸자\"** 라고 전달해 주세요. 새 주제 은행을 만들어 이어서 발행합니다.", ""]
+    if not failed and (li_age is None or li_age < 45) and not topics_due:
         lines.append("이번 주는 대표님이 하실 일이 없습니다.")
-    gh("POST", "/issues", {"title": f"주간 운영 보고 {today}", "body": "\n".join(lines), "labels": ["weekly-report"]})
+    title = f"주간 운영 보고 {today}" + (" — 주제 교체 필요" if topics_due else "")
+    gh("POST", "/issues", {"title": title, "body": "\n".join(lines), "labels": ["weekly-report"]})
     print("Weekly report issue created.")
     return 0
 
