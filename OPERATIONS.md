@@ -38,7 +38,7 @@
 | 목 | Buy Smart | 구매 요령 (`config/series.json` buysmart, 주 1개 순환) |
 | 금 | K-Food Friday | 한국 음식 검색 급상승 |
 | 토 | Track Record / 급상승 신호 | 적중 기록, 없으면 급상승 신호 |
-| 일 | Korea Price Check | 급상승 브랜드 한국 참고가 (네이버 쇼핑), 실패 시 Buy Smart 대체 |
+| 일 | Sunday Buy Smart | Buy Smart 주제 은행의 다른 주제(목요일과 겹치지 않게 순환). Korea Price Check는 네이버 검색 API 신규 발급 불가로 보류 (키가 생기면 자동으로 Price Check) |
 매일 캐러셀 6장(피드) + 릴스 2.0(9.6초, 릴스 탭 전용) + 링크드인 PDF 문서. 코드: `pipeline/cards.py` `choose()`, `pipeline/reel.py`.
 
 ### 3-2. 23:00 발행 보장 (미발행 금지, 1→2→3 순차)
