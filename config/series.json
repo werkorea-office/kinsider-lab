@@ -2,147 +2,835 @@
  "_note": "Evergreen weekly series. Wednesday = explained, Thursday = buysmart; one topic per week, rotating. 'kw' must match a watchlist keyword to show its live 8-week chart on the cover. Review quarterly (prices, retailers, rules). No medical claims.",
  "reviewed": "2026-11-20",
  "explained": [
-  {"title": "PDRN, explained: the 'salmon DNA' ingredient Korea made famous", "sub": "Why Korean clinics and drugstores are full of it, and what it actually is.", "kr": "피디알엔", "kw": "PDRN", "tags": "#pdrn #salmondna #kbeautyingredients",
-   "points": [["What it is", "Polydeoxyribonucleotide: purified DNA fragments, traditionally from salmon. Plant-based versions now exist too.", "PDRN 앰플"],
-              ["Where it started", "In Korea it was a dermatology-clinic treatment first, best known through skin-booster injections, before it moved into everyday serums and creams.", ""],
-              ["What brands claim", "It is marketed for recovering, calmer-looking skin after treatments, sun or stress. Topical results vary by formula.", ""],
-              ["How to shop it", "Look for where PDRN sits in the ingredient list and whether the source is salmon or plant. Patch-test first, like any new active.", "연어 PDRN"]]},
-  {"title": "Cica, explained: the Korean answer to irritated skin", "sub": "Centella asiatica is in thousands of Korean products. Here is why.", "kr": "시카", "kw": "시카크림", "tags": "#cica #centella #sensitiveskin",
-   "points": [["What it is", "Cica comes from centella asiatica, a plant traditionally used on skin. Korean labels call it 'cica'.", "병풀"],
-              ["The key compounds", "Look for madecassoside, asiaticoside and madecassic acid on the label: these are the plant's main actives.", ""],
-              ["Why Korea loves it", "It became the default 'soothing' ingredient for redness-prone and post-treatment skin, so most brands carry a cica line.", ""],
-              ["How to shop it", "'Cica' on the front can mean very little inside. Check that centella actives appear high in the ingredient list.", "시카크림"]]},
-  {"title": "Toner pads, explained: why every Korean bathroom has a jar", "sub": "A Korean staple that is still unfamiliar in most markets.", "kr": "토너패드", "kw": "토너패드", "tags": "#tonerpads #koreanskincare",
-   "points": [["What they are", "Cotton or fabric pads pre-soaked in toner, sold in a jar of 60 to 100 with tweezers.", ""],
-              ["How Koreans use them", "Wipe after cleansing to remove leftovers and prep skin, or leave one on a dry spot for a few minutes as a mini mask.", ""],
-              ["The different types", "Exfoliating (with AHA, BHA or PHA), soothing (cica, heartleaf) and brightening pads. They are not interchangeable.", ""],
-              ["Tip for beginners", "Exfoliating pads daily can be too much for sensitive skin. Start every other day.", "닦토"]]},
-  {"title": "Buldak, explained: the noodle that made spicy go global", "sub": "How hot it really is, and how Koreans actually eat it.", "kr": "불닭볶음면", "kw": "불닭볶음면", "tags": "#buldak #spicynoodles #kfood",
-   "points": [["What it is", "'Buldak' means fire chicken. Samyang's stir-fried noodles launched in 2012 and turned spicy challenges into a global trend.", "불닭"],
-              ["There are many flavours", "Carbonara, cheese and cream versions are milder; the original and 2x spicy are the hottest. Heat differs a lot by flavour.", ""],
-              ["How Koreans eat it", "With cheese, mayo, a fried egg or rice to soften the heat, and often with a cold drink or milk on the side.", ""],
-              ["Buying tip", "Check each flavour's heat on the pack and whether the version is made for your market; ingredient lists can differ by country.", ""]]},
-  {"title": "Gochujang, explained: Korea's essential red chilli paste", "sub": "The flavour behind tteokbokki, bibimbap and much more.", "kr": "고추장", "kw": "고추장", "tags": "#gochujang #koreancooking",
-   "points": [["What it is", "A fermented paste of chilli powder, glutinous rice, fermented soybean and salt. Sweet, savoury and spicy at once.", ""],
-              ["How hot it is", "Most tubs show a heat level on the label, from mild to very hot. Start mild.", "매운맛 단계"],
-              ["How to use it", "Stir into stews and sauces, mix with vinegar and sugar for a dip (cho-gochujang), or glaze grilled meat.", "초고추장"],
-              ["Storage", "Keep it in the fridge after opening; it lasts a long time but darkens over time.", ""]]},
-  {"title": "Cushion compact, explained: the Korean invention that changed makeup", "sub": "Why a sponge-in-a-compact became a global format.", "kr": "쿠션팩트", "kw": "쿠션팩트", "tags": "#cushion #kbeautymakeup",
-   "points": [["What it is", "Liquid foundation soaked into a sponge inside a compact, applied with a puff. Popularised by Korean brands in the late 2000s.", ""],
-              ["Why people like it", "Light, natural coverage that is quick to apply and easy to touch up on the go.", ""],
-              ["The finishes", "Glow (dewy), semi-matte and matte. Korean ranges often run lighter, so shade range matters for buyers.", "커버력"],
-              ["Refills", "Most cushions sell refills, which is better value and a reason customers stay with a brand.", "리필"]]},
-  {"title": "Gim, explained: Korean seaweed beyond the snack pack", "sub": "Seasoned laver is one of Korea's biggest food exports.", "kr": "김", "kw": "조미김", "tags": "#seaweedsnack #gim #kfood",
-   "points": [["What it is", "Gim is dried laver seaweed. Roasted with oil and salt it becomes seasoned gim, eaten with rice in Korea every day.", "조미김"],
-              ["The formats", "Snack packs, large sheets for gimbap (unseasoned), seaweed chips (bugak) and flavoured snacks.", "김부각"],
-              ["How Koreans eat it", "Wrap a bite of rice in a small sheet, or crumble it over rice and noodles.", ""],
-              ["Buying tip", "Gimbap needs unseasoned sheets; seasoned snack gim will not roll properly.", "김밥김"]]},
-  {"title": "Sun sticks, explained: why Koreans reapply SPF this way", "sub": "A solid sunscreen format that is easy to carry and reapply.", "kr": "선스틱", "kw": "선스틱", "tags": "#sunstick #sunscreen #kbeauty",
-   "points": [["What it is", "Sunscreen in a solid stick, swiped on like a balm. Popular for reapplying over makeup.", ""],
-              ["Why Korea loves it", "Korean shoppers reapply sunscreen during the day, and a stick does not mess up makeup or hands.", ""],
-              ["Labels to read", "Korea uses SPF plus PA+ to PA++++ for UVA protection. More plus signs = more UVA protection.", "PA++++"],
-              ["For buyers", "Sunscreen is regulated as a drug in the US and has extra rules in many markets. Check before importing.", ""]]},
-  {"title": "Tteokbokki, explained: Korea's favourite street food", "sub": "Chewy rice cakes in a sweet-spicy sauce, now sold frozen worldwide.", "kr": "떡볶이", "kw": "떡볶이", "tags": "#tteokbokki #koreanstreetfood",
-   "points": [["What it is", "Cylinder rice cakes simmered in a gochujang-based sauce, often with fish cake and boiled egg.", "떡"],
-              ["The styles", "Classic red, rose (cream and chilli), black-bean (jjajang) and soy-sauce royal court style.", "로제떡볶이"],
-              ["Rice or wheat", "Rice cakes are chewier; wheat cakes are softer and soak up sauce. Packs say which.", "쌀떡 / 밀떡"],
-              ["Buying tip", "Frozen and shelf-stable kits travel well; fresh rice cakes harden fast, so soak them before cooking.", ""]]},
-  {"title": "Niacinamide, explained: the K-beauty all-rounder", "sub": "Why it shows up in toners, serums and creams across Korea.", "kr": "나이아신아마이드", "kw": "나이아신아마이드", "tags": "#niacinamide #skincareingredients",
-   "points": [["What it is", "A form of vitamin B3, water-soluble and easy to combine with other ingredients.", ""],
-              ["Why it is popular", "Korean brands use it in brightening and tone-evening products; in Korea it is a registered functional ingredient for brightening.", "미백 기능성"],
-              ["Percentages", "Products range widely. Higher is not always better: some skin reacts to very high concentrations.", ""],
-              ["How to shop it", "Look for the functional-cosmetic mark on Korean packaging if you want a formula reviewed for that claim.", "기능성화장품"]]},
-  {"title": "Heartleaf, explained: the plant behind K-beauty's calming toners", "sub": "A Korean favourite for oily and breakout-prone skin.", "kr": "어성초", "kw": "어성초", "tags": "#heartleaf #anua #kbeauty",
-   "points": [["What it is", "Houttuynia cordata, called heartleaf for its shape and eoseongcho in Korean.", ""],
-              ["How it is used", "Mostly in toners, pads and serums positioned for calming and oil control.", ""],
-              ["Why it went global", "Heartleaf toners became viral exports, putting the ingredient on shelves far from Korea.", ""],
-              ["How to shop it", "Check the percentage on the front and where it appears in the ingredient list.", "어성초 토너"]]},
-  {"title": "Yakgwa, explained: the old Korean sweet that went viral", "sub": "A traditional honey cookie younger Koreans rediscovered.", "kr": "약과", "kw": "약과", "tags": "#yakgwa #koreandessert",
-   "points": [["What it is", "A deep-fried cookie of wheat flour, sesame oil and honey, soaked in syrup. Traditionally made for holidays and rites.", ""],
-              ["Why it trended", "Younger Koreans rediscovered it as a 'retro' dessert, and cafés added it to cookies, cakes and drinks.", "할매니얼"],
-              ["How it tastes", "Dense, sweet and chewy with ginger and honey notes. Best with tea or coffee.", ""],
-              ["Buying tip", "Mini sizes and individually wrapped packs ship and sell better than large traditional ones.", "미니약과"]]},
-  {"title": "Ceramide, explained: why Korean moisturisers talk about the skin barrier", "sub": "The 'barrier' trend in Korea starts here.", "kr": "세라마이드", "kw": "세라마이드", "tags": "#ceramide #skinbarrier",
-   "points": [["What it is", "Ceramides are lipids naturally found in the outer layer of skin, between skin cells.", ""],
-              ["The barrier idea", "Korean marketing focuses on 'barrier' care: keeping that outer layer intact so skin holds moisture.", "장벽"],
-              ["Where you find it", "Moisturisers, body lotions and creams for dry or sensitive skin, often with cholesterol and fatty acids.", ""],
-              ["How to shop it", "Look for named ceramides (like ceramide NP) in the ingredient list rather than just 'barrier' on the front.", ""]]},
-  {"title": "Nurungji, explained: Korea's crispy scorched rice", "sub": "From the bottom of the pot to a packaged snack and comfort food.", "kr": "누룽지", "kw": "누룽지", "tags": "#nurungji #koreanfood",
-   "points": [["What it is", "The crust of rice that toasts at the bottom of the pot, dried into crispy sheets.", ""],
-              ["Two ways to eat it", "As a crunchy snack, or boiled in water into a soft, nutty porridge (sungnyung).", "숭늉"],
-              ["Why it sells", "Simple ingredients, long shelf life and a comforting, familiar taste for Koreans abroad.", ""],
-              ["Buying tip", "Check for plain rice versions versus sweetened snack versions; they are used differently.", ""]]},
-  {"title": "Lip tints, explained: the Korean lip look", "sub": "Why Korean lip products stain instead of sitting on top.", "kr": "립틴트", "kw": "립틴트", "tags": "#liptint #kbeautymakeup",
-   "points": [["What it is", "A lightweight liquid or gel that stains the lips with colour, made popular by Korean makeup brands.", ""],
-              ["The look", "A soft, blurred gradient that is deeper in the centre of the lips, known in Korea as gradient lips.", "그라데이션 립"],
-              ["The finishes", "Water, glossy (glass) and velvet tints. Glossy and water tints feel lightest.", ""],
-              ["Tip", "Tints can stain for hours; use an oil-based cleanser to remove them fully.", ""]]},
-  {"title": "Konjac jelly, explained: Korea's low-calorie snack", "sub": "Why drinkable jelly pouches fill Korean convenience stores.", "kr": "곤약젤리", "kw": "곤약젤리", "tags": "#konjacjelly #koreansnack",
-   "points": [["What it is", "Jelly made from konjac, a root high in fibre, usually sold as a drinkable pouch.", ""],
-              ["Why it is popular", "It fits Korea's low-calorie and 'healthy pleasure' snack trend.", "헬시플레저"],
-              ["How to eat it", "Chill it and drink straight from the pouch. Many brands suggest freezing it too.", ""],
-              ["Safety note", "Some markets restrict small, firm konjac jelly cups because of choking risk; drinkable pouches are a different format. Importers should check local rules.", ""]]}
+  {
+   "title": "PDRN, explained: the 'salmon DNA' ingredient Korea made famous",
+   "sub": "Why Korean clinics and drugstores are full of it, and what it actually is.",
+   "kr": "피디알엔",
+   "kw": "PDRN",
+   "tags": "#pdrn #salmondna #kbeautyingredients",
+   "points": [
+    [
+     "What it is",
+     "Polydeoxyribonucleotide: purified DNA fragments, traditionally from salmon. Plant-based versions now exist too.",
+     "PDRN 앰플"
+    ],
+    [
+     "Where it started",
+     "In Korea it was a dermatology-clinic treatment first, best known through skin-booster injections, before it moved into everyday serums and creams.",
+     ""
+    ],
+    [
+     "What brands claim",
+     "It is marketed for recovering, calmer-looking skin after treatments, sun or stress. Topical results vary by formula.",
+     ""
+    ],
+    [
+     "How to shop it",
+     "Look for where PDRN sits in the ingredient list and whether the source is salmon or plant. Patch-test first, like any new active.",
+     "연어 PDRN"
+    ]
+   ],
+   "photo": "serum skincare"
+  },
+  {
+   "title": "Cica, explained: the Korean answer to irritated skin",
+   "sub": "Centella asiatica is in thousands of Korean products. Here is why.",
+   "kr": "시카",
+   "kw": "시카크림",
+   "tags": "#cica #centella #sensitiveskin",
+   "points": [
+    [
+     "What it is",
+     "Cica comes from centella asiatica, a plant traditionally used on skin. Korean labels call it 'cica'.",
+     "병풀"
+    ],
+    [
+     "The key compounds",
+     "Look for madecassoside, asiaticoside and madecassic acid on the label: these are the plant's main actives.",
+     ""
+    ],
+    [
+     "Why Korea loves it",
+     "It became the default 'soothing' ingredient for redness-prone and post-treatment skin, so most brands carry a cica line.",
+     ""
+    ],
+    [
+     "How to shop it",
+     "'Cica' on the front can mean very little inside. Check that centella actives appear high in the ingredient list.",
+     "시카크림"
+    ]
+   ],
+   "photo": "green skincare cream"
+  },
+  {
+   "title": "Toner pads, explained: why every Korean bathroom has a jar",
+   "sub": "A Korean staple that is still unfamiliar in most markets.",
+   "kr": "토너패드",
+   "kw": "토너패드",
+   "tags": "#tonerpads #koreanskincare",
+   "points": [
+    [
+     "What they are",
+     "Cotton or fabric pads pre-soaked in toner, sold in a jar of 60 to 100 with tweezers.",
+     ""
+    ],
+    [
+     "How Koreans use them",
+     "Wipe after cleansing to remove leftovers and prep skin, or leave one on a dry spot for a few minutes as a mini mask.",
+     ""
+    ],
+    [
+     "The different types",
+     "Exfoliating (with AHA, BHA or PHA), soothing (cica, heartleaf) and brightening pads. They are not interchangeable.",
+     ""
+    ],
+    [
+     "Tip for beginners",
+     "Exfoliating pads daily can be too much for sensitive skin. Start every other day.",
+     "닦토"
+    ]
+   ],
+   "photo": "skincare cotton pads"
+  },
+  {
+   "title": "Buldak, explained: the noodle that made spicy go global",
+   "sub": "How hot it really is, and how Koreans actually eat it.",
+   "kr": "불닭볶음면",
+   "kw": "불닭볶음면",
+   "tags": "#buldak #spicynoodles #kfood",
+   "points": [
+    [
+     "What it is",
+     "'Buldak' means fire chicken. Samyang's stir-fried noodles launched in 2012 and turned spicy challenges into a global trend.",
+     "불닭"
+    ],
+    [
+     "There are many flavours",
+     "Carbonara, cheese and cream versions are milder; the original and 2x spicy are the hottest. Heat differs a lot by flavour.",
+     ""
+    ],
+    [
+     "How Koreans eat it",
+     "With cheese, mayo, a fried egg or rice to soften the heat, and often with a cold drink or milk on the side.",
+     ""
+    ],
+    [
+     "Buying tip",
+     "Check each flavour's heat on the pack and whether the version is made for your market; ingredient lists can differ by country.",
+     ""
+    ]
+   ],
+   "photo": "spicy noodles"
+  },
+  {
+   "title": "Gochujang, explained: Korea's essential red chilli paste",
+   "sub": "The flavour behind tteokbokki, bibimbap and much more.",
+   "kr": "고추장",
+   "kw": "고추장",
+   "tags": "#gochujang #koreancooking",
+   "points": [
+    [
+     "What it is",
+     "A fermented paste of chilli powder, glutinous rice, fermented soybean and salt. Sweet, savoury and spicy at once.",
+     ""
+    ],
+    [
+     "How hot it is",
+     "Most tubs show a heat level on the label, from mild to very hot. Start mild.",
+     "매운맛 단계"
+    ],
+    [
+     "How to use it",
+     "Stir into stews and sauces, mix with vinegar and sugar for a dip (cho-gochujang), or glaze grilled meat.",
+     "초고추장"
+    ],
+    [
+     "Storage",
+     "Keep it in the fridge after opening; it lasts a long time but darkens over time.",
+     ""
+    ]
+   ],
+   "photo": "red chili paste korean"
+  },
+  {
+   "title": "Cushion compact, explained: the Korean invention that changed makeup",
+   "sub": "Why a sponge-in-a-compact became a global format.",
+   "kr": "쿠션팩트",
+   "kw": "쿠션팩트",
+   "tags": "#cushion #kbeautymakeup",
+   "points": [
+    [
+     "What it is",
+     "Liquid foundation soaked into a sponge inside a compact, applied with a puff. Popularised by Korean brands in the late 2000s.",
+     ""
+    ],
+    [
+     "Why people like it",
+     "Light, natural coverage that is quick to apply and easy to touch up on the go.",
+     ""
+    ],
+    [
+     "The finishes",
+     "Glow (dewy), semi-matte and matte. Korean ranges often run lighter, so shade range matters for buyers.",
+     "커버력"
+    ],
+    [
+     "Refills",
+     "Most cushions sell refills, which is better value and a reason customers stay with a brand.",
+     "리필"
+    ]
+   ],
+   "photo": "makeup compact"
+  },
+  {
+   "title": "Gim, explained: Korean seaweed beyond the snack pack",
+   "sub": "Seasoned laver is one of Korea's biggest food exports.",
+   "kr": "김",
+   "kw": "조미김",
+   "tags": "#seaweedsnack #gim #kfood",
+   "points": [
+    [
+     "What it is",
+     "Gim is dried laver seaweed. Roasted with oil and salt it becomes seasoned gim, eaten with rice in Korea every day.",
+     "조미김"
+    ],
+    [
+     "The formats",
+     "Snack packs, large sheets for gimbap (unseasoned), seaweed chips (bugak) and flavoured snacks.",
+     "김부각"
+    ],
+    [
+     "How Koreans eat it",
+     "Wrap a bite of rice in a small sheet, or crumble it over rice and noodles.",
+     ""
+    ],
+    [
+     "Buying tip",
+     "Gimbap needs unseasoned sheets; seasoned snack gim will not roll properly.",
+     "김밥김"
+    ]
+   ],
+   "photo": "seaweed"
+  },
+  {
+   "title": "Sun sticks, explained: why Koreans reapply SPF this way",
+   "sub": "A solid sunscreen format that is easy to carry and reapply.",
+   "kr": "선스틱",
+   "kw": "선스틱",
+   "tags": "#sunstick #sunscreen #kbeauty",
+   "points": [
+    [
+     "What it is",
+     "Sunscreen in a solid stick, swiped on like a balm. Popular for reapplying over makeup.",
+     ""
+    ],
+    [
+     "Why Korea loves it",
+     "Korean shoppers reapply sunscreen during the day, and a stick does not mess up makeup or hands.",
+     ""
+    ],
+    [
+     "Labels to read",
+     "Korea uses SPF plus PA+ to PA++++ for UVA protection. More plus signs = more UVA protection.",
+     "PA++++"
+    ],
+    [
+     "For buyers",
+     "Sunscreen is regulated as a drug in the US and has extra rules in many markets. Check before importing.",
+     ""
+    ]
+   ],
+   "photo": "sunscreen"
+  },
+  {
+   "title": "Tteokbokki, explained: Korea's favourite street food",
+   "sub": "Chewy rice cakes in a sweet-spicy sauce, now sold frozen worldwide.",
+   "kr": "떡볶이",
+   "kw": "떡볶이",
+   "tags": "#tteokbokki #koreanstreetfood",
+   "points": [
+    [
+     "What it is",
+     "Cylinder rice cakes simmered in a gochujang-based sauce, often with fish cake and boiled egg.",
+     "떡"
+    ],
+    [
+     "The styles",
+     "Classic red, rose (cream and chilli), black-bean (jjajang) and soy-sauce royal court style.",
+     "로제떡볶이"
+    ],
+    [
+     "Rice or wheat",
+     "Rice cakes are chewier; wheat cakes are softer and soak up sauce. Packs say which.",
+     "쌀떡 / 밀떡"
+    ],
+    [
+     "Buying tip",
+     "Frozen and shelf-stable kits travel well; fresh rice cakes harden fast, so soak them before cooking.",
+     ""
+    ]
+   ],
+   "photo": "tteokbokki"
+  },
+  {
+   "title": "Niacinamide, explained: the K-beauty all-rounder",
+   "sub": "Why it shows up in toners, serums and creams across Korea.",
+   "kr": "나이아신아마이드",
+   "kw": "나이아신아마이드",
+   "tags": "#niacinamide #skincareingredients",
+   "points": [
+    [
+     "What it is",
+     "A form of vitamin B3, water-soluble and easy to combine with other ingredients.",
+     ""
+    ],
+    [
+     "Why it is popular",
+     "Korean brands use it in brightening and tone-evening products; in Korea it is a registered functional ingredient for brightening.",
+     "미백 기능성"
+    ],
+    [
+     "Percentages",
+     "Products range widely. Higher is not always better: some skin reacts to very high concentrations.",
+     ""
+    ],
+    [
+     "How to shop it",
+     "Look for the functional-cosmetic mark on Korean packaging if you want a formula reviewed for that claim.",
+     "기능성화장품"
+    ]
+   ],
+   "photo": "serum bottle"
+  },
+  {
+   "title": "Heartleaf, explained: the plant behind K-beauty's calming toners",
+   "sub": "A Korean favourite for oily and breakout-prone skin.",
+   "kr": "어성초",
+   "kw": "어성초",
+   "tags": "#heartleaf #anua #kbeauty",
+   "points": [
+    [
+     "What it is",
+     "Houttuynia cordata, called heartleaf for its shape and eoseongcho in Korean.",
+     ""
+    ],
+    [
+     "How it is used",
+     "Mostly in toners, pads and serums positioned for calming and oil control.",
+     ""
+    ],
+    [
+     "Why it went global",
+     "Heartleaf toners became viral exports, putting the ingredient on shelves far from Korea.",
+     ""
+    ],
+    [
+     "How to shop it",
+     "Check the percentage on the front and where it appears in the ingredient list.",
+     "어성초 토너"
+    ]
+   ],
+   "photo": "green leaves skincare"
+  },
+  {
+   "title": "Yakgwa, explained: the old Korean sweet that went viral",
+   "sub": "A traditional honey cookie younger Koreans rediscovered.",
+   "kr": "약과",
+   "kw": "약과",
+   "tags": "#yakgwa #koreandessert",
+   "points": [
+    [
+     "What it is",
+     "A deep-fried cookie of wheat flour, sesame oil and honey, soaked in syrup. Traditionally made for holidays and rites.",
+     ""
+    ],
+    [
+     "Why it trended",
+     "Younger Koreans rediscovered it as a 'retro' dessert, and cafés added it to cookies, cakes and drinks.",
+     "할매니얼"
+    ],
+    [
+     "How it tastes",
+     "Dense, sweet and chewy with ginger and honey notes. Best with tea or coffee.",
+     ""
+    ],
+    [
+     "Buying tip",
+     "Mini sizes and individually wrapped packs ship and sell better than large traditional ones.",
+     "미니약과"
+    ]
+   ],
+   "photo": "korean traditional dessert"
+  },
+  {
+   "title": "Ceramide, explained: why Korean moisturisers talk about the skin barrier",
+   "sub": "The 'barrier' trend in Korea starts here.",
+   "kr": "세라마이드",
+   "kw": "세라마이드",
+   "tags": "#ceramide #skinbarrier",
+   "points": [
+    [
+     "What it is",
+     "Ceramides are lipids naturally found in the outer layer of skin, between skin cells.",
+     ""
+    ],
+    [
+     "The barrier idea",
+     "Korean marketing focuses on 'barrier' care: keeping that outer layer intact so skin holds moisture.",
+     "장벽"
+    ],
+    [
+     "Where you find it",
+     "Moisturisers, body lotions and creams for dry or sensitive skin, often with cholesterol and fatty acids.",
+     ""
+    ],
+    [
+     "How to shop it",
+     "Look for named ceramides (like ceramide NP) in the ingredient list rather than just 'barrier' on the front.",
+     ""
+    ]
+   ],
+   "photo": "moisturizer cream"
+  },
+  {
+   "title": "Nurungji, explained: Korea's crispy scorched rice",
+   "sub": "From the bottom of the pot to a packaged snack and comfort food.",
+   "kr": "누룽지",
+   "kw": "누룽지",
+   "tags": "#nurungji #koreanfood",
+   "points": [
+    [
+     "What it is",
+     "The crust of rice that toasts at the bottom of the pot, dried into crispy sheets.",
+     ""
+    ],
+    [
+     "Two ways to eat it",
+     "As a crunchy snack, or boiled in water into a soft, nutty porridge (sungnyung).",
+     "숭늉"
+    ],
+    [
+     "Why it sells",
+     "Simple ingredients, long shelf life and a comforting, familiar taste for Koreans abroad.",
+     ""
+    ],
+    [
+     "Buying tip",
+     "Check for plain rice versions versus sweetened snack versions; they are used differently.",
+     ""
+    ]
+   ],
+   "photo": "rice"
+  },
+  {
+   "title": "Lip tints, explained: the Korean lip look",
+   "sub": "Why Korean lip products stain instead of sitting on top.",
+   "kr": "립틴트",
+   "kw": "립틴트",
+   "tags": "#liptint #kbeautymakeup",
+   "points": [
+    [
+     "What it is",
+     "A lightweight liquid or gel that stains the lips with colour, made popular by Korean makeup brands.",
+     ""
+    ],
+    [
+     "The look",
+     "A soft, blurred gradient that is deeper in the centre of the lips, known in Korea as gradient lips.",
+     "그라데이션 립"
+    ],
+    [
+     "The finishes",
+     "Water, glossy (glass) and velvet tints. Glossy and water tints feel lightest.",
+     ""
+    ],
+    [
+     "Tip",
+     "Tints can stain for hours; use an oil-based cleanser to remove them fully.",
+     ""
+    ]
+   ],
+   "photo": "lipstick"
+  },
+  {
+   "title": "Konjac jelly, explained: Korea's low-calorie snack",
+   "sub": "Why drinkable jelly pouches fill Korean convenience stores.",
+   "kr": "곤약젤리",
+   "kw": "곤약젤리",
+   "tags": "#konjacjelly #koreansnack",
+   "points": [
+    [
+     "What it is",
+     "Jelly made from konjac, a root high in fibre, usually sold as a drinkable pouch.",
+     ""
+    ],
+    [
+     "Why it is popular",
+     "It fits Korea's low-calorie and 'healthy pleasure' snack trend.",
+     "헬시플레저"
+    ],
+    [
+     "How to eat it",
+     "Chill it and drink straight from the pouch. Many brands suggest freezing it too.",
+     ""
+    ],
+    [
+     "Safety note",
+     "Some markets restrict small, firm konjac jelly cups because of choking risk; drinkable pouches are a different format. Importers should check local rules.",
+     ""
+    ]
+   ],
+   "photo": "jelly dessert"
+  }
  ],
  "buysmart": [
-  {"title": "How to tell real K-beauty from fakes", "sub": "Counterfeits are common on marketplaces. Five checks before you buy.", "kr": "정품", "tags": "#kbeauty #authentic #counterfeit",
-   "points": [["Buy from the brand's official store", "Most Korean brands list their official stores on Amazon, other marketplaces and their own websites. Start there.", "공식 스토어"],
-              ["Price too low? Be careful", "Big discounts on viral products, far below the brand's own price, are a common warning sign.", ""],
-              ["Check the packaging", "Fakes often have blurry print, wrong fonts, misaligned labels or missing Korean text and batch codes.", "제조번호"],
-              ["Check the product itself", "Different smell, colour or texture from what you know is a red flag. Stop using it and report the seller.", ""]]},
-  {"title": "Why K-beauty costs more abroad than in Korea", "sub": "The same product can be cheaper in Seoul. Here is where the difference comes from.", "kr": "가격", "tags": "#kbeauty #price",
-   "points": [["Shipping and import costs", "Freight, duties, taxes and compliance work all add to the shelf price abroad.", ""],
-              ["Korean retail promotions", "Korean prices you see online are often sale prices from big events like Olive Young sales.", "올영세일"],
-              ["Different sizes", "Export versions sometimes come in different sizes or sets, so compare price per ml, not per item.", ""],
-              ["How to compare fairly", "Compare the same size at the brand's regular Korean price, then add realistic shipping and tax.", ""]]},
-  {"title": "Your Olive Young shopping list for Seoul", "sub": "How to shop Korea's biggest beauty store like a local.", "kr": "올리브영", "tags": "#oliveyoung #seoul #kbeauty",
-   "points": [["Go during a sale", "Olive Young runs big sales several times a year and a member sale every month. Check before your trip.", "올영세일"],
-              ["Look for the awards shelf", "Products with Olive Young Awards labels are best-sellers chosen from Korean sales and reviews.", "올리브영 어워즈"],
-              ["Try the 'only in Korea' items", "Many products and sets are sold only in Korea; they make the best souvenirs and gifts.", "한정판"],
-              ["Ask about tax refunds", "Tourists can often get tax back at the counter above a minimum spend. Bring your passport.", "택스리펀"]]},
-  {"title": "How to read a Korean cosmetics label", "sub": "Four things on the box that tell you what you are buying.", "kr": "전성분", "tags": "#kbeauty #ingredients #labels",
-   "points": [["Full ingredient list", "Korean packaging lists all ingredients in descending order of amount, under 전성분.", "전성분"],
-              ["Functional cosmetics", "Products reviewed in Korea for brightening, anti-wrinkle or sun protection carry 기능성화장품 on the box.", "기능성화장품"],
-              ["Expiry and batch", "Look for the manufacturing or expiry date and the batch number (제조번호).", "사용기한"],
-              ["After opening", "A small open-jar icon with a number (like 12M) shows how many months to use it after opening.", ""]]},
-  {"title": "Where Koreans buy K-food online and in person", "sub": "And what that means if you are sourcing abroad.", "kr": "장보기", "tags": "#kfood #koreangrocery",
-   "points": [["Online first", "Koreans buy a large share of groceries online with next-morning delivery, through Coupang, Kurly and Naver.", "새벽배송"],
-              ["Convenience stores set trends", "New snacks, ramyeon and drinks often launch first in convenience stores like CU and GS25.", "편의점"],
-              ["Big marts for staples", "E-mart, Homeplus and Lotte Mart sell family-size staples and private-label foods.", ""],
-              ["For buyers", "A product trending in Korean convenience stores is an early signal; watch it before it reaches export shelves.", ""]]},
-  {"title": "Shipping K-food abroad: what travels well", "sub": "Not every Korean food survives export. Here is what does.", "kr": "수출", "tags": "#kfood #foodimport",
-   "points": [["Easy to ship", "Dried, shelf-stable and retort products: ramyeon, gim, sauces in sealed packs, snacks and teas.", ""],
-              ["Needs cold chain", "Kimchi, fresh rice cakes and frozen gimbap need refrigerated or frozen shipping, which costs more.", "냉동"],
-              ["Check ingredients early", "Meat extracts, certain additives and labels can block imports in some markets. Check before ordering.", ""],
-              ["Labels", "Most markets require local-language labels, ingredients and allergens. Plan this with your supplier.", ""]]},
-  {"title": "Buying K-beauty on Amazon: smart checks", "sub": "Most K-beauty sales abroad happen here. Shop it carefully.", "kr": "아마존", "tags": "#amazon #kbeauty",
-   "points": [["Check who sells it", "Look for 'Sold by' the brand or an authorised store. Official brand stores are usually linked from the brand name.", ""],
-              ["Check the reviews", "Read recent reviews and photos. Complaints about smell or texture changes can mean old or fake stock.", ""],
-              ["Watch for old stock", "Check the expiry or manufacturing date when it arrives, especially for sunscreens and actives.", ""],
-              ["Compare with Korea", "Use the Korean name to check what Koreans pay and say about it before paying a big markup.", ""]]},
-  {"title": "Korean gift sets: what to buy for holidays", "sub": "Koreans give gift sets for Chuseok and Seollal. Here is what is inside.", "kr": "선물세트", "tags": "#koreangift #chuseok",
-   "points": [["The classics", "Spam, tuna and cooking oil sets, fruit, Korean beef and red ginseng are traditional holiday gifts.", "명절 선물"],
-              ["Beauty sets", "Skincare and hair-care sets are popular, practical gifts at every price point.", ""],
-              ["When they appear", "Sets fill stores about two to three weeks before each holiday.", ""],
-              ["For buyers", "Korean gift-set formats often inspire seasonal sets abroad; watch them before your holiday season.", ""]]},
-  {"title": "Sunscreen from Korea: what to know before you import", "sub": "K-sunscreen is hugely popular, and heavily regulated abroad.", "kr": "선크림", "tags": "#sunscreen #kbeauty #import",
-   "points": [["Why people want it", "Korean sunscreens are known for light textures that feel like moisturiser.", ""],
-              ["The US is different", "In the US, sunscreen is an over-the-counter drug with its own rules and approved filters.", ""],
-              ["Filters matter", "Some UV filters used in Korea are not approved in every market. Check each product's filters.", ""],
-              ["For sellers", "Selling a sunscreen abroad without meeting local rules risks listings being removed. Check first.", ""]]},
-  {"title": "How to find the Korean version of a product", "sub": "Search like a Korean to see real reviews and real prices.", "kr": "검색", "tags": "#kbeauty #koreanreviews",
-   "points": [["Find the Korean name", "Brands print the Korean product name on the box and on their Korean websites.", ""],
-              ["Search Naver, not Google", "Naver is Korea's main search engine and shopping guide. Search the Korean name there.", "네이버"],
-              ["Read Korean reviews", "Korean beauty review apps and Olive Young reviews show what Korean shoppers think.", "후기"],
-              ["Use translation", "Browser translation is good enough to read reviews and compare prices.", ""]]},
-  {"title": "Seoul food souvenirs that travel well", "sub": "What to bring home from a Korean supermarket.", "kr": "기념품", "tags": "#seoul #koreansnacks",
-   "points": [["Snacks", "Honey butter chips, seaweed snacks and yakgwa are favourites and pack easily.", ""],
-              ["Ramyeon", "Buy a few you cannot get at home: convenience stores often have limited flavours.", "라면"],
-              ["Sauces", "Gochujang and doenjang in sealed tubs travel well in checked luggage.", ""],
-              ["Check your country's rules", "Meat products and some fresh foods are not allowed into many countries. Check before you pack.", ""]]},
-  {"title": "Starting to sell K-beauty: three paths", "sub": "How small sellers abroad usually begin.", "kr": "판매", "tags": "#kbeautybusiness #seller",
-   "points": [["Buy from distributors", "Licensed distributors in your market are the simplest start, with local labels and compliance handled.", ""],
-              ["Buy direct from brands", "Many Korean brands have export teams; expect minimum orders and paperwork.", ""],
-              ["Make your own brand", "Korean OEM and ODM makers produce under your brand. More control, more work.", "OEM / ODM"],
-              ["Before you choose", "Check what is rising in Korea now, and which categories your market's rules make easier.", ""]]}
+  {
+   "title": "How to tell real K-beauty from fakes",
+   "sub": "Counterfeits are common on marketplaces. Five checks before you buy.",
+   "kr": "정품",
+   "tags": "#kbeauty #authentic #counterfeit",
+   "points": [
+    [
+     "Buy from the brand's official store",
+     "Most Korean brands list their official stores on Amazon, other marketplaces and their own websites. Start there.",
+     "공식 스토어"
+    ],
+    [
+     "Price too low? Be careful",
+     "Big discounts on viral products, far below the brand's own price, are a common warning sign.",
+     ""
+    ],
+    [
+     "Check the packaging",
+     "Fakes often have blurry print, wrong fonts, misaligned labels or missing Korean text and batch codes.",
+     "제조번호"
+    ],
+    [
+     "Check the product itself",
+     "Different smell, colour or texture from what you know is a red flag. Stop using it and report the seller.",
+     ""
+    ]
+   ],
+   "photo": "cosmetics store"
+  },
+  {
+   "title": "Why K-beauty costs more abroad than in Korea",
+   "sub": "The same product can be cheaper in Seoul. Here is where the difference comes from.",
+   "kr": "가격",
+   "tags": "#kbeauty #price",
+   "points": [
+    [
+     "Shipping and import costs",
+     "Freight, duties, taxes and compliance work all add to the shelf price abroad.",
+     ""
+    ],
+    [
+     "Korean retail promotions",
+     "Korean prices you see online are often sale prices from big events like Olive Young sales.",
+     "올영세일"
+    ],
+    [
+     "Different sizes",
+     "Export versions sometimes come in different sizes or sets, so compare price per ml, not per item.",
+     ""
+    ],
+    [
+     "How to compare fairly",
+     "Compare the same size at the brand's regular Korean price, then add realistic shipping and tax.",
+     ""
+    ]
+   ],
+   "photo": "cosmetics shopping"
+  },
+  {
+   "title": "Your Olive Young shopping list for Seoul",
+   "sub": "How to shop Korea's biggest beauty store like a local.",
+   "kr": "올리브영",
+   "tags": "#oliveyoung #seoul #kbeauty",
+   "points": [
+    [
+     "Go during a sale",
+     "Olive Young runs big sales several times a year and a member sale every month. Check before your trip.",
+     "올영세일"
+    ],
+    [
+     "Look for the awards shelf",
+     "Products with Olive Young Awards labels are best-sellers chosen from Korean sales and reviews.",
+     "올리브영 어워즈"
+    ],
+    [
+     "Try the 'only in Korea' items",
+     "Many products and sets are sold only in Korea; they make the best souvenirs and gifts.",
+     "한정판"
+    ],
+    [
+     "Ask about tax refunds",
+     "Tourists can often get tax back at the counter above a minimum spend. Bring your passport.",
+     "택스리펀"
+    ]
+   ],
+   "photo": "cosmetics store seoul"
+  },
+  {
+   "title": "How to read a Korean cosmetics label",
+   "sub": "Four things on the box that tell you what you are buying.",
+   "kr": "전성분",
+   "tags": "#kbeauty #ingredients #labels",
+   "points": [
+    [
+     "Full ingredient list",
+     "Korean packaging lists all ingredients in descending order of amount, under 전성분.",
+     "전성분"
+    ],
+    [
+     "Functional cosmetics",
+     "Products reviewed in Korea for brightening, anti-wrinkle or sun protection carry 기능성화장품 on the box.",
+     "기능성화장품"
+    ],
+    [
+     "Expiry and batch",
+     "Look for the manufacturing or expiry date and the batch number (제조번호).",
+     "사용기한"
+    ],
+    [
+     "After opening",
+     "A small open-jar icon with a number (like 12M) shows how many months to use it after opening.",
+     ""
+    ]
+   ],
+   "photo": "cosmetics bottle"
+  },
+  {
+   "title": "Where Koreans buy K-food online and in person",
+   "sub": "And what that means if you are sourcing abroad.",
+   "kr": "장보기",
+   "tags": "#kfood #koreangrocery",
+   "points": [
+    [
+     "Online first",
+     "Koreans buy a large share of groceries online with next-morning delivery, through Coupang, Kurly and Naver.",
+     "새벽배송"
+    ],
+    [
+     "Convenience stores set trends",
+     "New snacks, ramyeon and drinks often launch first in convenience stores like CU and GS25.",
+     "편의점"
+    ],
+    [
+     "Big marts for staples",
+     "E-mart, Homeplus and Lotte Mart sell family-size staples and private-label foods.",
+     ""
+    ],
+    [
+     "For buyers",
+     "A product trending in Korean convenience stores is an early signal; watch it before it reaches export shelves.",
+     ""
+    ]
+   ],
+   "photo": "grocery store"
+  },
+  {
+   "title": "Shipping K-food abroad: what travels well",
+   "sub": "Not every Korean food survives export. Here is what does.",
+   "kr": "수출",
+   "tags": "#kfood #foodimport",
+   "points": [
+    [
+     "Easy to ship",
+     "Dried, shelf-stable and retort products: ramyeon, gim, sauces in sealed packs, snacks and teas.",
+     ""
+    ],
+    [
+     "Needs cold chain",
+     "Kimchi, fresh rice cakes and frozen gimbap need refrigerated or frozen shipping, which costs more.",
+     "냉동"
+    ],
+    [
+     "Check ingredients early",
+     "Meat extracts, certain additives and labels can block imports in some markets. Check before ordering.",
+     ""
+    ],
+    [
+     "Labels",
+     "Most markets require local-language labels, ingredients and allergens. Plan this with your supplier.",
+     ""
+    ]
+   ],
+   "photo": "cargo shipping"
+  },
+  {
+   "title": "Buying K-beauty on Amazon: smart checks",
+   "sub": "Most K-beauty sales abroad happen here. Shop it carefully.",
+   "kr": "아마존",
+   "tags": "#amazon #kbeauty",
+   "points": [
+    [
+     "Check who sells it",
+     "Look for 'Sold by' the brand or an authorised store. Official brand stores are usually linked from the brand name.",
+     ""
+    ],
+    [
+     "Check the reviews",
+     "Read recent reviews and photos. Complaints about smell or texture changes can mean old or fake stock.",
+     ""
+    ],
+    [
+     "Watch for old stock",
+     "Check the expiry or manufacturing date when it arrives, especially for sunscreens and actives.",
+     ""
+    ],
+    [
+     "Compare with Korea",
+     "Use the Korean name to check what Koreans pay and say about it before paying a big markup.",
+     ""
+    ]
+   ],
+   "photo": "online shopping package"
+  },
+  {
+   "title": "Korean gift sets: what to buy for holidays",
+   "sub": "Koreans give gift sets for Chuseok and Seollal. Here is what is inside.",
+   "kr": "선물세트",
+   "tags": "#koreangift #chuseok",
+   "points": [
+    [
+     "The classics",
+     "Spam, tuna and cooking oil sets, fruit, Korean beef and red ginseng are traditional holiday gifts.",
+     "명절 선물"
+    ],
+    [
+     "Beauty sets",
+     "Skincare and hair-care sets are popular, practical gifts at every price point.",
+     ""
+    ],
+    [
+     "When they appear",
+     "Sets fill stores about two to three weeks before each holiday.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Korean gift-set formats often inspire seasonal sets abroad; watch them before your holiday season.",
+     ""
+    ]
+   ],
+   "photo": "gift box"
+  },
+  {
+   "title": "Sunscreen from Korea: what to know before you import",
+   "sub": "K-sunscreen is hugely popular, and heavily regulated abroad.",
+   "kr": "선크림",
+   "tags": "#sunscreen #kbeauty #import",
+   "points": [
+    [
+     "Why people want it",
+     "Korean sunscreens are known for light textures that feel like moisturiser.",
+     ""
+    ],
+    [
+     "The US is different",
+     "In the US, sunscreen is an over-the-counter drug with its own rules and approved filters.",
+     ""
+    ],
+    [
+     "Filters matter",
+     "Some UV filters used in Korea are not approved in every market. Check each product's filters.",
+     ""
+    ],
+    [
+     "For sellers",
+     "Selling a sunscreen abroad without meeting local rules risks listings being removed. Check first.",
+     ""
+    ]
+   ],
+   "photo": "sunscreen"
+  },
+  {
+   "title": "How to find the Korean version of a product",
+   "sub": "Search like a Korean to see real reviews and real prices.",
+   "kr": "검색",
+   "tags": "#kbeauty #koreanreviews",
+   "points": [
+    [
+     "Find the Korean name",
+     "Brands print the Korean product name on the box and on their Korean websites.",
+     ""
+    ],
+    [
+     "Search Naver, not Google",
+     "Naver is Korea's main search engine and shopping guide. Search the Korean name there.",
+     "네이버"
+    ],
+    [
+     "Read Korean reviews",
+     "Korean beauty review apps and Olive Young reviews show what Korean shoppers think.",
+     "후기"
+    ],
+    [
+     "Use translation",
+     "Browser translation is good enough to read reviews and compare prices.",
+     ""
+    ]
+   ],
+   "photo": "smartphone shopping"
+  },
+  {
+   "title": "Seoul food souvenirs that travel well",
+   "sub": "What to bring home from a Korean supermarket.",
+   "kr": "기념품",
+   "tags": "#seoul #koreansnacks",
+   "points": [
+    [
+     "Snacks",
+     "Honey butter chips, seaweed snacks and yakgwa are favourites and pack easily.",
+     ""
+    ],
+    [
+     "Ramyeon",
+     "Buy a few you cannot get at home: convenience stores often have limited flavours.",
+     "라면"
+    ],
+    [
+     "Sauces",
+     "Gochujang and doenjang in sealed tubs travel well in checked luggage.",
+     ""
+    ],
+    [
+     "Check your country's rules",
+     "Meat products and some fresh foods are not allowed into many countries. Check before you pack.",
+     ""
+    ]
+   ],
+   "photo": "seoul market"
+  },
+  {
+   "title": "Starting to sell K-beauty: three paths",
+   "sub": "How small sellers abroad usually begin.",
+   "kr": "판매",
+   "tags": "#kbeautybusiness #seller",
+   "points": [
+    [
+     "Buy from distributors",
+     "Licensed distributors in your market are the simplest start, with local labels and compliance handled.",
+     ""
+    ],
+    [
+     "Buy direct from brands",
+     "Many Korean brands have export teams; expect minimum orders and paperwork.",
+     ""
+    ],
+    [
+     "Make your own brand",
+     "Korean OEM and ODM makers produce under your brand. More control, more work.",
+     "OEM / ODM"
+    ],
+    [
+     "Before you choose",
+     "Check what is rising in Korea now, and which categories your market's rules make easier.",
+     ""
+    ]
+   ],
+   "photo": "small business shop"
+  }
  ]
 }

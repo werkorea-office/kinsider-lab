@@ -41,7 +41,7 @@ HANDLE = "@kinsiderlab_official"
 FONT_FILES = {
     "reg": "Inter-Regular.otf", "med": "Inter-Medium.otf", "semi": "Inter-SemiBold.otf",
     "bold": "Inter-Bold.otf", "xbold": "InterDisplay-ExtraBold.otf", "black": "InterDisplay-Black.otf",
-    "kr": "NotoSansKR-Bold-subset.otf",
+    "kr": "NotoSansKR-Bold-subset.otf", "serif": "PlayfairDisplay-VF.ttf",
 }
 _font_cache = {}
 
@@ -49,7 +49,10 @@ _font_cache = {}
 def font(kind, size):
     key = (kind, size)
     if key not in _font_cache:
-        _font_cache[key] = ImageFont.truetype(str(FONTS / FONT_FILES[kind]), int(size * SC))
+        f = ImageFont.truetype(str(FONTS / FONT_FILES[kind]), int(size * SC))
+        if kind == "serif":
+            f.set_variation_by_name("Bold")
+        _font_cache[key] = f
     return _font_cache[key]
 
 
@@ -246,6 +249,72 @@ def _rgba(hex_color, alpha):
 
 
 # ---------------------------------------------------------------- slides
+
+def magazine_title(story):
+    """Story-style headline and one-line dek for the photo cover (the data stays on the inside slides)."""
+    seg = story.get("segment")
+    if story.get("price"):
+        return f"What Koreans Actually Pay For {story['prices'][0]['brand']} This Week", "Reference prices from Naver Shopping, Korea. Swipe for three brands."
+    if story.get("editorial"):
+        return story["headline"], story.get("sub", "")
+    it = story["items"][0]
+    name, ch = it["name"], it["change_text"]
+    if seg == "food":
+        return f"Koreans Can't Stop Searching For {name} Right Now", f"Korean shopping searches {ch} this week. Naver data."
+    if seg in ("brands", "brands-top"):
+        return f"The K-Beauty Brand Koreans Are Searching Most: {name}", f"{ch} in Korean shopping searches this week. Naver data."
+    if seg == "signals":
+        return f"Seoul's Next K-Beauty Breakout? Watch {name}", f"Two straight weeks of rising Korean searches ({ch}). Naver data."
+    return f"Koreans Suddenly Can't Stop Searching For {name}", f"Korean shopping searches {ch} this week. Naver data."
+
+
+def photo_cover(story, photo, issue, run_date, pages):
+    s = Slide(dark=True)
+    im = Image.open(photo["path"]).convert("RGB")
+    tw, th = W * SC, H * SC
+    r = max(tw / im.width, th / im.height)
+    im = im.resize((int(im.width * r + 1), int(im.height * r + 1)), Image.LANCZOS)
+    left, top = (im.width - tw) // 2, max(0, (im.height - th) // 3)
+    s.img.paste(im.crop((left, top, left + tw, top + th)))
+    # bottom gradient for legibility
+    grad = Image.new("L", (1, th))
+    for y in range(th):
+        t = max(0.0, (y / th - 0.38) / 0.62)
+        grad.putpixel((0, y), int(255 * min(1, t * 1.15) ** 1.3))
+    shade = Image.new("RGB", (tw, th), (8, 10, 16))
+    s.img.paste(shade, (0, 0), grad.resize((tw, th)))
+    top = Image.new("L", (1, 220 * SC))
+    for y in range(220 * SC):
+        top.putpixel((0, y), int(150 * (1 - y / (220 * SC)) ** 1.5))
+    s.img.paste(shade, (0, 0), top.resize((tw, 220 * SC)))
+    s.d = ImageDraw.Draw(s.img)
+    title, dek = magazine_title(story)
+    size = 78
+    lines = s.wrap(title, "serif", size, W - 128)
+    while len(lines) > 4 and size > 54:
+        size -= 4
+        lines = s.wrap(title, "serif", size, W - 128)
+    dek_lines = s.wrap(dek, "semi", 24, W - 220)[:2]
+    y = H - 120 - len(dek_lines) * 34 - 30 - len(lines) * size * 1.08
+    s.text((64, y - 46), story.get("segment_label", "K-INSIDER LAB").upper(), "bold", 20, ACCENT)
+    for line in lines:
+        s.text((64, y), line, "serif", size, "white")
+        y += size * 1.08
+    y += 26
+    for line in dek_lines:
+        s.text((64, y), line, "semi", 24, "#d5dae4")
+        y += 34
+    s.d.rounded_rectangle(((W - 150) * SC, (y - 52) * SC, (W - 64) * SC, (y - 16) * SC), radius=18 * SC, outline="white", width=3 * SC)
+    s.text((W - 107, y - 34), "→", "bold", 24, "white", anchor="mm")
+    # brand mark + credit
+    s.rect((64, 56, 104, 96), fill=ACCENT, radius=8)
+    s.text((84, 76), "K", "black", 24, "white", anchor="mm")
+    s.text((116, 76), "K-INSIDER LAB", "bold", 20, "white", anchor="lm")
+    s.text((W - 64, 76), f"No. {issue:03d}  ·  {build.nice_date(run_date).upper()}", "semi", 18, "#e8ebf1", anchor="rm")
+    s.text((64, H - 52), f"Photo: {photo['user']} / Pixabay", "med", 15, "#9aa3b5")
+    s.text((W - 64, H - 52), f"1 / {pages}", "semi", 16, "#9aa3b5", anchor="ra")
+    return s
+
 
 def cover_slide(story, issue, run_date, pages):
     s = Slide(dark=True)
@@ -568,7 +637,7 @@ def editorial_story(snapshot, wd, offset=0):
                 hero = {"series": it["series"], "dates": seg["dates"], "change": it["momentum"]}
     return {"editorial": True, "segment": key, "segment_label": label, "kicker": f"{kicker}",
             "headline": t["title"], "sub": t["sub"], "kr": t.get("kr", ""), "points": t["points"],
-            "hero": hero, "items": [], "tags": t.get("tags", "") + " #kbeauty #kfood #korea"}
+            "hero": hero, "items": [], "photo": t.get("photo"), "tags": t.get("tags", "") + " #kbeauty #kfood #korea"}
 
 
 def choose(snapshot):
@@ -793,6 +862,8 @@ def render(story, snapshot, out_dir):
     if out_dir.exists():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True)
+    from . import photos
+    photo = photos.pick(story, out_dir / "photo.jpg", run)
     if story.get("price"):
         pages = 6
         slides = [price_cover(story, issue, run, pages)]
@@ -808,6 +879,8 @@ def render(story, snapshot, out_dir):
         for n, item in enumerate(story["items"], 1):
             slides.append(profile_slide(story, item, n, len(story["items"]), issue, run, n + 1, pages))
         slides.append(ranking_slide(story, issue, run, pages - 1, pages))
+    if photo:  # magazine-style photo cover; the inside slides carry the data
+        slides[0] = photo_cover(story, photo, issue, run, pages)
     slides.append(close_slide(story, tracked_counts(snapshot), issue, run, pages))
     names = []
     for n, s in enumerate(slides, 1):
