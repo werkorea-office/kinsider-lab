@@ -272,3 +272,17 @@ class PriceCheckTest(unittest.TestCase):
         from pipeline import prices
         self.assertEqual(prices.main(now=dt.datetime(2026, 11, 20, tzinfo=prices.KST)), 0)
 
+
+
+class PhotoCoverTest(unittest.TestCase):
+    def test_photo_cover_renders_any_photo_size(self):
+        import io, os, tempfile
+        from PIL import Image
+        from pipeline import cards, photos
+        snap = json.loads((Path(__file__).resolve().parent.parent / "data" / "latest.json").read_text(encoding="utf-8"))
+        story = cards.choose(snap) or cards.beauty_story(snap)
+        for size in ((640, 960), (3000, 2000)):
+            buf = io.BytesIO(); Image.new("RGB", size, (200, 150, 140)).save(buf, "JPEG")
+            with tempfile.TemporaryDirectory() as d:
+                p = Path(d) / "photo.jpg"; p.write_bytes(buf.getvalue())
+                cards.photo_cover(story, {"path": str(p), "user": "u"}, 1, snap["run_date"], 6)
