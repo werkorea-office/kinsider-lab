@@ -286,7 +286,7 @@ def photo_cover(story, photo, issue, run_date, pages):
     top = Image.new("L", (1, 220 * SC))
     for y in range(220 * SC):
         top.putpixel((0, y), int(150 * (1 - y / (220 * SC)) ** 1.5))
-    s.img.paste(shade, (0, 0), top.resize((tw, 220 * SC)))
+    s.img.paste(shade.crop((0, 0, tw, 220 * SC)), (0, 0), top.resize((tw, 220 * SC)))
     s.d = ImageDraw.Draw(s.img)
     title, dek = magazine_title(story)
     size = 78
@@ -880,7 +880,10 @@ def render(story, snapshot, out_dir):
             slides.append(profile_slide(story, item, n, len(story["items"]), issue, run, n + 1, pages))
         slides.append(ranking_slide(story, issue, run, pages - 1, pages))
     if photo:  # magazine-style photo cover; the inside slides carry the data
-        slides[0] = photo_cover(story, photo, issue, run, pages)
+        try:
+            slides[0] = photo_cover(story, photo, issue, run, pages)
+        except Exception as exc:  # a bad photo must never stop the day's card
+            print(f"Photo cover skipped: {exc}")
     slides.append(close_slide(story, tracked_counts(snapshot), issue, run, pages))
     names = []
     for n, s in enumerate(slides, 1):
