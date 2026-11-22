@@ -97,13 +97,15 @@ def dryrun():
     return 0
 
 
-def publish():
+def publish(slot="main"):
     from .cards import todays_carousel
     token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
     if not token:
         print("IG_ACCESS_TOKEN not set; skipping Instagram.")
         return 0
     today = dt.datetime.now(KST).date().isoformat()
+    if slot == "eu":
+        today = f"{today}-eu"           # 17:00 KST guide post lives in cards/<date>-eu/
     found = todays_carousel(today)
     if not found:
         print(f"No carousel for {today}; nothing to post.")
@@ -224,4 +226,6 @@ def check():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "publish"
-    sys.exit({"publish": publish, "refresh": refresh, "check": check, "dryrun": dryrun}[cmd]())
+    if cmd == "publish":
+        sys.exit(publish(sys.argv[2] if len(sys.argv) > 2 else "main"))
+    sys.exit({"refresh": refresh, "check": check, "dryrun": dryrun}[cmd]())

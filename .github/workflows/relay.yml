@@ -1,21 +1,19 @@
-name: Posting relay (holds the 23:00 KST slot)
+name: Posting relay (holds the 17:00 and 23:00 KST slots)
 
-# Posting time is not left to GitHub's cron, which can start hours late.
-# The morning data run (and any early scheduled run) starts this relay. Each hop waits on a
-# runner and hands over to the next hop; the final hop owns the 23:00 KST slot with three plans:
-#   Plan A  at 23:00 start the normal social publish run, then verify the post exists.
-#   Plan B  if nothing was posted after 25 min, start the publish run again, verify again.
-#   Plan C  if still nothing, publish directly from this job (no dependency on other runs).
-# Every plan checks the posting ledger first, so nothing is posted twice. Free on a public repo.
+# Posting time is never left to GitHub's cron, which can start hours late.
+# The relay runs continuously: each hop waits on a runner, then hands over to the next hop.
+# Slots (pipeline/slots.py): eu 17:00 KST (Instagram guide post), main 23:00 KST (Instagram + LinkedIn).
+# At each slot, three plans run in order until the post is verified in the ledger:
+#   Plan A  start the normal social publish run, verify after 20 min
+#   Plan B  start it again, verify after 15 min
+#   Plan C  publish directly from this job
+# Every plan checks the ledger first, so nothing is posted twice. Free on a public repo.
 on:
   workflow_dispatch:
     inputs:
       hop:
         description: "hop counter (set automatically)"
         default: "1"
-      tomorrow:
-        description: "1 = aim at tomorrow's slot (set automatically after a slot)"
-        default: "0"
 
 permissions:
   actions: write
@@ -33,88 +31,94 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       R: ${{ github.repository }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: pipeline
+
       - name: Timer
         id: timer
         env:
           HOP: ${{ inputs.hop }}
-          TOMORROW: ${{ inputs.tomorrow }}
         run: |
-          # Make sure today's data run happened (its cron can be late too): after 06:40 KST, if
-          # today's cards are missing, start the data run (it is idempotent and serialized).
+          led() { gh api "repos/$R/contents/data/social/$1.json" --jq .content 2>/dev/null | base64 -d > /tmp/$1.json || echo '{"posts":[]}' > /tmp/$1.json; }
+          # Today's data run can be late too: after 06:40 KST, start it if today's cards are missing.
           kd=$(TZ=Asia/Seoul date +%F); kh=$(TZ=Asia/Seoul date +%H%M)
-          if [ "$kh" -ge 0640 ] && ! gh api "repos/$R/contents/cards/$kd/meta.json" >/dev/null 2>&1; then
+          missing=0; gh api "repos/$R/contents/cards/$kd/meta.json" >/dev/null 2>&1 || missing=1
+          if [ "$kh" -ge 0640 ] && [ $missing = 1 ]; then
             gh api -X POST "repos/$R/actions/workflows/daily.yml/dispatches" -f ref=main && echo "Started today's data run."
           fi
-          target=$(date -u -d "$(date -u +%F) 14:00" +%s); now=$(date -u +%s)
-          # Morning KST is still the previous UTC day: aim at the next 14:00 UTC.
-          if [ $(( now - target )) -ge 10800 ] || { [ "$TOMORROW" = "1" ] && [ $now -ge $target ]; }; then target=$(( target + 86400 )); fi
-          wait=$(( target - now ))
+          led instagram; led linkedin
+          next=$(python -m pipeline.slots next /tmp/instagram.json /tmp/linkedin.json)
+          echo "Next: $next"
+          [ "$next" = "null" ] && { echo "Nothing to do."; exit 0; }
+          wait=$(echo "$next" | python -c "import json,sys;print(json.load(sys.stdin)['wait'])")
+          slot=$(echo "$next" | python -c "import json,sys;print(json.load(sys.stdin)['slot'])")
+          key=$(echo "$next" | python -c "import json,sys;print(json.load(sys.stdin)['key'])")
           if [ $wait -gt 16200 ]; then
             nap=$(( wait - 7200 )); [ $nap -gt 19800 ] && nap=19800
-            # Short naps until the morning data exists, so a missing data run is noticed early.
-            if ! gh api "repos/$R/contents/cards/$kd/meta.json" >/dev/null 2>&1 && [ "$kh" -ge 0640 ] && [ $nap -gt 3600 ]; then nap=3600; fi
+            if [ "$kh" -ge 0640 ] && [ $missing = 1 ] && [ $nap -gt 3600 ]; then nap=3600; fi
             echo "Hop $HOP: sleeping $nap s, then handing over."; sleep $nap
             gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=$(( HOP + 1 ))"
             exit 0
           fi
-          if [ $wait -gt 0 ]; then echo "Final hop: sleeping $wait s until 23:00 KST"; sleep $wait; fi
-          if [ $wait -lt -10800 ]; then echo "Slot long past."; exit 0; fi
-          echo "final=1" >> "$GITHUB_OUTPUT"
+          [ $wait -gt 0 ] && { echo "Sleeping $wait s until the $slot slot"; sleep $wait; }
+          echo "slot=$slot" >> "$GITHUB_OUTPUT"; echo "key=$key" >> "$GITHUB_OUTPUT"
+          [ "$slot" = "eu" ] && echo "task=publish-eu" >> "$GITHUB_OUTPUT" || echo "task=publish" >> "$GITHUB_OUTPUT"
 
       - name: Plan A - start the publish run
         id: a
-        if: steps.timer.outputs.final == '1'
+        if: steps.timer.outputs.slot != ''
+        env: {SLOT: "${{ steps.timer.outputs.slot }}", KEY: "${{ steps.timer.outputs.key }}", TASK: "${{ steps.timer.outputs.task }}"}
         run: |
-          posted() { d=$(TZ=Asia/Seoul date +%F)
-            for f in instagram linkedin; do
-              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$d\"" || return 1
-            done; }
+          posted() { for f in instagram linkedin; do [ "$SLOT" = "eu" ] && [ $f = linkedin ] && continue
+              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$KEY\"" || return 1; done; }
           posted && { echo "Already posted."; echo "done=1" >> "$GITHUB_OUTPUT"; exit 0; }
-          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish" || true
-          sleep 1500
+          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=$TASK" || true
+          sleep 1200
           posted && echo "done=1" >> "$GITHUB_OUTPUT" || echo "Plan A did not post."
 
       - name: Plan B - start the publish run again
         id: b
-        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1'
+        if: steps.timer.outputs.slot != '' && steps.a.outputs.done != '1'
+        env: {SLOT: "${{ steps.timer.outputs.slot }}", KEY: "${{ steps.timer.outputs.key }}", TASK: "${{ steps.timer.outputs.task }}"}
         run: |
-          posted() { d=$(TZ=Asia/Seoul date +%F)
-            for f in instagram linkedin; do
-              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$d\"" || return 1
-            done; }
-          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=publish" || true
-          sleep 1200
+          posted() { for f in instagram linkedin; do [ "$SLOT" = "eu" ] && [ $f = linkedin ] && continue
+              gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$KEY\"" || return 1; done; }
+          gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=$TASK" || true
+          sleep 900
           posted && echo "done=1" >> "$GITHUB_OUTPUT" || echo "Plan B did not post."
 
       - uses: actions/checkout@v4
-        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        if: steps.timer.outputs.slot != '' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
         with:
           ref: main
 
       - uses: actions/setup-python@v5
-        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        if: steps.timer.outputs.slot != '' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
         with:
           python-version: '3.12'
 
       - name: Plan C - publish directly from this job
-        if: steps.timer.outputs.final == '1' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
+        if: steps.timer.outputs.slot != '' && steps.a.outputs.done != '1' && steps.b.outputs.done != '1'
         env:
+          SLOT: ${{ steps.timer.outputs.slot }}
+          KEY: ${{ steps.timer.outputs.key }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: |
           pip install -q pillow==12.* pynacl==1.*
-          python -m pipeline.social_instagram publish || echo "Instagram: plan C failed"
-          python -m pipeline.social_linkedin publish || echo "LinkedIn: plan C failed"
+          python -m pipeline.social_instagram publish "$SLOT" || echo "Instagram: plan C failed"
+          if [ "$SLOT" = "main" ]; then python -m pipeline.social_linkedin publish || echo "LinkedIn: plan C failed"; fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/social
           if ! git diff --staged --quiet; then
-            git commit -m "Social ledger $(TZ=Asia/Seoul date +%F) (relay plan C) [skip ci]"
+            git commit -m "Social ledger $KEY (relay plan C) [skip ci]"
             for i in 1 2 3 4 5; do git pull --rebase -X theirs origin main && git push && break; git rebase --abort 2>/dev/null; sleep $((i*5)); done
           fi
-          d=$(TZ=Asia/Seoul date +%F)
-          grep -q "\"date\": \"$d\"" data/social/instagram.json || { echo "::error::All three plans failed to post today."; exit 1; }
+          grep -q "\"date\": \"$KEY\"" data/social/instagram.json || { echo "::error::All three plans failed for $KEY."; exit 1; }
 
-      - name: Start tomorrow's relay
-        if: always() && steps.timer.outputs.final == '1'
-        run: gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=1" -f "inputs[tomorrow]=1" || true
+      - name: Start the next relay
+        if: always() && steps.timer.outputs.slot != ''
+        run: gh api -X POST "repos/$R/actions/workflows/relay.yml/dispatches" -f ref=main -f "inputs[hop]=1" || true

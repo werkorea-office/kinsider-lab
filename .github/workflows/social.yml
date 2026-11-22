@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "publish, refresh, check, linkedin or dryrun"
+        description: "publish, publish-eu (17:00 KST guide, Instagram only), refresh, check, linkedin or dryrun"
         default: publish
 
 permissions:
@@ -83,6 +83,12 @@ jobs:
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: python -m pipeline.social_linkedin publish
+
+      - name: Publish the 17:00 KST guide post (Instagram only)
+        if: inputs.task == 'publish-eu'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: python -m pipeline.social_instagram publish eu
 
       - name: Dry run (upload without posting)
         if: inputs.task == 'dryrun'

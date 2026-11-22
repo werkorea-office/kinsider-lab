@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LEDGER = ROOT / "data" / "photos.json"
 GENERIC = {"beauty": "skincare cosmetics", "brands": "cosmetics skincare products", "brands-top": "cosmetics skincare products",
            "signals": "skincare serum", "food": "korean food", "explained": "skincare", "buysmart": "cosmetics shopping",
-           "price": "cosmetics products", "track": "skincare products"}
+           "price": "cosmetics products", "track": "skincare products", "guides": "seoul"}
 
 
 def _get(url, timeout=20):

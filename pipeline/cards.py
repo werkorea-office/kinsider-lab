@@ -621,6 +621,7 @@ def top_brands_story(snapshot):
 SERIES = {
     2: ("explained", "EXPLAINED", "K-BEAUTY & K-FOOD, EXPLAINED"),
     3: ("buysmart", "BUY SMART", "BUY K-BEAUTY & K-FOOD SMART"),
+    "guide": ("guides", "SEOUL GUIDE", "K-BEAUTY & K-FOOD GUIDE"),
 }
 
 
@@ -628,8 +629,9 @@ def editorial_story(snapshot, wd, offset=0):
     """Evergreen explainer from config/series.json, rotated weekly so nothing repeats for months."""
     key, label, kicker = SERIES[wd]
     bank = json.loads((Path(__file__).resolve().parent.parent / "config" / "series.json").read_text(encoding="utf-8"))[key]
-    week = (dt.date.fromisoformat(snapshot["run_date"]) - LAUNCH).days // 7
-    t = bank[(week + offset) % len(bank)]
+    days = (dt.date.fromisoformat(snapshot["run_date"]) - LAUNCH).days
+    step = days if wd == "guide" else days // 7      # the 17:00 guide rotates daily, the others weekly
+    t = bank[(step + offset) % len(bank)]
     hero = None
     for seg in snapshot.get("segments", []):
         for it in seg.get("items", []):
@@ -777,10 +779,10 @@ def point_slide(story, n, point, issue, run_date, page, pages):
         s.text((100, H - 262), "IN KOREAN", "bold", 18, ACCENT)
         s.text((100, H - 214), point[2], "kr", 40, TEXT)
     else:
-        day = "Wednesday" if story["segment"] == "explained" else "Thursday"
+        day = {"explained": "every Wednesday", "buysmart": "every Thursday"}.get(story["segment"], "every day")
         s.rect((64, H - 300, W - 64, H - 150), fill="#f4f5f7", radius=18)
         s.text((100, H - 262), "SAVE THIS POST", "bold", 18, ACCENT)
-        s.text((100, H - 214), f"New {story['segment_label'].title()} every {day}", "xbold", 34, TEXT)
+        s.text((100, H - 214), f"New {story['segment_label'].title()} {day}", "xbold", 34, TEXT)
     return s
 
 
@@ -906,7 +908,7 @@ def render(story, snapshot, out_dir):
 
 def prune(today):
     for p in OUT.iterdir() if OUT.exists() else []:
-        stem = p.name.split(".")[0]
+        stem = p.name.split(".")[0][:10]
         try:
             day = dt.date.fromisoformat(stem)
         except ValueError:
@@ -929,6 +931,11 @@ def main():
         print("No story qualifies today (fresh data with at least 3 ranked terms required).")
         return 0
     meta = render(story, snapshot, OUT / snapshot["run_date"])
+    try:  # 17:00 KST guide post (Europe morning / Asia afternoon); never blocks the main card
+        eu = render(editorial_story(snapshot, "guide"), snapshot, OUT / f"{snapshot['run_date']}-eu")
+        print(f"Guide carousel written: cards/{snapshot['run_date']}-eu/ ({len(eu['slides'])} slides)")
+    except Exception as exc:
+        print(f"Guide carousel skipped: {exc}")
     prune(dt.date.fromisoformat(snapshot["run_date"]))
     print(f"Carousel written: cards/{meta['date']}/ ({len(meta['slides'])} slides, {meta['story']})")
     return 0
