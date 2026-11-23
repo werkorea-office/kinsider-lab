@@ -26,8 +26,8 @@
    "early_baseline": 28.7,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 37.97
+    "date": "2026-11-23",
+    "level": 23.85
    }
   },
   {
@@ -45,8 +45,8 @@
    "early_baseline": 278.38,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 416.44
+    "date": "2026-11-23",
+    "level": 367.94
    }
   },
   {
@@ -64,8 +64,8 @@
    "early_baseline": 47.9,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 225.44
+    "date": "2026-11-23",
+    "level": 204.58
    }
   },
   {
@@ -83,8 +83,8 @@
    "early_baseline": 195.88,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 133.07
+    "date": "2026-11-23",
+    "level": 140.46
    }
   },
   {
@@ -102,8 +102,8 @@
    "early_baseline": 221.96,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 367.91
+    "date": "2026-11-23",
+    "level": 361.83
    }
   },
   {
@@ -121,8 +121,8 @@
    "early_baseline": 88.36,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 114.29
+    "date": "2026-11-23",
+    "level": 109.92
    }
   },
   {
@@ -140,8 +140,8 @@
    "early_baseline": 569.79,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 726.42
+    "date": "2026-11-23",
+    "level": 708.4
    }
   },
   {
@@ -159,8 +159,8 @@
    "early_baseline": 166.67,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 482.19
+    "date": "2026-11-23",
+    "level": 442.75
    }
   },
   {
@@ -178,8 +178,8 @@
    "early_baseline": 3.97,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 10.62
+    "date": "2026-11-23",
+    "level": 10.41
    }
   },
   {
@@ -197,8 +197,8 @@
    "early_baseline": 257.2,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 356.95
+    "date": "2026-11-23",
+    "level": 343.51
    }
   },
   {
@@ -216,8 +216,8 @@
    "early_baseline": 178.31,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 212.92
+    "date": "2026-11-23",
+    "level": 215.27
    }
   },
   {
@@ -235,8 +235,27 @@
    "early_baseline": 130.43,
    "checks": {},
    "latest": {
-    "date": "2026-11-22",
-    "level": 154.99
+    "date": "2026-11-23",
+    "level": 134.35
+   }
+  },
+  {
+   "id": "brands:코스알엑스:2026-11-23",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "코스알엑스",
+   "en": "COSRX",
+   "type": "Brand",
+   "called": "2026-11-23",
+   "data_end": "2026-11-22",
+   "level_at_call": 326.72,
+   "momentum_at_call": 0.3896,
+   "prev_week": 253.44,
+   "early_baseline": 229.01,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-23",
+    "level": 326.72
    }
   }
  ]
