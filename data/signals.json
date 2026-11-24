@@ -24,10 +24,16 @@
    "momentum_at_call": 0.5236,
    "prev_week": 37.95,
    "early_baseline": 28.7,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 24.91,
+     "change": -0.4727
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 26.6
+    "date": "2026-11-25",
+    "level": 24.91
    }
   },
   {
@@ -43,10 +49,16 @@
    "momentum_at_call": 0.3942,
    "prev_week": 319.36,
    "early_baseline": 278.38,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 289.23,
+     "change": -0.2812
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 347.43
+    "date": "2026-11-25",
+    "level": 289.23
    }
   },
   {
@@ -62,10 +74,16 @@
    "momentum_at_call": 2.3176,
    "prev_week": 127.74,
    "early_baseline": 47.9,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 186.15,
+     "change": -0.1732
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 208.76
+    "date": "2026-11-25",
+    "level": 186.15
    }
   },
   {
@@ -81,10 +99,16 @@
    "momentum_at_call": 0.2544,
    "prev_week": 221.96,
    "early_baseline": 195.88,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 120.0,
+     "change": -0.5274
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 134.1
+    "date": "2026-11-25",
+    "level": 120.0
    }
   },
   {
@@ -100,10 +124,16 @@
    "momentum_at_call": 0.5765,
    "prev_week": 314.57,
    "early_baseline": 221.96,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 289.23,
+     "change": -0.2515
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 376.38
+    "date": "2026-11-25",
+    "level": 289.23
    }
   },
   {
@@ -119,10 +149,16 @@
    "momentum_at_call": 0.5238,
    "prev_week": 103.79,
    "early_baseline": 88.36,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-25",
+     "level": 96.92,
+     "change": -0.3103
+    }
+   },
    "latest": {
-    "date": "2026-11-24",
-    "level": 108.19
+    "date": "2026-11-25",
+    "level": 96.92
    }
   },
   {
@@ -140,8 +176,8 @@
    "early_baseline": 569.79,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 690.29
+    "date": "2026-11-25",
+    "level": 584.62
    }
   },
   {
@@ -159,8 +195,8 @@
    "early_baseline": 166.67,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 455.62
+    "date": "2026-11-25",
+    "level": 392.31
    }
   },
   {
@@ -178,8 +214,8 @@
    "early_baseline": 3.97,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 11.28
+    "date": "2026-11-25",
+    "level": 9.64
    }
   },
   {
@@ -197,8 +233,8 @@
    "early_baseline": 257.2,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 362.67
+    "date": "2026-11-25",
+    "level": 315.38
    }
   },
   {
@@ -216,8 +252,8 @@
    "early_baseline": 178.31,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 182.86
+    "date": "2026-11-25",
+    "level": 160.0
    }
   },
   {
@@ -235,8 +271,8 @@
    "early_baseline": 130.43,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 126.48
+    "date": "2026-11-25",
+    "level": 98.46
    }
   },
   {
@@ -254,8 +290,8 @@
    "early_baseline": 229.01,
    "checks": {},
    "latest": {
-    "date": "2026-11-24",
-    "level": 315.43
+    "date": "2026-11-25",
+    "level": 263.08
    }
   }
  ]
