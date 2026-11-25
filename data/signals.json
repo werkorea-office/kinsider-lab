@@ -32,8 +32,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 27.27
+    "date": "2026-11-26",
+    "level": 20.58
    }
   },
   {
@@ -57,8 +57,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 324.57
+    "date": "2026-11-26",
+    "level": 280.16
    }
   },
   {
@@ -82,8 +82,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 207.24
+    "date": "2026-11-26",
+    "level": 194.55
    }
   },
   {
@@ -107,8 +107,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 131.05
+    "date": "2026-11-26",
+    "level": 115.18
    }
   },
   {
@@ -132,8 +132,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 324.57
+    "date": "2026-11-26",
+    "level": 301.95
    }
   },
   {
@@ -157,8 +157,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-25",
-    "level": 126.48
+    "date": "2026-11-26",
+    "level": 108.95
    }
   },
   {
@@ -174,10 +174,16 @@
    "momentum_at_call": 0.2177,
    "prev_week": 723.44,
    "early_baseline": 569.79,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-26",
+     "level": 508.95,
+     "change": -0.3128
+    }
+   },
    "latest": {
-    "date": "2026-11-25",
-    "level": 665.91
+    "date": "2026-11-26",
+    "level": 508.95
    }
   },
   {
@@ -193,10 +199,16 @@
    "momentum_at_call": 1.0231,
    "prev_week": 448.44,
    "early_baseline": 166.67,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-26",
+     "level": 418.68,
+     "change": -0.1272
+    }
+   },
    "latest": {
-    "date": "2026-11-25",
-    "level": 475.43
+    "date": "2026-11-26",
+    "level": 418.68
    }
   },
   {
@@ -214,8 +226,8 @@
    "early_baseline": 3.97,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 10.94
+    "date": "2026-11-26",
+    "level": 9.76
    }
   },
   {
@@ -233,8 +245,8 @@
    "early_baseline": 257.2,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 345.9
+    "date": "2026-11-26",
+    "level": 269.26
    }
   },
   {
@@ -252,8 +264,8 @@
    "early_baseline": 178.31,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 176.76
+    "date": "2026-11-26",
+    "level": 155.64
    }
   },
   {
@@ -271,8 +283,8 @@
    "early_baseline": 130.43,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 103.62
+    "date": "2026-11-26",
+    "level": 96.5
    }
   },
   {
@@ -290,8 +302,8 @@
    "early_baseline": 229.01,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 280.38
+    "date": "2026-11-26",
+    "level": 211.67
    }
   },
   {
@@ -309,8 +321,27 @@
    "early_baseline": 171.9,
    "checks": {},
    "latest": {
-    "date": "2026-11-25",
-    "level": 218.49
+    "date": "2026-11-26",
+    "level": 195.5
+   }
+  },
+  {
+   "id": "brands:에스트라:2026-11-26",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "에스트라",
+   "en": "AESTURA",
+   "type": "Brand",
+   "called": "2026-11-26",
+   "data_end": "2026-11-25",
+   "level_at_call": 905.84,
+   "momentum_at_call": 0.5687,
+   "prev_week": 677.04,
+   "early_baseline": 544.23,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-26",
+    "level": 905.84
    }
   }
  ]
