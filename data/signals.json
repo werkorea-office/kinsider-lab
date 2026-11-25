@@ -33,7 +33,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 24.91
+    "level": 27.27
    }
   },
   {
@@ -58,7 +58,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 289.23
+    "level": 324.57
    }
   },
   {
@@ -83,7 +83,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 186.15
+    "level": 207.24
    }
   },
   {
@@ -108,7 +108,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 120.0
+    "level": 131.05
    }
   },
   {
@@ -133,7 +133,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 289.23
+    "level": 324.57
    }
   },
   {
@@ -158,7 +158,7 @@
    },
    "latest": {
     "date": "2026-11-25",
-    "level": 96.92
+    "level": 126.48
    }
   },
   {
@@ -177,7 +177,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 584.62
+    "level": 665.91
    }
   },
   {
@@ -196,7 +196,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 392.31
+    "level": 475.43
    }
   },
   {
@@ -215,7 +215,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 9.64
+    "level": 10.94
    }
   },
   {
@@ -234,7 +234,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 315.38
+    "level": 345.9
    }
   },
   {
@@ -253,7 +253,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 160.0
+    "level": 176.76
    }
   },
   {
@@ -272,7 +272,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 98.46
+    "level": 103.62
    }
   },
   {
@@ -291,7 +291,26 @@
    "checks": {},
    "latest": {
     "date": "2026-11-25",
-    "level": 263.08
+    "level": 280.38
+   }
+  },
+  {
+   "id": "food:누룽지:2026-11-25",
+   "segment": "food",
+   "segment_title": "K-Food",
+   "kw": "누룽지",
+   "en": "Nurungji (scorched rice)",
+   "type": "Product type",
+   "called": "2026-11-25",
+   "data_end": "2026-11-24",
+   "level_at_call": 218.49,
+   "momentum_at_call": 0.2162,
+   "prev_week": 202.87,
+   "early_baseline": 171.9,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-25",
+    "level": 218.49
    }
   }
  ]
