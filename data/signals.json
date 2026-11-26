@@ -32,8 +32,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 21.9
+    "date": "2026-11-27",
+    "level": 19.05
    }
   },
   {
@@ -57,8 +57,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 323.08
+    "date": "2026-11-27",
+    "level": 280.08
    }
   },
   {
@@ -82,8 +82,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 212.31
+    "date": "2026-11-27",
+    "level": 190.33
    }
   },
   {
@@ -107,8 +107,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 133.85
+    "date": "2026-11-27",
+    "level": 114.51
    }
   },
   {
@@ -132,8 +132,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 347.69
+    "date": "2026-11-27",
+    "level": 283.17
    }
   },
   {
@@ -157,8 +157,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 112.31
+    "date": "2026-11-27",
+    "level": 92.84
    }
   },
   {
@@ -182,8 +182,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 603.08
+    "date": "2026-11-27",
+    "level": 513.73
    }
   },
   {
@@ -207,8 +207,8 @@
     }
    },
    "latest": {
-    "date": "2026-11-26",
-    "level": 496.92
+    "date": "2026-11-27",
+    "level": 422.44
    }
   },
   {
@@ -224,10 +224,16 @@
    "momentum_at_call": 1.3471,
    "prev_week": 5.88,
    "early_baseline": 3.97,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-27",
+     "level": 8.4,
+     "change": -0.1954
+    }
+   },
    "latest": {
-    "date": "2026-11-26",
-    "level": 9.99
+    "date": "2026-11-27",
+    "level": 8.4
    }
   },
   {
@@ -243,10 +249,16 @@
    "momentum_at_call": 0.3371,
    "prev_week": 332.94,
    "early_baseline": 257.2,
-   "checks": {},
+   "checks": {
+    "d7": {
+     "date": "2026-11-27",
+     "level": 232.11,
+     "change": -0.3714
+    }
+   },
    "latest": {
-    "date": "2026-11-26",
-    "level": 304.62
+    "date": "2026-11-27",
+    "level": 232.11
    }
   },
   {
@@ -264,8 +276,8 @@
    "early_baseline": 178.31,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 198.46
+    "date": "2026-11-27",
+    "level": 165.57
    }
   },
   {
@@ -283,8 +295,8 @@
    "early_baseline": 130.43,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 109.23
+    "date": "2026-11-27",
+    "level": 88.2
    }
   },
   {
@@ -302,8 +314,8 @@
    "early_baseline": 229.01,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 247.69
+    "date": "2026-11-27",
+    "level": 224.37
    }
   },
   {
@@ -321,8 +333,8 @@
    "early_baseline": 171.9,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 233.79
+    "date": "2026-11-27",
+    "level": 204.56
    }
   },
   {
@@ -340,8 +352,8 @@
    "early_baseline": 544.23,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 1001.54
+    "date": "2026-11-27",
+    "level": 818.57
    }
   },
   {
@@ -359,8 +371,27 @@
    "early_baseline": 26.55,
    "checks": {},
    "latest": {
-    "date": "2026-11-26",
-    "level": 36.0
+    "date": "2026-11-27",
+    "level": 32.55
+   }
+  },
+  {
+   "id": "brands:일리윤:2026-11-27",
+   "segment": "brands",
+   "segment_title": "K-Beauty Brands",
+   "kw": "일리윤",
+   "en": "ILLIYOON",
+   "type": "Brand",
+   "called": "2026-11-27",
+   "data_end": "2026-11-26",
+   "level_at_call": 2553.2,
+   "momentum_at_call": 0.3132,
+   "prev_week": 2102.9,
+   "early_baseline": 1891.43,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-27",
+    "level": 2553.2
    }
   }
  ]
