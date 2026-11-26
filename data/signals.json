@@ -33,7 +33,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 20.58
+    "level": 21.9
    }
   },
   {
@@ -58,7 +58,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 280.16
+    "level": 323.08
    }
   },
   {
@@ -83,7 +83,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 194.55
+    "level": 212.31
    }
   },
   {
@@ -108,7 +108,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 115.18
+    "level": 133.85
    }
   },
   {
@@ -133,7 +133,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 301.95
+    "level": 347.69
    }
   },
   {
@@ -158,7 +158,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 108.95
+    "level": 112.31
    }
   },
   {
@@ -183,7 +183,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 508.95
+    "level": 603.08
    }
   },
   {
@@ -208,7 +208,7 @@
    },
    "latest": {
     "date": "2026-11-26",
-    "level": 418.68
+    "level": 496.92
    }
   },
   {
@@ -227,7 +227,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 9.76
+    "level": 9.99
    }
   },
   {
@@ -246,7 +246,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 269.26
+    "level": 304.62
    }
   },
   {
@@ -265,7 +265,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 155.64
+    "level": 198.46
    }
   },
   {
@@ -284,7 +284,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 96.5
+    "level": 109.23
    }
   },
   {
@@ -303,7 +303,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 211.67
+    "level": 247.69
    }
   },
   {
@@ -322,7 +322,7 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 195.5
+    "level": 233.79
    }
   },
   {
@@ -341,7 +341,26 @@
    "checks": {},
    "latest": {
     "date": "2026-11-26",
-    "level": 905.84
+    "level": 1001.54
+   }
+  },
+  {
+   "id": "beauty:필링젤:2026-11-26",
+   "segment": "beauty",
+   "segment_title": "K-Beauty",
+   "kw": "필링젤",
+   "en": "Peeling gel",
+   "type": "Product type",
+   "called": "2026-11-26",
+   "data_end": "2026-11-25",
+   "level_at_call": 36.0,
+   "momentum_at_call": 0.3137,
+   "prev_week": 29.98,
+   "early_baseline": 26.55,
+   "checks": {},
+   "latest": {
+    "date": "2026-11-26",
+    "level": 36.0
    }
   }
  ]
