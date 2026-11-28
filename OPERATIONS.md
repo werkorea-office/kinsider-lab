@@ -41,7 +41,14 @@
 | 일 | Sunday Buy Smart | Buy Smart 주제 은행의 다른 주제(목요일과 겹치지 않게 순환). Korea Price Check는 네이버 검색 API 신규 발급 불가로 보류 (키가 생기면 자동으로 Price Check) |
 매일 캐러셀 6장(피드) + 릴스 2.0(9.6초, 릴스 탭 전용) + 링크드인 PDF 문서. 코드: `pipeline/cards.py` `choose()`, `pipeline/reel.py`.
 
-### 3-2. 23:00 발행 보장 (미발행 금지, 1→2→3 순차)
+### 3-1b. 하루 발행 시간표 (인스타)
+- 12:00 릴스만: Korea's biggest movers (전 분야 급상승 TOP 3)
+- 17:00 캐러셀+릴스: Seoul Guide (`config/series.json` guides, 매일 순환)
+- 20:00 릴스만: Korean word of the day (주제 은행의 한국어 표기 순환)
+- 23:00 캐러셀+릴스 + 링크드인: 요일별 시리즈 (3-1)
+- 2026-11-28부터 2주 시험 후 릴스당 조회·사이트 방문 비교해 유지/축소 결정
+
+### 3-2. 발행 보장 (모든 시간대 공통) (미발행 금지, 1→2→3 순차)
 GitHub 예약(cron)은 몇 시간씩 늦을 수 있으므로 발행 시각을 cron에 맡기지 않는다. `relay.yml`이 매일 이어 달린다.
 - 준비: 06:40 이후 오늘 카드가 없으면 relay가 데이터 수집(daily.yml)을 직접 시작.
 - **1안** 23:00 정각 정규 발행 실행(social.yml) 시작 → 25분 뒤 인스타·링크드인 기록 확인.
