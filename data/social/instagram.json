@@ -94,6 +94,12 @@
    "date": "2026-11-28-noon",
    "reel_only": true,
    "story": "movers"
+  },
+  {
+   "date": "2026-11-28-eu",
+   "media_id": "18155765914530139",
+   "slides": 6,
+   "story": "guides"
   }
  ],
  "reels": [
@@ -156,6 +162,10 @@
   {
    "date": "2026-11-28-noon",
    "media_id": "18121699043080218"
+  },
+  {
+   "date": "2026-11-28-eu",
+   "media_id": "17930588520435432"
   }
  ]
 }
