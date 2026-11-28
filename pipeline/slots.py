@@ -1,6 +1,8 @@
 """Posting slots and the relay's 'what is next' decision.
 
+noon = 12:00 KST (03:00 UTC): reel only, Korea's biggest movers (South-East Asia / India morning).
 eu   = 17:00 KST (08:00 UTC): Europe 9 AM, South-East Asia afternoon. Instagram only, guide post.
+eve  = 20:00 KST (11:00 UTC): reel only, Korean beauty/food word of the day (Europe midday).
 main = 23:00 KST (14:00 UTC): US East 9 AM. Instagram + LinkedIn, data post.
 A slot is 'done' when its ledger key is recorded; a slot more than 3 h past is given up.
 """
@@ -9,13 +11,13 @@ import json
 import sys
 
 KST = dt.timezone(dt.timedelta(hours=9))
-SLOTS = [("eu", 8), ("main", 14)]          # UTC hour
+SLOTS = [("noon", 3), ("eu", 8), ("eve", 11), ("main", 14)]   # UTC hour: 12:00, 17:00, 20:00, 23:00 KST
 GRACE = 3 * 3600
 
 
 def key(slot, when_utc):
     d = when_utc.astimezone(KST).date().isoformat()
-    return d if slot == "main" else f"{d}-eu"
+    return d if slot == "main" else f"{d}-{slot}"
 
 
 def channels(slot):

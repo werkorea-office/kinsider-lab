@@ -658,6 +658,67 @@ def choose(snapshot):
     return None
 
 
+def movers_story(snapshot):
+    """12:00 reel: the three biggest risers across all segments today."""
+    run = dt.date.fromisoformat(snapshot["run_date"])
+    active = {x["kw"] for x in active_breakouts(run)}
+    nm, pool = notes(), []
+    for seg in snapshot.get("segments", []):
+        for it in seg.get("items", []):
+            if not it.get("is_anchor") and it.get("momentum") is not None and it.get("series"):
+                pool.append((it["momentum"], seg, it))
+    pool.sort(key=lambda x: x[0], reverse=True)
+    if len(pool) < 3:
+        return None
+    items = [item_view(seg, it, nm, {i for i in active}) for _, seg, it in pool[:3]]
+    return {"segment": "movers", "segment_label": "KOREA'S BIGGEST MOVERS", "kicker": "KOREA'S BIGGEST MOVERS",
+            "headline": f"Korea's biggest shopping-search jumps this week: {items[0]['name']} leads", "items": items,
+            "tags": "#kbeauty #kfood #koreantrends #korea #trending"}
+
+
+def word_story(snapshot):
+    """20:00 reel: one Korean beauty/food word, from the explainer banks (rotates daily)."""
+    bank = json.loads((Path(__file__).resolve().parent.parent / "config" / "series.json").read_text(encoding="utf-8"))
+    words, seen = [], set()
+    for key in ("guides", "explained", "buysmart"):
+        for t in bank.get(key, []):
+            for p in t["points"]:
+                if len(p) > 2 and p[2] and "/" not in p[2] and p[2] not in seen:
+                    seen.add(p[2])
+                    words.append((p[2], p[0], p[1], t["title"], t.get("photo")))
+    if not words:
+        return None
+    kr, h, body, topic, photo = words[(dt.date.fromisoformat(snapshot["run_date"]) - LAUNCH).days % len(words)]
+    return {"word": True, "segment": "word", "segment_label": "KOREAN WORD OF THE DAY", "kr": kr,
+            "headline": h, "body": body, "topic": topic, "photo": photo, "items": [],
+            "tags": "#learnkorean #kbeauty #kfood #korean #seoul"}
+
+
+def render_reel_only(story, snapshot, out_dir):
+    """Reel-only slot folder: reel.mp4 + caption + meta (no carousel slides)."""
+    from . import photos, reel
+    run = snapshot["run_date"]
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
+    out_dir.mkdir(parents=True)
+    photos.pick(story, out_dir / "photo.jpg", run)
+    if not reel.make(story, out_dir / "reel.mp4"):
+        raise RuntimeError("reel could not be made")
+    if story.get("word"):
+        cap = (f"Korean word of the day: {story['kr']}\n\n{story['headline']}. {story['body']}\n\n"
+               f"From our guide: {story['topic']}\n\nFollow for daily Korea beauty & food insight. "
+               f"Free weekly brief: link in bio (kinsider-lab.com)\n\n{story['tags']}")
+    else:
+        lines = [f"{i + 1}. {it['name']} {it['change_text']}" for i, it in enumerate(story["items"])]
+        cap = (f"{story['headline']}.\n\n" + "\n".join(lines) + "\n\nKorean shopping-search clicks, last 7 days vs. "
+               "the 4 weeks before (Naver data).\n\nFollow for daily Korea data. Free weekly brief: link in bio "
+               f"(kinsider-lab.com)\n\n{story['tags']}")
+    (out_dir / "caption.txt").write_text(cap, encoding="utf-8")
+    meta = {"date": run, "story": story["segment"], "title": story["headline"], "slides": [], "reel": "reel.mp4"}
+    (out_dir / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
+    return meta
+
+
 ED_SRC = "K-INSIDER LAB research"
 PRICE_SRC = "Prices: Naver Shopping, Korea (reference)"
 
@@ -964,6 +1025,14 @@ def main():
         print(f"Guide carousel written: cards/{snapshot['run_date']}-eu/ ({len(eu['slides'])} slides)")
     except Exception as exc:
         print(f"Guide carousel skipped: {exc}")
+    for slot, fn in (("noon", movers_story), ("eve", word_story)):   # reel-only slots
+        try:
+            st = fn(snapshot)
+            if st:
+                render_reel_only(st, snapshot, OUT / f"{snapshot['run_date']}-{slot}")
+                print(f"Reel written: cards/{snapshot['run_date']}-{slot}/")
+        except Exception as exc:
+            print(f"{slot} reel skipped: {exc}")
     prune(dt.date.fromisoformat(snapshot["run_date"]))
     print(f"Carousel written: cards/{meta['date']}/ ({len(meta['slides'])} slides, {meta['story']})")
     return 0

@@ -104,14 +104,23 @@ def publish(slot="main"):
         print("IG_ACCESS_TOKEN not set; skipping Instagram.")
         return 0
     today = dt.datetime.now(KST).date().isoformat()
-    if slot == "eu":
-        today = f"{today}-eu"           # 17:00 KST guide post lives in cards/<date>-eu/
+    if slot != "main":
+        today = f"{today}-{slot}"       # other slots live in cards/<date>-<slot>/ (eu, noon, eve)
     found = todays_carousel(today)
     if not found:
         print(f"No carousel for {today}; nothing to post.")
         return 0
     _, meta, caption = found
     ledger = load_ledger()
+    if not meta["slides"]:              # reel-only slot (noon, eve)
+        if any(p["date"] == today for p in ledger["posts"]):
+            print(f"Reel slot {today} already posted.")
+            return 0
+        if publish_reel(today, meta, caption, token, ledger) == "posted":
+            ledger["posts"].append({"date": today, "reel_only": True, "story": meta.get("story")})
+            LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
+            return 0
+        return 1
     if any(p["date"] == today for p in ledger["posts"]):
         print(f"Carousel already posted {today}.")
         return publish_reel(today, meta, caption, token, ledger)
@@ -157,7 +166,7 @@ def publish_reel(today, meta, caption, token, ledger):
     ledger["reels"].append({"date": today, "media_id": result.get("id")})
     LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
     print(f"Posted {today} reel: {result.get('id')}")
-    return 0
+    return "posted"
 
 
 def save_secret(name, value):

@@ -1,4 +1,4 @@
-name: Posting relay (holds the 17:00 and 23:00 KST slots)
+name: Posting relay (holds the 12:00, 17:00, 20:00 and 23:00 KST slots)
 
 # Posting time is never left to GitHub's cron, which can start hours late.
 # The relay runs continuously: each hop waits on a runner, then hands over to the next hop.
@@ -64,14 +64,14 @@ jobs:
           fi
           [ $wait -gt 0 ] && { echo "Sleeping $wait s until the $slot slot"; sleep $wait; }
           echo "slot=$slot" >> "$GITHUB_OUTPUT"; echo "key=$key" >> "$GITHUB_OUTPUT"
-          [ "$slot" = "eu" ] && echo "task=publish-eu" >> "$GITHUB_OUTPUT" || echo "task=publish" >> "$GITHUB_OUTPUT"
+          [ "$slot" = "main" ] && echo "task=publish" >> "$GITHUB_OUTPUT" || echo "task=publish-$slot" >> "$GITHUB_OUTPUT"
 
       - name: Plan A - start the publish run
         id: a
         if: steps.timer.outputs.slot != ''
         env: {SLOT: "${{ steps.timer.outputs.slot }}", KEY: "${{ steps.timer.outputs.key }}", TASK: "${{ steps.timer.outputs.task }}"}
         run: |
-          posted() { for f in instagram linkedin; do [ "$SLOT" = "eu" ] && [ $f = linkedin ] && continue
+          posted() { for f in instagram linkedin; do [ "$SLOT" != "main" ] && [ $f = linkedin ] && continue
               gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$KEY\"" || return 1; done; }
           posted && { echo "Already posted."; echo "done=1" >> "$GITHUB_OUTPUT"; exit 0; }
           gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=$TASK" || true
@@ -83,7 +83,7 @@ jobs:
         if: steps.timer.outputs.slot != '' && steps.a.outputs.done != '1'
         env: {SLOT: "${{ steps.timer.outputs.slot }}", KEY: "${{ steps.timer.outputs.key }}", TASK: "${{ steps.timer.outputs.task }}"}
         run: |
-          posted() { for f in instagram linkedin; do [ "$SLOT" = "eu" ] && [ $f = linkedin ] && continue
+          posted() { for f in instagram linkedin; do [ "$SLOT" != "main" ] && [ $f = linkedin ] && continue
               gh api "repos/$R/contents/data/social/$f.json" --jq .content | base64 -d | grep -q "\"date\": \"$KEY\"" || return 1; done; }
           gh api -X POST "repos/$R/actions/workflows/social.yml/dispatches" -f ref=main -f "inputs[task]=$TASK" || true
           sleep 900

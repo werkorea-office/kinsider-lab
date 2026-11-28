@@ -62,6 +62,11 @@ def plan(story):
         return {"kicker": "KOREA PRICE CHECK", "big": f"₩{ps[0]['price_krw']:,}",
                 "hook": f"What Koreans pay for {ps[0]['brand']}", "series": None,
                 "points": [], "rows": [(p["brand"], f"₩{p['price_krw']:,}", f"≈ US${p['price_usd']:,.0f}") for p in ps]}
+    if story.get("word"):
+        import re
+        sents = [story["headline"]] + [x.strip() for x in re.split(r"(?<=[.!?])\s+", story["body"]) if x.strip()][:2]
+        return {"kicker": "KOREAN WORD OF THE DAY", "big": None, "kr": story["kr"], "hook": story["topic"],
+                "series": None, "points": sents, "rows": []}
     if story.get("editorial"):
         return {"kicker": story["segment_label"], "big": None, "hook": story["headline"], "series": None,
                 "points": [p[0] for p in story["points"]], "rows": []}
@@ -102,6 +107,13 @@ def draw_frame(p, t):
     if t < 2.2:                                   # 1) hook, readable at frame 1
         a = ease(t / 0.35)
         d.text((72, 470), p["kicker"], font=font("bold", 40), fill=ACCENT)
+        if p.get("kr"):
+            ksz = fit(d, p["kr"], "kr", 220, W - 144, 90)
+            d.text((W // 2, 720 + int((1 - a) * 60)), p["kr"], font=font("kr", ksz), fill=WHITE, anchor="mm")
+            d.text((W // 2, 900), "What does it mean in Korea?", font=font("semi", 44), fill=MUTED, anchor="mm")
+            for i, line in enumerate(wrap(d, f"From: {p['hook']}", font("bold", 40), W - 200)[:2]):
+                d.text((W // 2, 1000 + i * 52), line, font=font("bold", 40), fill=ACCENT, anchor="mm")
+            return img
         if p["big"]:
             size = fit(d, p["big"], "black", 300, W - 144, 120)
             y = 640 + int((1 - a) * 60)

@@ -84,11 +84,12 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: python -m pipeline.social_linkedin publish
 
-      - name: Publish the 17:00 KST guide post (Instagram only)
-        if: inputs.task == 'publish-eu'
+      - name: Publish an extra slot (eu 17:00 guide, noon 12:00 / eve 20:00 reels; Instagram only)
+        if: startsWith(inputs.task, 'publish-')
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-        run: python -m pipeline.social_instagram publish eu
+          TASK: ${{ inputs.task }}
+        run: python -m pipeline.social_instagram publish "${TASK#publish-}"
 
       - name: Dry run (upload without posting)
         if: inputs.task == 'dryrun'
