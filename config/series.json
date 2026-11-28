@@ -835,6 +835,325 @@
  ],
  "guides": [
   {
+   "title": "How Koreans shop for skincare",
+   "sub": "Reviews, rankings and ingredient apps.",
+   "kr": "화장품 쇼핑",
+   "photo": "shopping beauty",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Ingredient apps",
+     "Koreans check ingredient ratings in apps before buying.",
+     ""
+    ],
+    [
+     "Rankings",
+     "Store and app rankings drive many purchases.",
+     ""
+    ],
+    [
+     "Samples",
+     "Free samples and minis are expected.",
+     "샘플"
+    ],
+    [
+     "For brands",
+     "Clear ingredient lists win trust in Korea.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Seoul's beauty neighbourhoods",
+   "sub": "Where to shop K-beauty in Seoul.",
+   "kr": "명동 성수",
+   "photo": "seoul street",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Myeongdong",
+     "Dense with brand stores and tourist-friendly shops.",
+     "명동"
+    ],
+    [
+     "Seongsu",
+     "Pop-ups and new brand flagships, popular with young Koreans.",
+     "성수"
+    ],
+    [
+     "Gangnam",
+     "Clinics and premium stores.",
+     "강남"
+    ],
+    [
+     "Tip",
+     "Many stores offer tax refunds for tourists above a minimum spend.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Clinic culture in Seoul",
+   "sub": "Why skin clinics are everywhere in Korea.",
+   "kr": "피부과",
+   "photo": "clinic",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Common",
+     "Skin clinics are a normal part of beauty in Korea.",
+     ""
+    ],
+    [
+     "Clinic to shelf",
+     "Clinic ingredients often move into everyday products.",
+     ""
+    ],
+    [
+     "Tourists",
+     "Many visitors book treatments in Seoul.",
+     ""
+    ],
+    [
+     "Be careful",
+     "Choose licensed clinics and ask about aftercare.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Pop-up stores: how Korean brands launch",
+   "sub": "Seoul tests new products in short-term shops.",
+   "kr": "팝업스토어",
+   "photo": "pop up store",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "What they are",
+     "Temporary shops that open for days or weeks.",
+     ""
+    ],
+    [
+     "Why brands use them",
+     "To get feedback, photos and buzz before wider launches.",
+     ""
+    ],
+    [
+     "Where",
+     "Seongsu and the Yeouido area host many pop-ups.",
+     "성수 팝업"
+    ],
+    [
+     "For buyers",
+     "Products that draw queues often become export hits.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean convenience stores, explained",
+   "sub": "Where new snacks and drinks launch first.",
+   "kr": "편의점",
+   "photo": "convenience store",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Everywhere",
+     "Convenience stores are on almost every street.",
+     ""
+    ],
+    [
+     "Launch pads",
+     "New ramyeon, snacks and drinks often debut here.",
+     ""
+    ],
+    [
+     "Collabs",
+     "Limited editions with characters and celebrities sell out fast.",
+     ""
+    ],
+    [
+     "For buyers",
+     "A convenience-store hit is often next year's export trend.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean beauty on a budget",
+   "sub": "Affordable brands Koreans love.",
+   "kr": "가성비",
+   "photo": "cosmetics",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Value matters",
+     "Koreans love good value, called gasungbi.",
+     "가성비"
+    ],
+    [
+     "Drugstore brands",
+     "Many best-sellers are affordable drugstore lines.",
+     ""
+    ],
+    [
+     "Sales",
+     "Big retailer sales cut prices further.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Value brands travel well to price-sensitive markets.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean street food guide",
+   "sub": "What to try at a Seoul market.",
+   "kr": "길거리 음식",
+   "photo": "street food",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Tteokbokki",
+     "Spicy rice cakes, the classic.",
+     "떡볶이"
+    ],
+    [
+     "Hotteok",
+     "A sweet pancake filled with brown sugar and nuts.",
+     "호떡"
+    ],
+    [
+     "Eomuk",
+     "Fish cake skewers in hot broth.",
+     "어묵"
+    ],
+    [
+     "Gyeran-ppang",
+     "A small bread with a whole egg inside.",
+     "계란빵"
+    ]
+   ]
+  },
+  {
+   "title": "Korean fried chicken, explained",
+   "sub": "Double-fried, crispy and everywhere in Korea.",
+   "kr": "치킨",
+   "photo": "fried chicken",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Double fried",
+     "Frying twice makes a thin, crisp skin.",
+     ""
+    ],
+    [
+     "Flavours",
+     "Plain, sweet-spicy yangnyeom and soy-garlic.",
+     "양념치킨"
+    ],
+    [
+     "Chimaek",
+     "Chicken with beer is a Korean night-out classic.",
+     "치맥"
+    ],
+    [
+     "For buyers",
+     "Korean fried-chicken sauces sell well in retail.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean BBQ at home",
+   "sub": "The basics of the Korean grill table.",
+   "kr": "고기 구이",
+   "photo": "korean bbq",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "The cuts",
+     "Pork belly and marinated beef are the classics.",
+     "삼겹살 / 불고기"
+    ],
+    [
+     "The wrap",
+     "Lettuce with meat, garlic and ssamjang sauce.",
+     "쌈장"
+    ],
+    [
+     "The sides",
+     "Kimchi and banchan grill or sit alongside.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Marinades and ssamjang are easy entry products.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Glass skin, explained",
+   "sub": "The Korean look of clear, smooth, glowing skin.",
+   "kr": "물광 피부",
+   "photo": "glowing skin",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "What it means",
+     "Skin that looks smooth and reflects light, like glass.",
+     "물광"
+    ],
+    [
+     "How it's built",
+     "Hydration layers, gentle exfoliation and barrier care over time.",
+     ""
+    ],
+    [
+     "Makeup helps",
+     "Dewy cushions and highlighters create the look on the surface.",
+     ""
+    ],
+    [
+     "Be realistic",
+     "Filters and lighting do a lot in photos. Healthy skin is the goal.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Sheet masks: how Koreans actually use them",
+   "sub": "A Korean staple that is cheap, quick and everywhere.",
+   "kr": "마스크팩",
+   "photo": "face mask",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "When",
+     "After cleansing and toner, for 10 to 20 minutes.",
+     ""
+    ],
+    [
+     "Don't overdo it",
+     "Leaving a mask on until it dries can pull moisture back out.",
+     ""
+    ],
+    [
+     "After",
+     "Pat in the leftover essence, then apply moisturiser.",
+     ""
+    ],
+    [
+     "Why they sell",
+     "Low price, clear promise, and easy to try many brands.",
+     ""
+    ]
+   ]
+  },
+  {
    "title": "The Korean 10-step routine, honestly explained",
    "sub": "Most Koreans don't do ten steps. Here is what the routine really is.",
    "kr": "스킨케어 루틴",
@@ -893,93 +1212,6 @@
    ]
   },
   {
-   "title": "Essence vs serum vs ampoule",
-   "sub": "Three Korean product names that confuse everyone.",
-   "kr": "에센스 세럼 앰플",
-   "photo": "serum bottles",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Essence",
-     "Light and watery, used right after toner to hydrate.",
-     "에센스"
-    ],
-    [
-     "Serum",
-     "More concentrated, usually built around one goal like brightening or calming.",
-     "세럼"
-    ],
-    [
-     "Ampoule",
-     "The most concentrated, often used for a short boost.",
-     "앰플"
-    ],
-    [
-     "The truth",
-     "Brands use the names loosely. Read the ingredients, not the label.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Sheet masks: how Koreans actually use them",
-   "sub": "A Korean staple that is cheap, quick and everywhere.",
-   "kr": "마스크팩",
-   "photo": "face mask",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "When",
-     "After cleansing and toner, for 10 to 20 minutes.",
-     ""
-    ],
-    [
-     "Don't overdo it",
-     "Leaving a mask on until it dries can pull moisture back out.",
-     ""
-    ],
-    [
-     "After",
-     "Pat in the leftover essence, then apply moisturiser.",
-     ""
-    ],
-    [
-     "Why they sell",
-     "Low price, clear promise, and easy to try many brands.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Glass skin, explained",
-   "sub": "The Korean look of clear, smooth, glowing skin.",
-   "kr": "물광 피부",
-   "photo": "glowing skin",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "What it means",
-     "Skin that looks smooth and reflects light, like glass.",
-     "물광"
-    ],
-    [
-     "How it's built",
-     "Hydration layers, gentle exfoliation and barrier care over time.",
-     ""
-    ],
-    [
-     "Makeup helps",
-     "Dewy cushions and highlighters create the look on the surface.",
-     ""
-    ],
-    [
-     "Be realistic",
-     "Filters and lighting do a lot in photos. Healthy skin is the goal.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Korean sunscreen textures, explained",
    "sub": "Why people abroad hunt for Korean SPF.",
    "kr": "선크림 제형",
@@ -1004,6 +1236,383 @@
     [
      "Check local rules",
      "UV filters allowed in Korea are not always allowed elsewhere.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean ramyeon, explained",
+   "sub": "Why Korean instant noodles are a category of their own.",
+   "kr": "라면",
+   "photo": "instant noodles",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Bold and spicy",
+     "Korean ramyeon tends to be spicier and chewier than other instant noodles.",
+     ""
+    ],
+    [
+     "How Koreans cook it",
+     "With egg, green onion and sometimes cheese.",
+     ""
+    ],
+    [
+     "Many styles",
+     "Soup ramyeon, stir-fried noodles and cold noodles.",
+     "비빔면"
+    ],
+    [
+     "For buyers",
+     "Limited flavours launch often; watch Korean convenience stores.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean cafe culture",
+   "sub": "Why Seoul has so many cafes.",
+   "kr": "카페",
+   "photo": "coffee cafe",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Everywhere",
+     "Seoul has a cafe on almost every block.",
+     ""
+    ],
+    [
+     "Dessert-led",
+     "Cakes, bingsu and trendy pastries drive visits.",
+     "빙수"
+    ],
+    [
+     "Places to stay",
+     "Cafes double as study and meeting spaces.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Cafe dessert trends often become packaged snacks.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Bingsu, explained",
+   "sub": "Korea's shaved-ice dessert.",
+   "kr": "빙수",
+   "photo": "shaved ice dessert",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "What it is",
+     "Finely shaved ice or milk ice with toppings.",
+     ""
+    ],
+    [
+     "Classic",
+     "Patbingsu with sweet red beans and rice cakes.",
+     "팥빙수"
+    ],
+    [
+     "Modern",
+     "Mango, strawberry and injeolmi versions.",
+     "인절미 빙수"
+    ],
+    [
+     "When",
+     "A summer favourite, but cafes serve it all year.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Kimchi, explained",
+   "sub": "More than one dish: a whole family of fermented vegetables.",
+   "kr": "김치",
+   "photo": "kimchi",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Many types",
+     "Napa cabbage, radish cubes, cucumber and more.",
+     "배추김치 / 깍두기"
+    ],
+    [
+     "Fermentation",
+     "Kimchi gets sourer as it ferments; older kimchi is used for stews.",
+     "묵은지"
+    ],
+    [
+     "How it's eaten",
+     "As a side dish with almost every meal.",
+     "반찬"
+    ],
+    [
+     "Buying tip",
+     "Check if it contains fish sauce or shrimp if you need it vegan.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean snacks that travel well",
+   "sub": "Shelf-stable favourites for buyers.",
+   "kr": "과자",
+   "photo": "snacks",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Seaweed snacks",
+     "Light and popular worldwide.",
+     "김스낵"
+    ],
+    [
+     "Shrimp crackers",
+     "A long-running Korean favourite.",
+     "새우깡"
+    ],
+    [
+     "Choco pies",
+     "A classic gift snack.",
+     "초코파이"
+    ],
+    [
+     "Tip",
+     "Check allergen labels for each market.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean drinking culture basics",
+   "sub": "Soju, makgeolli and etiquette.",
+   "kr": "술 문화",
+   "photo": "soju",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Soju",
+     "Korea's most popular spirit, usually drunk in small glasses.",
+     "소주"
+    ],
+    [
+     "Makgeolli",
+     "A milky rice wine, often with pancakes.",
+     "막걸리"
+    ],
+    [
+     "Etiquette",
+     "Pour for others, not yourself; turn away from elders when drinking.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Flavoured soju is a big export category.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Pimple patches, explained",
+   "sub": "Small stickers that went global from Korea.",
+   "kr": "트러블 패치",
+   "photo": "skincare patch",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "What they are",
+     "Hydrocolloid stickers placed over a spot.",
+     ""
+    ],
+    [
+     "How they help",
+     "They cover the spot and keep hands away.",
+     ""
+    ],
+    [
+     "Types",
+     "Clear day patches and thicker night patches.",
+     ""
+    ],
+    [
+     "Tip",
+     "Apply on clean, dry skin.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Lip care, Korean style",
+   "sub": "Lip masks, balms and tints.",
+   "kr": "립 케어",
+   "photo": "lip balm",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Lip sleeping masks",
+     "Thick overnight lip treatments are a Korean hit.",
+     "립 슬리핑 마스크"
+    ],
+    [
+     "Tinted balms",
+     "Moisture plus a hint of colour.",
+     ""
+    ],
+    [
+     "Tints",
+     "Long-lasting colour stains.",
+     "립틴트"
+    ],
+    [
+     "For buyers",
+     "Lip products are easy, low-cost entry items.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean nail trends",
+   "sub": "Detailed, cute and seasonal nails.",
+   "kr": "네일",
+   "photo": "nail art",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Gel nails",
+     "Long-lasting gel manicures are standard.",
+     "젤네일"
+    ],
+    [
+     "Press-on nails",
+     "Korean press-on gel nails are a big export.",
+     "네일팁"
+    ],
+    [
+     "Seasonal designs",
+     "Designs change with seasons and holidays.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Press-ons are light, cheap to ship and trendy.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean perfume and scent trends",
+   "sub": "Soft, clean scents lead in Korea.",
+   "kr": "향수",
+   "photo": "perfume",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Skin scents",
+     "Light, soapy and clean fragrances are popular.",
+     ""
+    ],
+    [
+     "Body mists",
+     "Cheaper and lighter than perfume.",
+     "바디미스트"
+    ],
+    [
+     "Niche brands",
+     "Korean niche perfume houses are growing.",
+     ""
+    ],
+    [
+     "For buyers",
+     "Scent is personal; sample sets help sales.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Fermented skincare, explained",
+   "sub": "Why Korean labels love the word 'ferment'.",
+   "kr": "발효 화장품",
+   "photo": "fermentation",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "What it is",
+     "Ingredients processed with yeast or bacteria, like in food fermentation.",
+     "발효"
+    ],
+    [
+     "Familiar in Korea",
+     "A food culture of kimchi and soy sauce made the idea feel natural.",
+     ""
+    ],
+    [
+     "What brands claim",
+     "Lighter, more absorbable textures and gentle results.",
+     ""
+    ],
+    [
+     "Read the label",
+     "Look for names like galactomyces or bifida ferment.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Korean men's skincare",
+   "sub": "Korea has one of the world's most active men's grooming markets.",
+   "kr": "남성 화장품",
+   "photo": "men grooming",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "All-in-one",
+     "Many men use one product that works as toner, essence and lotion.",
+     "올인원"
+    ],
+    [
+     "Sun and BB",
+     "Sunscreen and tinted BB creams are common for men too.",
+     ""
+    ],
+    [
+     "Simple routines",
+     "Cleanse, all-in-one, sunscreen is a typical routine.",
+     ""
+    ],
+    [
+     "For sellers",
+     "Clear, simple products sell best to new male customers.",
+     ""
+    ]
+   ]
+  },
+  {
+   "title": "Essence vs serum vs ampoule",
+   "sub": "Three Korean product names that confuse everyone.",
+   "kr": "에센스 세럼 앰플",
+   "photo": "serum bottles",
+   "tags": "#kbeauty #kfood #seoul #koreanculture",
+   "points": [
+    [
+     "Essence",
+     "Light and watery, used right after toner to hydrate.",
+     "에센스"
+    ],
+    [
+     "Serum",
+     "More concentrated, usually built around one goal like brightening or calming.",
+     "세럼"
+    ],
+    [
+     "Ampoule",
+     "The most concentrated, often used for a short boost.",
+     "앰플"
+    ],
+    [
+     "The truth",
+     "Brands use the names loosely. Read the ingredients, not the label.",
      ""
     ]
    ]
@@ -1096,64 +1705,6 @@
    ]
   },
   {
-   "title": "Fermented skincare, explained",
-   "sub": "Why Korean labels love the word 'ferment'.",
-   "kr": "발효 화장품",
-   "photo": "fermentation",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "What it is",
-     "Ingredients processed with yeast or bacteria, like in food fermentation.",
-     "발효"
-    ],
-    [
-     "Familiar in Korea",
-     "A food culture of kimchi and soy sauce made the idea feel natural.",
-     ""
-    ],
-    [
-     "What brands claim",
-     "Lighter, more absorbable textures and gentle results.",
-     ""
-    ],
-    [
-     "Read the label",
-     "Look for names like galactomyces or bifida ferment.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean men's skincare",
-   "sub": "Korea has one of the world's most active men's grooming markets.",
-   "kr": "남성 화장품",
-   "photo": "men grooming",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "All-in-one",
-     "Many men use one product that works as toner, essence and lotion.",
-     "올인원"
-    ],
-    [
-     "Sun and BB",
-     "Sunscreen and tinted BB creams are common for men too.",
-     ""
-    ],
-    [
-     "Simple routines",
-     "Cleanse, all-in-one, sunscreen is a typical routine.",
-     ""
-    ],
-    [
-     "For sellers",
-     "Clear, simple products sell best to new male customers.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Scalp care: Korea's next big category",
    "sub": "Koreans treat the scalp like facial skin.",
    "kr": "두피 케어",
@@ -1241,64 +1792,6 @@
    ]
   },
   {
-   "title": "Seoul's beauty neighbourhoods",
-   "sub": "Where to shop K-beauty in Seoul.",
-   "kr": "명동 성수",
-   "photo": "seoul street",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Myeongdong",
-     "Dense with brand stores and tourist-friendly shops.",
-     "명동"
-    ],
-    [
-     "Seongsu",
-     "Pop-ups and new brand flagships, popular with young Koreans.",
-     "성수"
-    ],
-    [
-     "Gangnam",
-     "Clinics and premium stores.",
-     "강남"
-    ],
-    [
-     "Tip",
-     "Many stores offer tax refunds for tourists above a minimum spend.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Pop-up stores: how Korean brands launch",
-   "sub": "Seoul tests new products in short-term shops.",
-   "kr": "팝업스토어",
-   "photo": "pop up store",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "What they are",
-     "Temporary shops that open for days or weeks.",
-     ""
-    ],
-    [
-     "Why brands use them",
-     "To get feedback, photos and buzz before wider launches.",
-     ""
-    ],
-    [
-     "Where",
-     "Seongsu and the Yeouido area host many pop-ups.",
-     "성수 팝업"
-    ],
-    [
-     "For buyers",
-     "Products that draw queues often become export hits.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Korea's daily delivery culture",
    "sub": "Order tonight, receive by morning.",
    "kr": "새벽배송",
@@ -1323,64 +1816,6 @@
     [
      "For buyers",
      "Korean online rankings move quickly and are a good trend signal.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean convenience stores, explained",
-   "sub": "Where new snacks and drinks launch first.",
-   "kr": "편의점",
-   "photo": "convenience store",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Everywhere",
-     "Convenience stores are on almost every street.",
-     ""
-    ],
-    [
-     "Launch pads",
-     "New ramyeon, snacks and drinks often debut here.",
-     ""
-    ],
-    [
-     "Collabs",
-     "Limited editions with characters and celebrities sell out fast.",
-     ""
-    ],
-    [
-     "For buyers",
-     "A convenience-store hit is often next year's export trend.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Kimchi, explained",
-   "sub": "More than one dish: a whole family of fermented vegetables.",
-   "kr": "김치",
-   "photo": "kimchi",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Many types",
-     "Napa cabbage, radish cubes, cucumber and more.",
-     "배추김치 / 깍두기"
-    ],
-    [
-     "Fermentation",
-     "Kimchi gets sourer as it ferments; older kimchi is used for stews.",
-     "묵은지"
-    ],
-    [
-     "How it's eaten",
-     "As a side dish with almost every meal.",
-     "반찬"
-    ],
-    [
-     "Buying tip",
-     "Check if it contains fish sauce or shrimp if you need it vegan.",
      ""
     ]
    ]
@@ -1415,93 +1850,6 @@
    ]
   },
   {
-   "title": "Korean ramyeon, explained",
-   "sub": "Why Korean instant noodles are a category of their own.",
-   "kr": "라면",
-   "photo": "instant noodles",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Bold and spicy",
-     "Korean ramyeon tends to be spicier and chewier than other instant noodles.",
-     ""
-    ],
-    [
-     "How Koreans cook it",
-     "With egg, green onion and sometimes cheese.",
-     ""
-    ],
-    [
-     "Many styles",
-     "Soup ramyeon, stir-fried noodles and cold noodles.",
-     "비빔면"
-    ],
-    [
-     "For buyers",
-     "Limited flavours launch often; watch Korean convenience stores.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean fried chicken, explained",
-   "sub": "Double-fried, crispy and everywhere in Korea.",
-   "kr": "치킨",
-   "photo": "fried chicken",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Double fried",
-     "Frying twice makes a thin, crisp skin.",
-     ""
-    ],
-    [
-     "Flavours",
-     "Plain, sweet-spicy yangnyeom and soy-garlic.",
-     "양념치킨"
-    ],
-    [
-     "Chimaek",
-     "Chicken with beer is a Korean night-out classic.",
-     "치맥"
-    ],
-    [
-     "For buyers",
-     "Korean fried-chicken sauces sell well in retail.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean BBQ at home",
-   "sub": "The basics of the Korean grill table.",
-   "kr": "고기 구이",
-   "photo": "korean bbq",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "The cuts",
-     "Pork belly and marinated beef are the classics.",
-     "삼겹살 / 불고기"
-    ],
-    [
-     "The wrap",
-     "Lettuce with meat, garlic and ssamjang sauce.",
-     "쌈장"
-    ],
-    [
-     "The sides",
-     "Kimchi and banchan grill or sit alongside.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Marinades and ssamjang are easy entry products.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Ssamjang and doenjang, explained",
    "sub": "The soybean pastes behind Korean flavour.",
    "kr": "된장 쌈장",
@@ -1531,93 +1879,6 @@
    ]
   },
   {
-   "title": "Korean street food guide",
-   "sub": "What to try at a Seoul market.",
-   "kr": "길거리 음식",
-   "photo": "street food",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Tteokbokki",
-     "Spicy rice cakes, the classic.",
-     "떡볶이"
-    ],
-    [
-     "Hotteok",
-     "A sweet pancake filled with brown sugar and nuts.",
-     "호떡"
-    ],
-    [
-     "Eomuk",
-     "Fish cake skewers in hot broth.",
-     "어묵"
-    ],
-    [
-     "Gyeran-ppang",
-     "A small bread with a whole egg inside.",
-     "계란빵"
-    ]
-   ]
-  },
-  {
-   "title": "Korean cafe culture",
-   "sub": "Why Seoul has so many cafes.",
-   "kr": "카페",
-   "photo": "coffee cafe",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Everywhere",
-     "Seoul has a cafe on almost every block.",
-     ""
-    ],
-    [
-     "Dessert-led",
-     "Cakes, bingsu and trendy pastries drive visits.",
-     "빙수"
-    ],
-    [
-     "Places to stay",
-     "Cafes double as study and meeting spaces.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Cafe dessert trends often become packaged snacks.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Bingsu, explained",
-   "sub": "Korea's shaved-ice dessert.",
-   "kr": "빙수",
-   "photo": "shaved ice dessert",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "What it is",
-     "Finely shaved ice or milk ice with toppings.",
-     ""
-    ],
-    [
-     "Classic",
-     "Patbingsu with sweet red beans and rice cakes.",
-     "팥빙수"
-    ],
-    [
-     "Modern",
-     "Mango, strawberry and injeolmi versions.",
-     "인절미 빙수"
-    ],
-    [
-     "When",
-     "A summer favourite, but cafes serve it all year.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Korean tea beyond green tea",
    "sub": "Grain and fruit teas Koreans drink daily.",
    "kr": "전통차",
@@ -1642,35 +1903,6 @@
     [
      "For buyers",
      "Caffeine-free grain teas travel and sell well.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean snacks that travel well",
-   "sub": "Shelf-stable favourites for buyers.",
-   "kr": "과자",
-   "photo": "snacks",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Seaweed snacks",
-     "Light and popular worldwide.",
-     "김스낵"
-    ],
-    [
-     "Shrimp crackers",
-     "A long-running Korean favourite.",
-     "새우깡"
-    ],
-    [
-     "Choco pies",
-     "A classic gift snack.",
-     "초코파이"
-    ],
-    [
-     "Tip",
-     "Check allergen labels for each market.",
      ""
     ]
    ]
@@ -1908,35 +2140,6 @@
    ]
   },
   {
-   "title": "Korean drinking culture basics",
-   "sub": "Soju, makgeolli and etiquette.",
-   "kr": "술 문화",
-   "photo": "soju",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Soju",
-     "Korea's most popular spirit, usually drunk in small glasses.",
-     "소주"
-    ],
-    [
-     "Makgeolli",
-     "A milky rice wine, often with pancakes.",
-     "막걸리"
-    ],
-    [
-     "Etiquette",
-     "Pour for others, not yourself; turn away from elders when drinking.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Flavoured soju is a big export category.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Hangover culture in Korea",
    "sub": "Korea has a whole market for the morning after.",
    "kr": "해장",
@@ -2082,35 +2285,6 @@
    ]
   },
   {
-   "title": "How Koreans shop for skincare",
-   "sub": "Reviews, rankings and ingredient apps.",
-   "kr": "화장품 쇼핑",
-   "photo": "shopping beauty",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Ingredient apps",
-     "Koreans check ingredient ratings in apps before buying.",
-     ""
-    ],
-    [
-     "Rankings",
-     "Store and app rankings drive many purchases.",
-     ""
-    ],
-    [
-     "Samples",
-     "Free samples and minis are expected.",
-     "샘플"
-    ],
-    [
-     "For brands",
-     "Clear ingredient lists win trust in Korea.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Korean beauty awards, explained",
    "sub": "Why award labels sell products in Korea.",
    "kr": "어워즈",
@@ -2198,64 +2372,6 @@
    ]
   },
   {
-   "title": "Pimple patches, explained",
-   "sub": "Small stickers that went global from Korea.",
-   "kr": "트러블 패치",
-   "photo": "skincare patch",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "What they are",
-     "Hydrocolloid stickers placed over a spot.",
-     ""
-    ],
-    [
-     "How they help",
-     "They cover the spot and keep hands away.",
-     ""
-    ],
-    [
-     "Types",
-     "Clear day patches and thicker night patches.",
-     ""
-    ],
-    [
-     "Tip",
-     "Apply on clean, dry skin.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Lip care, Korean style",
-   "sub": "Lip masks, balms and tints.",
-   "kr": "립 케어",
-   "photo": "lip balm",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Lip sleeping masks",
-     "Thick overnight lip treatments are a Korean hit.",
-     "립 슬리핑 마스크"
-    ],
-    [
-     "Tinted balms",
-     "Moisture plus a hint of colour.",
-     ""
-    ],
-    [
-     "Tints",
-     "Long-lasting colour stains.",
-     "립틴트"
-    ],
-    [
-     "For buyers",
-     "Lip products are easy, low-cost entry items.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "Korean eye makeup trends",
    "sub": "Soft, natural and youthful.",
    "kr": "아이 메이크업",
@@ -2314,93 +2430,6 @@
    ]
   },
   {
-   "title": "Korean perfume and scent trends",
-   "sub": "Soft, clean scents lead in Korea.",
-   "kr": "향수",
-   "photo": "perfume",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Skin scents",
-     "Light, soapy and clean fragrances are popular.",
-     ""
-    ],
-    [
-     "Body mists",
-     "Cheaper and lighter than perfume.",
-     "바디미스트"
-    ],
-    [
-     "Niche brands",
-     "Korean niche perfume houses are growing.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Scent is personal; sample sets help sales.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean nail trends",
-   "sub": "Detailed, cute and seasonal nails.",
-   "kr": "네일",
-   "photo": "nail art",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Gel nails",
-     "Long-lasting gel manicures are standard.",
-     "젤네일"
-    ],
-    [
-     "Press-on nails",
-     "Korean press-on gel nails are a big export.",
-     "네일팁"
-    ],
-    [
-     "Seasonal designs",
-     "Designs change with seasons and holidays.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Press-ons are light, cheap to ship and trendy.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Clinic culture in Seoul",
-   "sub": "Why skin clinics are everywhere in Korea.",
-   "kr": "피부과",
-   "photo": "clinic",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Common",
-     "Skin clinics are a normal part of beauty in Korea.",
-     ""
-    ],
-    [
-     "Clinic to shelf",
-     "Clinic ingredients often move into everyday products.",
-     ""
-    ],
-    [
-     "Tourists",
-     "Many visitors book treatments in Seoul.",
-     ""
-    ],
-    [
-     "Be careful",
-     "Choose licensed clinics and ask about aftercare.",
-     ""
-    ]
-   ]
-  },
-  {
    "title": "K-beauty packaging, explained",
    "sub": "Why Korean packaging looks the way it does.",
    "kr": "패키지",
@@ -2425,35 +2454,6 @@
     [
      "For sellers",
      "Local labels must cover the Korean text abroad.",
-     ""
-    ]
-   ]
-  },
-  {
-   "title": "Korean beauty on a budget",
-   "sub": "Affordable brands Koreans love.",
-   "kr": "가성비",
-   "photo": "cosmetics",
-   "tags": "#kbeauty #kfood #seoul #koreanculture",
-   "points": [
-    [
-     "Value matters",
-     "Koreans love good value, called gasungbi.",
-     "가성비"
-    ],
-    [
-     "Drugstore brands",
-     "Many best-sellers are affordable drugstore lines.",
-     ""
-    ],
-    [
-     "Sales",
-     "Big retailer sales cut prices further.",
-     ""
-    ],
-    [
-     "For buyers",
-     "Value brands travel well to price-sensitive markets.",
      ""
     ]
    ]

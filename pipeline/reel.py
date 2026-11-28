@@ -11,6 +11,7 @@ follow card 8.2-9.6. Frames are drawn with Pillow and piped straight into ffmpeg
 import math
 import shutil
 import subprocess
+from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -64,15 +65,31 @@ def plan(story):
     if story.get("editorial"):
         return {"kicker": story["segment_label"], "big": None, "hook": story["headline"], "series": None,
                 "points": [p[0] for p in story["points"]], "rows": []}
-    it = story["items"][0]
+    # Lead with the biggest number in the story: '+353%' stops thumbs, '+18%' does not.
+    it = max(story["items"], key=lambda i: i.get("momentum") or 0)
     rows = [(i["name"], i["change_text"], i.get("type", "")) for i in story["items"][:3]]
     return {"kicker": story["kicker"].split("·")[0].strip() or "KOREA DEMAND SIGNAL",
             "big": it["change_text"], "hook": f"Korean searches for {it['name']} this week",
             "series": it.get("series"), "points": [], "rows": rows}
 
 
+def background(photo_path):
+    """Darkened, cropped cover photo for the hook and follow scenes (None if no photo)."""
+    try:
+        im = Image.open(photo_path).convert("RGB")
+    except Exception:
+        return None
+    r = max(W / im.width, H / im.height)
+    im = im.resize((int(im.width * r + 1), int(im.height * r + 1)), Image.LANCZOS)
+    left, top = (im.width - W) // 2, (im.height - H) // 2
+    im = im.crop((left, top, left + W, top + H))
+    return Image.blend(im, Image.new("RGB", (W, H), INK), 0.62)
+
+
 def draw_frame(p, t):
-    img = Image.new("RGB", (W, H), INK)
+    bg = p.get("bg")
+    photo_scene = bg is not None and (t < 2.2 or t >= (8.2 if p["rows"] else 5.6) or (not p["series"] and not p["rows"]))
+    img = bg.copy() if photo_scene else Image.new("RGB", (W, H), INK)
     d = ImageDraw.Draw(img)
     # brand bar
     d.rounded_rectangle((72, 110, 132, 170), 12, fill=ACCENT)
@@ -178,6 +195,7 @@ def make(story, out_path):
     if not shutil.which("ffmpeg"):
         return False
     p = plan(story)
+    p["bg"] = background(Path(out_path).parent / "photo.jpg")
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
            "-r", str(FPS), "-i", "-", *soundtrack(out_path),
            "-af", f"afade=t=in:d=0.6,afade=t=out:st={DUR - 1.2}:d=1.2,volume=0.8",
